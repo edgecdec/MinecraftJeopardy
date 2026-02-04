@@ -85,9 +85,25 @@ export async function POST(req: NextRequest) {
         if (payload.wagers) room.wagers = payload.wagers;
         if (payload.finalAnswers) room.finalAnswers = payload.finalAnswers;
         break;
-    case 'submit_wager':
-        if (playerId) room.wagers[playerId] = payload.wager;
+    case 'update_player':
+        if (playerId) {
+            const pIndex = room.players.findIndex(p => p.id === playerId);
+            if (pIndex !== -1) {
+                if (payload.score !== undefined) room.players[pIndex].score = payload.score;
+                if (payload.name !== undefined) room.players[pIndex].name = payload.name;
+                room.lastAction = Date.now();
+            }
+        }
         break;
+        
+    case 'remove_player':
+        if (playerId) {
+            room.players = room.players.filter(p => p.id !== playerId);
+            room.lastAction = Date.now();
+        }
+        break;
+
+    case 'submit_wager':
     case 'submit_answer':
         if (playerId) room.finalAnswers[playerId] = payload.answer;
         break;

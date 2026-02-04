@@ -44,7 +44,7 @@ function HostGameContent() {
   const { playSound } = useSound();
   const { 
     buzzedName, lock, unlock, reset, clear, 
-    updateState, updatePlayer, 
+    updateState, updatePlayer, removePlayer: removePlayerApi,
     wagers, finalAnswers, allPlayers,
     gameState: serverGameState 
   } = useBuzzer(roomCode);
@@ -188,7 +188,7 @@ function HostGameContent() {
           // The ScoreBoard expects onAddPlayer. 
           // Since we are moving to "Players Join", we might want to hide the "Add" button or make it generate a dummy player via API.
           // Let's implement a dummy add via API.
-          onRemovePlayer={(id) => { /* Implement remove via API if needed */ }} 
+          onRemovePlayer={removePlayerApi} 
         />
 
         <ClueModal 
