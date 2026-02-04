@@ -67,6 +67,15 @@ function HostGameContent() {
 
   // ... (handlers stay same) ...
 
+  const handleUpdateName = (playerId: string, name: string) => {
+      updatePlayer(playerId, { name });
+  };
+
+  const handleSelectClue = (clue: any) => {
+    playSound('click');
+    selectClue(clue);
+  };
+
   const handleCompleteClue = (pid: string | null, correct: boolean) => {
       // Find the player object to get current score if needed, or just send delta
       const player = allPlayers?.find(p => p.id === pid);
