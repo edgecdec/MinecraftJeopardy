@@ -88,9 +88,11 @@ function HostGameContent() {
   const handleCompleteClue = (pid: string | null, correct: boolean) => {
       // Find the player object to get current score if needed, or just send delta
       const player = allPlayers?.find(p => p.id === pid);
-      if (!player && pid) return; // Should not happen
+      
+      // Capture value BEFORE completeClue resets it
+      const clueValue = activeClue?.value || 0;
 
-      if (round === 'FINAL' && pid) {
+      if (round === 'FINAL' && pid && player) {
           const wager = wagers[pid] || 0;
           updatePlayer(pid, { score: player.score + (correct ? wager : -wager) });
           
@@ -102,8 +104,7 @@ function HostGameContent() {
       completeClue(pid, correct); // Advances game state locally (close clue)
       
       if (pid && player) {
-         // Apply score to API
-         const clueValue = activeClue?.value || 0;
+         // Apply score to API using captured value
          updatePlayer(pid, { score: player.score + (correct ? clueValue : -clueValue) });
       }
 
