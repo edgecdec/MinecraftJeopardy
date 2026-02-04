@@ -44,12 +44,9 @@ function HostGameContent() {
 
   // Sync Game State to API so players see it
   useEffect(() => {
-    // Map internal players array to a Record<id, score> for the API
-    const scoreMap = players.reduce((acc, p) => ({ ...acc, [p.id]: p.score }), {});
-    
     updateState({ 
         gameState, 
-        scores: scoreMap 
+        players: players // Push full [{id, name, score}, ...]
     });
   }, [gameState, players, updateState]);
 

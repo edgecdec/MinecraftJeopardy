@@ -54,14 +54,15 @@ function PlayerContent() {
     <Box 
       sx={{ 
         minHeight: '100vh', 
-        bgcolor: isWinner ? 'success.dark' : (buzzedId && gameState === 'CLUE') ? 'error.dark' : '#121212',
+        bgcolor: isMe ? 'success.dark' : (buzzedId && gameState === 'CLUE') ? 'error.dark' : '#121212',
         color: 'white',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         p: 2,
-        transition: 'background-color 0.2s'
+        transition: 'background-color 0.2s',
+        position: 'relative'
       }}
     >
       {/* Header Info */}
@@ -73,117 +74,113 @@ function PlayerContent() {
           {name}
         </Typography>
         <Typography variant="h5" sx={{ fontFamily: '"Press Start 2P", cursive', mt: 2 }}>
-          SCORE: ${myScore}
+          YOUR SCORE: ${myScore}
         </Typography>
       </Box>
 
-      {/* --- FINAL JEOPARDY: WAGER --- */}
-      {gameState === 'FINAL_WAGER' && (
-        <Stack spacing={4} alignItems="center" sx={{ mt: 8, width: '100%', maxWidth: 400 }}>
-          <Typography variant="h5" sx={{ fontFamily: '"Press Start 2P", cursive', textAlign: 'center' }}>
-            FINAL JEOPARDY
-          </Typography>
-          <Typography sx={{ textAlign: 'center' }}>Enter your wager (Max: ${Math.max(0, myScore)})</Typography>
-          
-          {wagerSubmitted ? (
-            <Paper sx={{ p: 3, bgcolor: 'success.main', color: 'white' }}>
-              <Typography variant="h6">WAGER LOCKED</Typography>
-            </Paper>
-          ) : (
-            <>
-              <TextField 
-                fullWidth
-                variant="filled" 
-                label="WAGER"
-                type="number"
-                value={localWager}
-                onChange={(e) => setLocalWager(e.target.value)}
-                sx={{ bgcolor: 'white', borderRadius: 1 }}
-                inputProps={{ style: { fontFamily: '"Press Start 2P", cursive', fontSize: '1.2rem' } }}
-              />
-              <Button 
-                fullWidth
-                variant="contained" 
-                size="large"
-                color="warning"
-                onClick={handleWagerSubmit}
-                disabled={myScore < 0}
-                sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
-              >
-                SUBMIT WAGER
-              </Button>
-              {myScore < 0 && <Typography color="error">Negative score: You cannot wager.</Typography>}
-            </>
-          )}
-        </Stack>
-      )}
+      {/* Main Content (Buzzer or Final Jeopardy) */}
+      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        {/* ... (Existing Content Logic) ... */}
+        {gameState === 'FINAL_WAGER' && (
+          <Stack spacing={4} alignItems="center" sx={{ width: '100%', maxWidth: 400 }}>
+            <Typography variant="h5" sx={{ fontFamily: '"Press Start 2P", cursive', textAlign: 'center' }}>
+              FINAL JEOPARDY
+            </Typography>
+            <Typography sx={{ textAlign: 'center' }}>Enter your wager (Max: ${Math.max(0, myScore)})</Typography>
+            
+            {wagerSubmitted ? (
+              <Paper sx={{ p: 3, bgcolor: 'success.main', color: 'white' }}>
+                <Typography variant="h6">WAGER LOCKED</Typography>
+              </Paper>
+            ) : (
+              <>
+                <TextField 
+                  fullWidth variant="filled" label="WAGER" type="number" value={localWager}
+                  onChange={(e) => setLocalWager(e.target.value)}
+                  sx={{ bgcolor: 'white', borderRadius: 1 }}
+                  inputProps={{ style: { fontFamily: '"Press Start 2P", cursive', fontSize: '1.2rem' } }}
+                />
+                <Button 
+                  fullWidth variant="contained" size="large" color="warning" onClick={handleWagerSubmit}
+                  disabled={myScore < 0}
+                  sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
+                >
+                  SUBMIT WAGER
+                </Button>
+              </>
+            )}
+          </Stack>
+        )}
 
-      {/* --- FINAL JEOPARDY: ANSWER --- */}
-      {(gameState === 'FINAL_CLUE' || gameState === 'FINAL_SCORING') && (
-        <Stack spacing={4} alignItems="center" sx={{ mt: 8, width: '100%', maxWidth: 400 }}>
-          <Typography variant="h5" sx={{ fontFamily: '"Press Start 2P", cursive', textAlign: 'center' }}>
-            FINAL JEOPARDY
-          </Typography>
-          
-          {answerSubmitted ? (
-            <Paper sx={{ p: 3, bgcolor: 'success.main', color: 'white' }}>
-              <Typography variant="h6">ANSWER LOCKED</Typography>
-            </Paper>
-          ) : (
-            <>
-              <TextField 
-                fullWidth
-                variant="filled" 
-                label="YOUR ANSWER"
-                value={localAnswer}
-                onChange={(e) => setLocalAnswer(e.target.value)}
-                sx={{ bgcolor: 'white', borderRadius: 1 }}
-                inputProps={{ style: { fontFamily: 'monospace', fontSize: '1.2rem', fontWeight: 'bold' } }}
-              />
-              <Button 
-                fullWidth
-                variant="contained" 
-                size="large"
-                color="secondary"
-                onClick={handleAnswerSubmit}
-                sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
-              >
-                SUBMIT ANSWER
-              </Button>
-            </>
-          )}
-        </Stack>
-      )}
+        {(gameState === 'FINAL_CLUE' || gameState === 'FINAL_SCORING') && (
+          <Stack spacing={4} alignItems="center" sx={{ width: '100%', maxWidth: 400 }}>
+            <Typography variant="h5" sx={{ fontFamily: '"Press Start 2P", cursive', textAlign: 'center' }}>
+              FINAL JEOPARDY
+            </Typography>
+            {answerSubmitted ? (
+              <Paper sx={{ p: 3, bgcolor: 'success.main', color: 'white' }}>
+                <Typography variant="h6">ANSWER LOCKED</Typography>
+              </Paper>
+            ) : (
+              <>
+                <TextField 
+                  fullWidth variant="filled" label="YOUR ANSWER" value={localAnswer}
+                  onChange={(e) => setLocalAnswer(e.target.value)}
+                  sx={{ bgcolor: 'white', borderRadius: 1 }}
+                  inputProps={{ style: { fontFamily: 'monospace', fontSize: '1.2rem', fontWeight: 'bold' } }}
+                />
+                <Button 
+                  fullWidth variant="contained" size="large" color="secondary" onClick={handleAnswerSubmit}
+                  sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
+                >
+                  SUBMIT ANSWER
+                </Button>
+              </>
+            )}
+          </Stack>
+        )}
 
-      {/* --- STANDARD GAME --- */}
-      {gameState === 'BOARD' || gameState === 'CLUE' || gameState === 'DAILY_DOUBLE_WAGER' || gameState === 'ANSWER' ? (
-        buzzedId ? (
-          <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', textAlign: 'center', mb: 4 }}>
-            {isWinner ? 'YOU BUZZED!' : `${buzzedName} BUZZED!`}
-          </Typography>
-        ) : (
-          <Button
-            variant="contained"
-            color={locked ? "error" : "success"}
-            onClick={handleBuzz}
-            disabled={locked}
-            sx={{ 
-              width: '280px', 
-              height: '280px', 
-              borderRadius: '50%', 
-              fontSize: '2rem',
-              fontFamily: '"Press Start 2P", cursive',
-              boxShadow: locked ? 'none' : '0 10px 0 #000',
-              border: '8px solid white',
-              transform: locked ? 'translateY(5px)' : 'none',
-              transition: 'all 0.1s',
-              '&:active': { transform: 'translateY(10px)', boxShadow: 'none' }
-            }}
-          >
-            {locked ? 'WAIT' : 'BUZZ'}
-          </Button>
-        )
-      ) : null}
+        {(gameState === 'BOARD' || gameState === 'CLUE' || gameState === 'DAILY_DOUBLE_WAGER' || gameState === 'ANSWER') && (
+          buzzedId ? (
+            <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', textAlign: 'center' }}>
+              {isWinner ? 'YOU BUZZED!' : `${buzzedName} BUZZED!`}
+            </Typography>
+          ) : (
+            <Button
+              variant="contained" color={locked ? "error" : "success"} onClick={handleBuzz} disabled={locked}
+              sx={{ 
+                width: '280px', height: '280px', borderRadius: '50%', fontSize: '2rem',
+                fontFamily: '"Press Start 2P", cursive', boxShadow: locked ? 'none' : '0 10px 0 #000',
+                border: '8px solid white', transform: locked ? 'translateY(5px)' : 'none',
+                transition: 'all 0.1s', '&:active': { transform: 'translateY(10px)', boxShadow: 'none' }
+              }}
+            >
+              {locked ? 'WAIT' : 'BUZZ'}
+            </Button>
+          )
+        )}
+      </Box>
+
+      {/* Global Scoreboard Footer */}
+      <Box 
+        sx={{ 
+          width: '100%', 
+          bgcolor: 'rgba(0,0,0,0.5)', 
+          p: 2, 
+          borderTop: '2px solid grey',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 2,
+          overflowX: 'auto'
+        }}
+      >
+        {allPlayers?.map(p => (
+          <Paper key={p.id} sx={{ p: 1, minWidth: 100, textAlign: 'center', bgcolor: p.id === deviceId ? 'primary.dark' : 'grey.900', color: 'white', border: '1px solid white' }}>
+            <Typography variant="caption" sx={{ fontSize: '0.5rem', display: 'block' }}>{p.name}</Typography>
+            <Typography sx={{ fontFamily: '"Press Start 2P", cursive', fontSize: '0.7rem' }}>${p.score}</Typography>
+          </Paper>
+        ))}
+      </Box>
     </Box>
   );
 }

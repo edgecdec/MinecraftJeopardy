@@ -12,15 +12,21 @@ if (!global.gameRooms) {
   global.gameRooms = {};
 }
 
+interface PlayerInfo {
+  id: string;
+  name: string;
+  score: number;
+}
+
 interface RoomState {
   locked: boolean;
   buzzed: string | null; // Player ID
   buzzedName: string | null; // Player Name
   lastAction: number;
-  gameState: string; // BOARD, FINAL_WAGER, FINAL_CLUE, etc.
-  scores: Record<string, number>; // playerId -> score
-  wagers: Record<string, number>; // playerId -> wager
-  finalAnswers: Record<string, string>; // playerId -> answer
+  gameState: string; 
+  players: PlayerInfo[]; // Full list from Host
+  wagers: Record<string, number>; 
+  finalAnswers: Record<string, string>; 
 }
 
 export async function GET(req: NextRequest) {
@@ -35,7 +41,7 @@ export async function GET(req: NextRequest) {
     buzzedName: null, 
     lastAction: Date.now(),
     gameState: 'BOARD',
-    scores: {},
+    players: [],
     wagers: {},
     finalAnswers: {}
   };
@@ -48,7 +54,6 @@ export async function POST(req: NextRequest) {
 
   if (!code) return NextResponse.json({ error: 'Code required' }, { status: 400 });
 
-  // Init room if not exists
   if (!global.gameRooms[code]) {
     global.gameRooms[code] = { 
         locked: true, 
@@ -56,7 +61,7 @@ export async function POST(req: NextRequest) {
         buzzedName: null, 
         lastAction: Date.now(),
         gameState: 'BOARD',
-        scores: {},
+        players: [],
         wagers: {},
         finalAnswers: {}
     };
@@ -65,6 +70,7 @@ export async function POST(req: NextRequest) {
   const room = global.gameRooms[code];
 
   switch (action) {
+    // ... previous cases ...
     case 'buzz':
       if (!room.locked && !room.buzzed) {
         room.buzzed = playerId;
@@ -95,9 +101,8 @@ export async function POST(req: NextRequest) {
         room.lastAction = Date.now();
         break;
     
-    // NEW ACTIONS
     case 'update_state':
-        if (payload.scores) room.scores = payload.scores;
+        if (payload.players) room.players = payload.players;
         if (payload.gameState) room.gameState = payload.gameState;
         room.lastAction = Date.now();
         break;

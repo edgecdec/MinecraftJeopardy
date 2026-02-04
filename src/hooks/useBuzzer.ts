@@ -7,7 +7,7 @@ interface RoomState {
   buzzed: string | null;
   buzzedName: string | null;
   gameState: string;
-  scores: Record<string, number>;
+  players: any[]; 
   wagers: Record<string, number>;
   finalAnswers: Record<string, string>;
 }
@@ -18,7 +18,7 @@ export function useBuzzer(code: string, playerName?: string) {
     buzzed: null, 
     buzzedName: null,
     gameState: 'BOARD',
-    scores: {},
+    players: [],
     wagers: {},
     finalAnswers: {}
   });
@@ -35,6 +35,7 @@ export function useBuzzer(code: string, playerName?: string) {
   }, []);
 
   const fetchState = useCallback(async () => {
+    if (!code) return;
     try {
       const res = await fetch(`/api/game?code=${code}`);
       if (res.ok) {
@@ -72,13 +73,16 @@ export function useBuzzer(code: string, playerName?: string) {
     }
   };
 
+  const myPlayer = state.players.find(p => p.id === deviceId);
+  const myScore = myPlayer ? myPlayer.score : 0;
+
   return {
     locked: state.locked,
     buzzedId: state.buzzed,
     buzzedName: state.buzzedName,
     gameState: state.gameState,
-    scores: state.scores,
-    myScore: state.scores[deviceId] || 0,
+    allPlayers: state.players,
+    myScore,
     wagers: state.wagers,
     finalAnswers: state.finalAnswers,
     isMe: state.buzzed === deviceId,
@@ -88,7 +92,7 @@ export function useBuzzer(code: string, playerName?: string) {
     unlock: () => performAction('unlock'),
     clear: () => performAction('clear'),
     reset: () => performAction('reset'),
-    updateState: (newState: { scores?: any, gameState?: string }) => performAction('update_state', newState),
+    updateState: (newState: { players?: any[], gameState?: string }) => performAction('update_state', newState),
     submitWager: (wager: number) => performAction('submit_wager', { wager }),
     submitAnswer: (answer: string) => performAction('submit_answer', { answer }),
     refresh: fetchState
