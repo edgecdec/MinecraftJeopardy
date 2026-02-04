@@ -6,7 +6,7 @@
         { "difficulty": 1, "clue": "This new hostile mob, found in Trial Chambers, moves by jumping and shoots wind charges.", "answer": "The Breeze" },
         { "difficulty": 2, "clue": "What specific item is required to breed two Armadillos?", "answer": "Spider Eye" },
         { "difficulty": 3, "clue": "This new block, found in Trial Chambers, automatically crafts items when powered by Redstone.", "answer": "Crafter" },
-        { "difficulty": 4, "clue": "What is the exact name of the potion effect obtained by drinking an Ominous Bottle?", "answer": "Bad Omen" },
+        { "difficulty": 4, "clue": "Breeze Rods can be crafted into exactly how many Wind Charges?", "answer": "4" },
         { "difficulty": 5, "clue": "Which block surrounds the Trial Spawner that specifically spawns a Breeze?", "answer": "Chiseled Tuff" }
       ]
     },
@@ -24,7 +24,7 @@
       "name": "Technical",
       "pool": [
         { "difficulty": 1, "clue": "What key combination shows the debug screen in Java Edition?", "answer": "F3" },
-        { "difficulty": 2, "clue": "Pressing F3 + G toggles the visibility of these invisible world boundaries.", "answer": "Chunk Borders" },
+        { "difficulty": 2, "clue": "Pressing F3 + G toggles the visibility of these 16x16 chunk boundaries.", "answer": "Chunk Borders" },
         { "difficulty": 3, "clue": "Which mob has the largest detection range for a player (without wearing mob heads)?", "answer": "Ghast (100 blocks)" },
         { "difficulty": 4, "clue": "What specific NBT tag makes a Creeper charged?", "answer": "{powered:1b}" },
         { "difficulty": 5, "clue": "In Game Ticks (not Redstone ticks), exactly how long does a stone button pulse last?", "answer": "20 ticks" }
@@ -34,9 +34,9 @@
       "name": "Mobs",
       "pool": [
         { "difficulty": 1, "clue": "Which mob drops a Totem of Undying?", "answer": "Evoker" },
-        { "difficulty": 2, "clue": "This is the only mob in the game that can be 'milked' to obtain a stew instead of milk.", "answer": "Mooshroom" },
+        { "difficulty": 2, "clue": "This is the only mob in the game that can be 'milked' with a bowl to obtain Mushroom Stew.", "answer": "Mooshroom" },
         { "difficulty": 3, "clue": "How many hearts of damage does a Warden's sonic boom attack deal on Normal difficulty (ignoring armor)?", "answer": "5 Hearts (10 Damage)" },
-        { "difficulty": 4, "clue": "Name the specific blue variant of the Axolotl which is the rarest.", "answer": "Blue (Cyan is common, Blue is 1/1200)" },
+        { "difficulty": 4, "clue": "What is the exact internal NBT 'Variant' integer value for the rare Blue Axolotl?", "answer": "4" },
         { "difficulty": 5, "clue": "When a Ravager is blocked by a shield, what is the chance it has to be stunned?", "answer": "100%" }
       ]
     },
@@ -46,18 +46,18 @@
         { "difficulty": 1, "clue": "Which food item provides the most saturation in the game?", "answer": "Golden Carrot (or Dandelion Suspicious Stew)" },
         { "difficulty": 2, "clue": "Exactly how many blocks of Obsidian are needed for a minimum size Nether Portal frame?", "answer": "10" },
         { "difficulty": 3, "clue": "Excluding bedrock, this block requires the longest time to break with an empty hand (250 seconds).", "answer": "Obsidian" },
-        { "difficulty": 4, "clue": "What is the maximum level of the 'Fortune' enchantment obtainable in vanilla survival?", "answer": "Fortune III" },
-        { "difficulty": 5, "clue": "How many eyes of ender does a portal frame have a chance to generate with?", "answer": "10% chance per frame" }
+        { "difficulty": 4, "clue": "How much Experience Points (not levels) does the Ender Dragon drop upon its first death?", "answer": "12,000 XP" },
+        { "difficulty": 5, "clue": "What is the percentage chance that a single End Portal Frame generates with an Eye of Ender already filled?", "answer": "10%" }
       ]
     },
     {
       "name": "Structures",
       "pool": [
         { "difficulty": 1, "clue": "In which structure can you find an Elytra?", "answer": "End Ship (End City)" },
-        { "difficulty": 2, "clue": "Which structure is the only place Allays can be found trapped?", "answer": "Woodland Mansion / Pillager Outpost" },
+        { "difficulty": 2, "clue": "These small blue spirits (Allays) can be found trapped in cages at Pillager Outposts and inside which other structure?", "answer": "Woodland Mansion" },
         { "difficulty": 3, "clue": "Suspicious Sand was first introduced being found in this small, often overlooked desert structure.", "answer": "Desert Well" },
-        { "difficulty": 4, "clue": "This structure generates underground and is made largely of Deepslate Tiles and Bricks.", "answer": "Ancient City" },
-        { "difficulty": 5, "clue": "Which structure is the only place to find the rare 'Silence' armor trim?", "answer": "Ancient City" }
+        { "difficulty": 4, "clue": "These large, procedurally generated structures found in the Nether are the exclusive home of Piglin Brutes.", "answer": "Bastion Remnant" },
+        { "difficulty": 5, "clue": "What is the exact percentage chance (approximate to nearest tenth) of finding a Silence Armor Trim in an Ancient City chest?", "answer": "1.2%" }
       ]
     },
     {
@@ -67,7 +67,7 @@
         { "difficulty": 2, "clue": "This target selector argument is used to select all entities, not just players.", "answer": "@e" },
         { "difficulty": 3, "clue": "What NBT tag is used to make a mob silent (make no idle sounds)?", "answer": "{Silent:1b}" },
         { "difficulty": 4, "clue": "Which command allows you to modify specific NBT data of an existing entity or block?", "answer": "/data merge (or /data modify)" },
-        { "difficulty": 5, "clue": "What specific NBT tag makes a Creeper charged without needing lightning?", "answer": "{powered:1b}" }
+        { "difficulty": 5, "clue": "Which specific gamerule controls the percentage of players required to sleep to skip the night?", "answer": "playersSleepingPercentage" }
       ]
     },
     {
@@ -87,7 +87,7 @@
         { "difficulty": 2, "clue": "Naming any mob 'Dinnerbone' or 'Grumm' causes it to do this.", "answer": "Turn upside down" },
         { "difficulty": 3, "clue": "What happens if an Evoker sees a blue sheep?", "answer": "It turns the sheep red (Wololo reference)" },
         { "difficulty": 4, "clue": "Naming a Rabbit this will change its texture to a black and white spotted pattern.", "answer": "Toast" },
-        { "difficulty": 5, "clue": "This splash text has a 0.01% chance of appearing on the main menu, reading simply 'Minceraft'.", "answer": "Minceraft" }
+        { "difficulty": 5, "clue": "This rare title screen variation, appearing with a 0.01% chance, features a subtle typo in the game's logo.", "answer": "Minceraft" }
       ]
     },
     {
@@ -96,8 +96,8 @@
         { "difficulty": 1, "clue": "How many items make up a standard stack?", "answer": "64" },
         { "difficulty": 2, "clue": "What is the maximum number of mobs that can occupy one block before taking suffocation damage (Entity Cramming)?", "answer": "24" },
         { "difficulty": 3, "clue": "Which specific F3 debug key combination reloads all resource packs?", "answer": "F3 + T" },
-        { "difficulty": 4, "clue": "Drinking this item removes poison but also restores saturation.", "answer": "Honey Bottle" },
-        { "difficulty": 5, "clue": "This technical term describes the 16x16 column of the world that Minecraft loads and saves as a unit.", "answer": "Chunk" }
+        { "difficulty": 4, "clue": "This technical limit, set at 30,000,000 blocks, is the hard limit for world generation coordinates.", "answer": "World Border" },
+        { "difficulty": 5, "clue": "How many 'Sub-chunks' (16x16x16 sections) exist in a single full-height chunk (Y -64 to 320)?", "answer": "24" }
       ]
     },
     {
@@ -105,8 +105,8 @@
       "pool": [
         { "difficulty": 1, "clue": "In which biome are you most likely to find Ocelots?", "answer": "Jungle" },
         { "difficulty": 2, "clue": "Which biome features the highest frequency of Gold Ore generation?", "answer": "Badlands (Mesa)" },
-        { "difficulty": 3, "clue": "This chilly biome is the only place where Strays spawn instead of Skeletons.", "answer": "Ice Spikes / Snowy Plains / Frozen Ocean" },
-        { "difficulty": 4, "clue": "What block covers the majority of the floor in a Soul Sand Valley?", "answer": "Soul Sand and Soul Soil" },
+        { "difficulty": 3, "clue": "Which rare biome variant features spikes of packed ice and is a home for Strays?", "answer": "Ice Spikes" },
+        { "difficulty": 4, "clue": "In which specific biome do 'Patches' of Packed Ice generate underground?", "answer": "Snowy Slopes" },
         { "difficulty": 5, "clue": "This extremely rare biome is a variant of the Jungle, characterized by having fewer trees and huge rolling hills.", "answer": "Sparse Jungle (formerly Modified Jungle Edge)" }
       ]
     },
@@ -116,7 +116,7 @@
         { "difficulty": 1, "clue": "What item is the base ingredient for almost all functional potions?", "answer": "Nether Wart" },
         { "difficulty": 2, "clue": "Which ingredient is added to a potion to reverse its effect (e.g., Healing to Harming)?", "answer": "Fermented Spider Eye" },
         { "difficulty": 3, "clue": "What two effects does the Potion of the Turtle Master grant?", "answer": "Slowness and Resistance" },
-        { "difficulty": 4, "clue": "To brew a Potion of Night Vision, you need a Golden Carrot and this type of potion base.", "answer": "Awkward Potion" },
+        { "difficulty": 4, "clue": "What is the maximum duration (in minutes:seconds) of a Potion of Fire Resistance (Extended)?", "answer": "8:00" },
         { "difficulty": 5, "clue": "This is the only positive potion effect that is obtained by adding a corrupted ingredient (Fermented Spider Eye) to another potion.", "answer": "Invisibility (from Night Vision)" }
       ]
     },
@@ -126,8 +126,118 @@
         { "difficulty": 1, "clue": "Which enchantment increases the speed of mining blocks?", "answer": "Efficiency" },
         { "difficulty": 2, "clue": "This enchantment prevents an item from breaking by using XP to repair it.", "answer": "Mending" },
         { "difficulty": 3, "clue": "What is the maximum level of the 'Sharpness' enchantment in vanilla survival?", "answer": "Sharpness V" },
-        { "difficulty": 4, "clue": "This enchantment allows a Trident to summon lightning, but only during a thunderstorm.", "answer": "Channeling" },
+        { "difficulty": 4, "clue": "How many bookshelves are required to reach the maximum enchantment table level of 30?", "answer": "15" },
         { "difficulty": 5, "clue": "Which enchantment is mutually exclusive with 'Mending' on a Bow?", "answer": "Infinity" }
+      ]
+    },
+    {
+      "name": "History & Dev",
+      "pool": [
+        { "difficulty": 1, "clue": "Who is the original creator of Minecraft, known by his alias 'Notch'?", "answer": "Markus Persson" },
+        { "difficulty": 2, "clue": "This company acquired Mojang Studios in 2014 for $2.5 billion.", "answer": "Microsoft" },
+        { "difficulty": 3, "clue": "This update, Alpha 1.2.0, was the first to introduce the Nether dimension.", "answer": "The Halloween Update" },
+        { "difficulty": 4, "clue": "Before biomes were fully implemented, this 'Mode' gave worlds a chance to be generated entirely covered in snow.", "answer": "Winter Mode" },
+        { "difficulty": 5, "clue": "This version number (Beta 1.7.3) was the last to include this terrain generation bug before its removal in Beta 1.8.", "answer": "The Far Lands" }
+      ]
+    },
+    {
+      "name": "Removed Features",
+      "pool": [
+        { "difficulty": 1, "clue": "Which block was used to activate the Nether Reactor in Minecraft Pocket Edition?", "answer": "Nether Reactor Core" },
+        { "difficulty": 2, "clue": "In early Indev versions, players would spawn in a small, pre-built structure known as this.", "answer": "Indev House (or Starter House)" },
+        { "difficulty": 3, "clue": "This distinctive visual setting, accessible via a button in options, allowed for shaders like 'Pencil' and 'Upside Down'.", "answer": "Super Secret Settings" },
+        { "difficulty": 4, "clue": "This block, removed in 1.8, allowed players to create visual 'Gears' (though it had no function).", "answer": "Cog" },
+        { "difficulty": 5, "clue": "Before the End was created, this 'Heavenly' dimension was planned but never fully implemented.", "answer": "Sky Dimension" }
+      ]
+    },
+    {
+      "name": "Combat Mechanics",
+      "pool": [
+        { "difficulty": 1, "clue": "How many hearts of health does a player have by default?", "answer": "10 Hearts (20 HP)" },
+        { "difficulty": 2, "clue": "A critical hit is performed by attacking while the player is moving in this direction.", "answer": "Falling" },
+        { "difficulty": 3, "clue": "Added in 1.21, this heavy weapon has the slowest attack speed (0.6) of any weapon in the game.", "answer": "Mace" },
+        { "difficulty": 4, "clue": "What is the exact percentage of damage reduction provided by a full set of Diamond Armor?", "answer": "80%" },
+        { "difficulty": 5, "clue": "How many ticks of 'invulnerability frames' does a mob or player get after taking damage?", "answer": "10 Ticks (0.5s)" }
+      ]
+    },
+    {
+      "name": "Farming & Food",
+      "pool": [
+        { "difficulty": 1, "clue": "This purple fruit can be eaten even when the player's hunger bar is full.", "answer": "Chorus Fruit" },
+        { "difficulty": 2, "clue": "Which crop grows faster if planted in rows alternating with other crops?", "answer": "Wheat (or Carrots/Potatoes/Beetroots)" },
+        { "difficulty": 3, "clue": "How many distinct stages of growth does Wheat have?", "answer": "8 (Stages 0-7)" },
+        { "difficulty": 4, "clue": "What is the percentage chance that a Composter's level increases when a Cake is used?", "answer": "100%" },
+        { "difficulty": 5, "clue": "How many growth stages does a Cocoa Pod have?", "answer": "3" }
+      ]
+    },
+    {
+      "name": "Dimensions",
+      "pool": [
+        { "difficulty": 1, "clue": "What tool is required to mine Nether Portal blocks (Obsidian)?", "answer": "Diamond Pickaxe (or Netherite)" },
+        { "difficulty": 2, "clue": "Water placed in the Nether immediately does this.", "answer": "Evaporates (Turns to steam/particles)" },
+        { "difficulty": 3, "clue": "In the End, what indestructible block makes up the central pillar of the exit portal?", "answer": "Bedrock" },
+        { "difficulty": 4, "clue": "What is the specific blast resistance value of End Stone?", "answer": "9" },
+        { "difficulty": 5, "clue": "In the End, how many obsidian pillars generate in the main dragon fight island?", "answer": "10" }
+      ]
+    },
+    {
+      "name": "Sound Design",
+      "pool": [
+        { "difficulty": 1, "clue": "This German composer, known as C418, created the original soundtrack for Minecraft.", "answer": "Daniel Rosenfeld" },
+        { "difficulty": 2, "clue": "When viewed in a spectrogram, the audio file for 'Disc 11' (or cave14.ogg) reveals a hidden image of this mob's face.", "answer": "Creeper" },
+        { "difficulty": 3, "clue": "This hostile mob's idle sounds are actually recordings of a water hose.", "answer": "Spider" },
+        { "difficulty": 4, "clue": "When placed under a Note Block, this block produces a 'Pling' (Electric Piano) sound.", "answer": "Glowstone" },
+        { "difficulty": 5, "clue": "The 'Cave' ambient sounds are technically triggered by a 'Mood' algorithm. What is the maximum value of the mood counter?", "answer": "100% (1.0)" }
+      ]
+    },
+    {
+      "name": "Block Properties",
+      "pool": [
+        { "difficulty": 1, "clue": "What is the light level emitted by a Torch?", "answer": "14" },
+        { "difficulty": 2, "clue": "Besides Bedrock and Obsidian, this common block found in the End cannot be destroyed by the Ender Dragon.", "answer": "End Stone" },
+        { "difficulty": 3, "clue": "Which block is unique because Slime Blocks (and Honey Blocks) do not stick to it?", "answer": "Glazed Terracotta" },
+        { "difficulty": 4, "clue": "Obtainable in survival mode, this block has the highest blast resistance and hardness (50) of any mineable block.", "answer": "Obsidian" },
+        { "difficulty": 5, "clue": "Landing on this block reduces fall damage by 80%.", "answer": "Hay Bale" }
+      ]
+    },
+    {
+      "name": "Villager Trading",
+      "pool": [
+        { "difficulty": 1, "clue": "Which job site block is required to employ a Villager as a Librarian?", "answer": "Lectern" },
+        { "difficulty": 2, "clue": "What is the universal currency item used for trading with Villagers?", "answer": "Emerald" },
+        { "difficulty": 3, "clue": "Defeating a Raid grants this status effect, which provides discounts on trades.", "answer": "Hero of the Village" },
+        { "difficulty": 4, "clue": "What is the specific NBT tag used to define a Villager's profession?", "answer": "VillagerData" },
+        { "difficulty": 5, "clue": "Regardless of discounts, what is the absolute minimum price a Villager will sell an item for?", "answer": "1 Emerald" }
+      ]
+    },
+    {
+      "name": "Transport",
+      "pool": [
+        { "difficulty": 1, "clue": "Which rail type is used to accelerate Minecarts?", "answer": "Powered Rail" },
+        { "difficulty": 2, "clue": "This animal can be ridden with a Saddle but requires a Carrot on a Stick to control.", "answer": "Pig" },
+        { "difficulty": 3, "clue": "How much durability does an Elytra lose for every second of flight?", "answer": "1 Durability" },
+        { "difficulty": 4, "clue": "This is the fastest mode of transport in the Nether, utilizing a boat and this specific block.", "answer": "Blue Ice" },
+        { "difficulty": 5, "clue": "What is the maximum speed, in meters per second, achievable by a boat traveling on Blue Ice?", "answer": "72.7 m/s" }
+      ]
+    },
+    {
+      "name": "Community & Mods",
+      "pool": [
+        { "difficulty": 1, "clue": "This popular survival map challenges players to survive on a tiny floating island with minimal resources.", "answer": "Skyblock" },
+        { "difficulty": 2, "clue": "This popular mini-game involves protecting a bed while destroying opponents' beds.", "answer": "Bedwars" },
+        { "difficulty": 3, "clue": "In the popular 'Aether' mod, the portal to the dimension is built using this block.", "answer": "Glowstone" },
+        { "difficulty": 4, "clue": "The creator of the 'Aether' mod (Kingbdogz) was hired by Mojang to work on which official update?", "answer": "The Nether Update (1.16)" },
+        { "difficulty": 5, "clue": "The 'Minecraft 2.0' April Fools update introduced this block, which burns forever, later added officially as a fuel source.", "answer": "Coal Block" }
+      ]
+    },
+    {
+      "name": "Bedrock vs Java",
+      "pool": [
+        { "difficulty": 1, "clue": "Which edition of Minecraft allows players to place blocks in front of them (bridging) without crouching/looking down?", "answer": "Bedrock Edition" },
+        { "difficulty": 2, "clue": "Movable Tile Entities (like Chests and Furnaces being pushed by pistons) are exclusive to this edition.", "answer": "Bedrock Edition" },
+        { "difficulty": 3, "clue": "The 'Combat Update' mechanics (weapon cooldowns, sweep attacks) are exclusive to this edition.", "answer": "Java Edition" },
+        { "difficulty": 4, "clue": "Dyeing water in cauldrons to create colored armor is a feature exclusive to this edition.", "answer": "Bedrock Edition" },
+        { "difficulty": 5, "clue": "Which edition features 'Trident Killers' due to a bug where thrown tridents never despawn?", "answer": "Bedrock Edition" }
       ]
     }
   ],
@@ -136,13 +246,13 @@
     { "category": "Removed Features", "clue": "This terrain generation bug, found 12.5 million blocks from spawn, was officially removed in Beta 1.8.", "answer": "The Far Lands" },
     { "category": "Development History", "clue": "The iconic Creeper was created by accident when Notch was trying to model this passive mob.", "answer": "Pig" },
     { "category": "Sounds", "clue": "The sound of the Ghast was originally recorded from this animal belonging to the sound designer C418.", "answer": "Cat (his cat)" },
-    { "category": "Item Stats", "clue": "Before the Netherite update, this item had the highest blast resistance of any obtaininable item in Survival.", "answer": "Obsidian (or Ender Chest / Anvil / Enchanting Table)" },
+    { "category": "Item Stats", "clue": "This item is the only fuel source in the game capable of smelting exactly 100 items per unit.", "answer": "Lava Bucket" },
     { "category": "Version History", "clue": "This specific date (Month, Day, Year) marks the official full release of Minecraft 1.0 at Minecon.", "answer": "November 18, 2011" },
-    { "category": "NBT Data", "clue": "This NBT tag, when applied to an item, hides all tooltips (Enchantments, Attributes, etc.).", "answer": "HideFlags" },
+    { "category": "Item Data", "clue": "Introduced in version 1.20.5 to replace the 'HideFlags' bitmask, this item component is used to hide all tooltips from an item's display.", "answer": "minecraft:hide_tooltip" },
     { "category": "Cryptography", "clue": "The runic script used in the Enchanting Table is actually a simple substitution cipher for this classic video game alphabet.", "answer": "Standard Galactic Alphabet (Commander Keen)" },
     { "category": "Server Tech", "clue": "This is the default TCP port number used for hosting a Minecraft Java Edition server.", "answer": "25565" },
     { "category": "Removed Mechanics", "clue": "In version 1.9, the crafting recipe for this powerful golden item was permanently removed from the game.", "answer": "Enchanted Golden Apple (Notch Apple)" },
-    { "category": "Audio History", "clue": "This iconic sound effect, played when a player took damage, was removed in Beta 1.7.3 and replaced with a bone-cracking noise.", "answer": "The 'Oof' Sound" },
+    { "category": "Audio History", "clue": "This iconic sound effect, played when a player took damage, was removed in Beta 1.7.3 and replaced with a generic 'damage tick' sound.", "answer": "The 'Oof' Sound" },
     { "category": "World Generation", "clue": "In the Nether, this Y-coordinate represents the highest layer of bedrock generation (the ceiling).", "answer": "Y=127" }
   ]
 }

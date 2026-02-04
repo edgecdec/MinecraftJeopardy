@@ -54,7 +54,7 @@ export default function GameBoard({
           justifyContent: 'center'
         }}
       >
-        {questions.map((cat) => (
+        {questions.map((cat, colIndex) => (
           <Grid 
             item 
             key={cat.category} 
@@ -83,6 +83,8 @@ export default function GameBoard({
                   justifyContent: 'center',
                   overflow: 'hidden',
                   position: 'relative',
+                  animation: 'popIn 0.5s ease-out backwards',
+                  animationDelay: `${colIndex * 100}ms`,
                   '&:hover .refresh-btn': { opacity: 1 }
                 }}
               >
@@ -118,8 +120,15 @@ export default function GameBoard({
                 </IconButton>
               </Paper>
               
-              {cat.clues.map((clue) => (
-                <Box key={clue.id} sx={{ flex: 1 }}>
+              {cat.clues.map((clue, rowIndex) => (
+                <Box 
+                  key={clue.id} 
+                  sx={{ 
+                    flex: 1,
+                    animation: 'popIn 0.4s ease-out backwards',
+                    animationDelay: `${(colIndex * 100) + ((rowIndex + 1) * 50)}ms` 
+                  }}
+                >
                   <JeopardyTile
                     clue={clue}
                     isAnswered={answeredClues.has(clue.id)}

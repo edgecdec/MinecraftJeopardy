@@ -1,125 +1,96 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import { useGame } from '@/hooks/useGame';
-import { useSound } from '@/hooks/useSound';
-import ScoreBoard from '@/components/ScoreBoard';
-import GameHeader from '@/components/Game/GameHeader';
-import GameBoard from '@/components/Game/GameBoard';
-import ClueModal from '@/components/Game/ClueModal';
+import React, { useState } from 'react';
+import { Box, Button, Container, TextField, Typography, Stack, Paper } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
-  const { 
-    players,
-    addPlayer,
-    removePlayer,
-    updatePlayerName,
-    updatePlayerScore,
-    answeredClues, 
-    activeClue, 
-    gameState, 
-    round,
-    selectClue, 
-    submitWager,
-    revealAnswer, 
-    completeClue, 
-    closeClue,
-    questions,
-    generateBoard,
-    replaceCategory,
-    advanceFinalJeopardy
-  } = useGame();
+export default function Lobby() {
+  const router = useRouter();
+  const [roomCode, setRoomCode] = useState('');
+  const [playerName, setPlayerName] = useState('');
 
-  const { playSound } = useSound();
-
-  const handleScoreAdjust = (player: string, amount: number) => {
-    updatePlayerScore(player, amount);
-    if (amount > 0) playSound('correct');
-    else playSound('wrong');
+  const handleHost = () => {
+    // Generate random 4-letter code
+    const code = Math.random().toString(36).substring(2, 6).toUpperCase();
+    router.push(`/host?code=${code}`);
   };
 
-  const handleSelectClue = (clue: any) => {
-    playSound('click');
-    selectClue(clue);
-  };
-
-  useEffect(() => {
-    if (gameState === 'DAILY_DOUBLE_WAGER') {
-        playSound('dailyDouble');
+  const handleJoin = () => {
+    if (roomCode && playerName) {
+      router.push(`/player?code=${roomCode.toUpperCase()}&name=${encodeURIComponent(playerName)}`);
     }
-  }, [gameState, playSound]);
-
-  const handleNextRound = () => {
-    playSound('boardFill');
-    if (round === 'SINGLE') generateBoard('DOUBLE');
-    else if (round === 'DOUBLE') generateBoard('FINAL');
-    else generateBoard('SINGLE');
-  };
-
-  const handleCompleteClue = (pid: string | null, correct: boolean) => {
-      completeClue(pid, correct);
-      if (correct) playSound('correct');
-      else if (pid !== null) playSound('wrong');
   };
 
   return (
     <Box 
       sx={{ 
         minHeight: '100vh', 
-        py: 4, 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
         bgcolor: '#121212',
-        backgroundImage: 'url("/textures/dirt_background.png"), linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8))',
-        backgroundBlendMode: 'overlay',
+        backgroundImage: 'url("/textures/dirt_background.png")',
         backgroundSize: '128px',
-        backgroundRepeat: 'repeat',
         color: 'white'
       }}
     >
-      <Container maxWidth={false} sx={{ px: 4 }}>
-        <GameHeader round={round} onNextRound={handleNextRound} />
+      <Container maxWidth="sm">
+        <Paper sx={{ p: 4, bgcolor: 'rgba(0,0,0,0.8)', border: '4px solid grey', textAlign: 'center' }}>
+          <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', mb: 4, color: 'secondary.main' }}>
+            MINECRAFT JEOPARDY
+          </Typography>
 
-        {round !== 'FINAL' ? (
-          <GameBoard 
-            questions={questions}
-            answeredClues={answeredClues}
-            onSelectClue={handleSelectClue}
-            onReplaceCategory={replaceCategory}
-          />
-        ) : (
-          <Box sx={{ height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '8px solid grey' }}>
-            <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', color: 'secondary.main' }}>
-              FINAL JEOPARDY
-            </Typography>
-          </Box>
-        )}
+          <Stack spacing={4}>
+            <Box>
+              <Button 
+                fullWidth 
+                variant="contained" 
+                size="large" 
+                onClick={handleHost}
+                sx={{ fontFamily: '"Press Start 2P", cursive', py: 2, fontSize: '1.2rem' }}
+              >
+                HOST A GAME
+              </Button>
+              <Typography variant="caption" sx={{ display: 'block', mt: 1, color: 'grey.500' }}>
+                Create a room and control the board.
+              </Typography>
+            </Box>
 
-        <ScoreBoard 
-          players={players} 
-          onAdjust={handleScoreAdjust} 
-          onUpdateName={updatePlayerName}
-          onAddPlayer={addPlayer}
-          onRemovePlayer={removePlayer}
-        />
+            <Typography variant="h6" sx={{ color: 'white' }}>- OR -</Typography>
 
-        <ClueModal 
-          open={!!activeClue || round === 'FINAL'}
-          activeClue={activeClue}
-          gameState={gameState}
-          round={round}
-          players={players}
-          onRevealAnswer={revealAnswer}
-          onClose={closeClue}
-          onCompleteClue={handleCompleteClue}
-          onSubmitWager={(amount) => {
-            submitWager(amount);
-            playSound('click');
-          }}
-          onAdvanceFinal={advanceFinalJeopardy}
-          onResetGame={() => generateBoard('SINGLE')}
-        />
+            <Box>
+              <Stack spacing={2}>
+                <TextField 
+                  label="ROOM CODE" 
+                  variant="filled" 
+                  value={roomCode}
+                  onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
+                  sx={{ bgcolor: 'white', borderRadius: 1 }}
+                  inputProps={{ style: { fontFamily: 'monospace', fontWeight: 'bold' } }}
+                />
+                <TextField 
+                  label="YOUR NAME" 
+                  variant="filled" 
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  sx={{ bgcolor: 'white', borderRadius: 1 }}
+                  inputProps={{ style: { fontFamily: 'monospace' } }}
+                />
+                <Button 
+                  fullWidth 
+                  variant="contained" 
+                  color="success"
+                  size="large" 
+                  onClick={handleJoin}
+                  disabled={!roomCode || !playerName}
+                  sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
+                >
+                  JOIN GAME
+                </Button>
+              </Stack>
+            </Box>
+          </Stack>
+        </Paper>
       </Container>
     </Box>
   );

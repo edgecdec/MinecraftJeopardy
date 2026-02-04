@@ -6,10 +6,11 @@ import { Round } from '@/hooks/useGame';
 
 interface GameHeaderProps {
   round: Round;
+  roomCode?: string;
   onNextRound: () => void;
 }
 
-export default function GameHeader({ round, onNextRound }: GameHeaderProps) {
+export default function GameHeader({ round, roomCode, onNextRound }: GameHeaderProps) {
   return (
     <Box sx={{ textAlign: 'center', mb: 4, position: 'relative' }}>
       <Typography 
@@ -25,6 +26,11 @@ export default function GameHeader({ round, onNextRound }: GameHeaderProps) {
       >
         MINECRAFT JEOPARDY
       </Typography>
+      {roomCode && (
+        <Typography variant="h5" sx={{ fontFamily: 'monospace', color: 'white', mb: 2 }}>
+          ROOM CODE: <span style={{ color: '#00AA00', fontWeight: 'bold' }}>{roomCode}</span>
+        </Typography>
+      )}
       <Stack direction="row" spacing={4} justifyContent="center" alignItems="center">
         <Typography variant="h6" sx={{ color: 'grey.400', fontFamily: '"Press Start 2P", cursive', fontSize: '0.8rem' }}>
           ROUND: <span style={{ color: '#fff' }}>{round}</span>
