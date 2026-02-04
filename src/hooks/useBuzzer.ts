@@ -54,7 +54,27 @@ export function useBuzzer(code: string, playerName?: string) {
     return () => clearInterval(interval);
   }, [code, fetchState]);
 
-  const performAction = async (action: string, payload: any = {}) => {
+  useEffect(() => {
+    if (!code || !deviceId || !playerName) return;
+    
+    // Join the game to register self
+    const joinGame = async () => {
+        try {
+            await fetch('/api/game', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code, action: 'join', playerId: deviceId, playerName })
+            });
+            fetchState();
+        } catch (e) {
+            console.error("Failed to join", e);
+        }
+    };
+    
+    joinGame();
+  }, [code, deviceId, playerName]); // Re-join if name/code changes
+
+  const performAction = async (action: string, payload: any = {}, targetId?: string) => {
     try {
       await fetch('/api/game', {
         method: 'POST',
@@ -62,7 +82,7 @@ export function useBuzzer(code: string, playerName?: string) {
         body: JSON.stringify({ 
           code, 
           action, 
-          playerId: deviceId,
+          playerId: targetId || deviceId,
           playerName: playerName,
           payload
         })
@@ -92,7 +112,8 @@ export function useBuzzer(code: string, playerName?: string) {
     unlock: () => performAction('unlock'),
     clear: () => performAction('clear'),
     reset: () => performAction('reset'),
-    updateState: (newState: { players?: any[], gameState?: string }) => performAction('update_state', newState),
+    updateState: (newState: { gameState?: string }) => performAction('update_state', newState),
+    updatePlayer: (id: string, updates: { score?: number, name?: string }) => performAction('update_player', updates, id),
     submitWager: (wager: number) => performAction('submit_wager', { wager }),
     submitAnswer: (answer: string) => performAction('submit_answer', { answer }),
     refresh: fetchState

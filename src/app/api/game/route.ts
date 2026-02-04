@@ -71,12 +71,40 @@ export async function POST(req: NextRequest) {
 
   switch (action) {
     // ... previous cases ...
+    case 'join':
+        if (playerId && playerName) {
+            // Check if player ID exists
+            const existingPlayerIndex = room.players.findIndex(p => p.id === playerId);
+            
+            if (existingPlayerIndex === -1) {
+                // New Player ID. Check name collision.
+                let safeName = playerName;
+                let suffix = 1;
+                while (room.players.some(p => p.name === safeName)) {
+                    safeName = `${playerName} (${suffix++})`;
+                }
+                
+                room.players.push({ id: playerId, name: safeName, score: 0 });
+            } else {
+                // Existing ID - update name if changed? Or keep consistent? 
+                // Let's allow name updates if ID matches.
+                room.players[existingPlayerIndex].name = playerName;
+            }
+            room.lastAction = Date.now();
+        }
+        break;
+
     case 'buzz':
       if (!room.locked && !room.buzzed) {
         room.buzzed = playerId;
         room.buzzedName = playerName;
         room.locked = true;
         room.lastAction = Date.now();
+        
+        // Ensure player is registered (in case they buzzed without explicit join)
+        if (playerId && !room.players.find(p => p.id === playerId)) {
+             room.players.push({ id: playerId, name: playerName || 'Unknown', score: 0 });
+        }
       }
       break;
     case 'lock':
@@ -102,10 +130,22 @@ export async function POST(req: NextRequest) {
         break;
     
     case 'update_state':
-        if (payload.players) room.players = payload.players;
+        // Only update gamestate, DO NOT overwrite players list blindly
         if (payload.gameState) room.gameState = payload.gameState;
         room.lastAction = Date.now();
         break;
+        
+    case 'update_player':
+        if (playerId) {
+            const pIndex = room.players.findIndex(p => p.id === playerId);
+            if (pIndex !== -1) {
+                if (payload.score !== undefined) room.players[pIndex].score = payload.score;
+                if (payload.name !== undefined) room.players[pIndex].name = payload.name;
+                room.lastAction = Date.now();
+            }
+        }
+        break;
+
     case 'submit_wager':
         if (playerId && payload.wager !== undefined) {
             room.wagers[playerId] = payload.wager;

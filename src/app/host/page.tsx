@@ -40,15 +40,16 @@ function HostGameContent() {
   } = useGame();
 
   const { playSound } = useSound();
-  const { buzzedName, lock, unlock, reset, clear, updateState, wagers, finalAnswers } = useBuzzer(roomCode);
+  const { 
+    buzzedName, lock, unlock, reset, clear, 
+    updateState, updatePlayer, 
+    wagers, finalAnswers, allPlayers 
+  } = useBuzzer(roomCode);
 
-  // Sync Game State to API so players see it
+  // Sync Game State to API
   useEffect(() => {
-    updateState({ 
-        gameState, 
-        players: players // Push full [{id, name, score}, ...]
-    });
-  }, [gameState, players, updateState]);
+    updateState({ gameState });
+  }, [gameState, updateState]);
 
   // unlock buzzer when clue opens (and it's not a daily double)
   useEffect(() => {
@@ -59,29 +60,47 @@ function HostGameContent() {
     }
   }, [activeClue, gameState]);
 
-  const handleScoreAdjust = (player: string, amount: number) => {
-    updatePlayerScore(player, amount);
-    if (amount > 0) playSound('correct');
-    else playSound('wrong');
+  const handleScoreAdjust = (playerId: string, amount: number) => {
+    // Calculate new score based on current
+    const player = allPlayers?.find(p => p.id === playerId);
+    if (player) {
+        updatePlayer(playerId, { score: player.score + amount });
+        if (amount > 0) playSound('correct');
+        else playSound('wrong');
+    }
+  };
+
+  const handleUpdateName = (playerId: string, name: string) => {
+      updatePlayer(playerId, { name });
   };
 
   const handleSelectClue = (clue: any) => {
     playSound('click');
     selectClue(clue);
-    // Buzzer unlock handled by effect above
   };
 
   const handleCompleteClue = (pid: string | null, correct: boolean) => {
+      // Find the player object to get current score if needed, or just send delta
+      const player = allPlayers?.find(p => p.id === pid);
+      if (!player && pid) return; // Should not happen
+
       if (round === 'FINAL' && pid) {
           const wager = wagers[pid] || 0;
-          updatePlayerScore(pid, correct ? wager : -wager);
-          // Don't close clue automatically for Final Jeopardy so we can grade everyone
+          updatePlayer(pid, { score: player.score + (correct ? wager : -wager) });
+          
           if (correct) playSound('correct');
           else playSound('wrong');
           return;
       }
 
-      completeClue(pid, correct);
+      completeClue(pid, correct); // Advances game state locally (close clue)
+      
+      if (pid && player) {
+         // Apply score to API
+         const clueValue = activeClue?.value || 0;
+         updatePlayer(pid, { score: player.score + (correct ? clueValue : -clueValue) });
+      }
+
       if (correct) {
           playSound('correct');
           reset(); 
@@ -131,11 +150,15 @@ function HostGameContent() {
         )}
 
         <ScoreBoard 
-          players={players} 
+          players={allPlayers || []} 
           onAdjust={handleScoreAdjust} 
-          onUpdateName={updatePlayerName}
-          onAddPlayer={addPlayer}
-          onRemovePlayer={removePlayer}
+          onUpdateName={handleUpdateName}
+          onAddPlayer={addPlayer} // Keep local add? No, should be removed or adapted.
+          // Actually, Host can still add "Bot" players locally if needed, but for now let's just pass empty or adapt
+          // The ScoreBoard expects onAddPlayer. 
+          // Since we are moving to "Players Join", we might want to hide the "Add" button or make it generate a dummy player via API.
+          // Let's implement a dummy add via API.
+          onRemovePlayer={(id) => { /* Implement remove via API if needed */ }} 
         />
 
         <ClueModal 
@@ -143,7 +166,7 @@ function HostGameContent() {
           activeClue={activeClue}
           gameState={gameState}
           round={round}
-          players={players}
+          players={allPlayers || []}
           buzzedPlayer={buzzedName}
           wagers={wagers}
           finalAnswers={finalAnswers}
