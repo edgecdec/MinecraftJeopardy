@@ -171,8 +171,13 @@ export default function ClueModal({
               <TextField 
                 autoFocus variant="filled" value={wager}
                 onChange={(e) => setWager(e.target.value.replace(/\D/g, ''))}
-                inputProps={{ style: { color: 'white', fontSize: '2rem', textAlign: 'center', fontFamily: '"Press Start 2P", cursive' } }}
-                sx={{ bgcolor: 'rgba(255,255,255,0.1)', width: 300 }}
+                sx={{ 
+                  bgcolor: '#c6c6c6', borderRadius: 0,
+                  border: '4px solid #fff', borderRightColor: '#555', borderBottomColor: '#555',
+                  width: 300,
+                  '& .MuiInputBase-input': { color: '#3f3f3f', fontWeight: 'bold' }
+                }}
+                inputProps={{ style: { fontSize: '2rem', textAlign: 'center', fontFamily: '"Press Start 2P", cursive' } }}
               />
               <Button variant="contained" color="warning" onClick={handleWagerSubmit} sx={{ fontFamily: '"Press Start 2P", cursive' }}>BET</Button>
             </Stack>

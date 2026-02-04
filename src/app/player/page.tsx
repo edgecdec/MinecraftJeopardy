@@ -93,21 +93,27 @@ function PlayerContent() {
                 <Typography variant="h6">WAGER LOCKED</Typography>
               </Paper>
             ) : (
-              <>
-                <TextField 
-                  fullWidth variant="filled" label="WAGER" type="number" value={localWager}
-                  onChange={(e) => setLocalWager(e.target.value)}
-                  sx={{ bgcolor: 'white', borderRadius: 1 }}
-                  inputProps={{ style: { fontFamily: '"Press Start 2P", cursive', fontSize: '1.2rem' } }}
-                />
-                <Button 
-                  fullWidth variant="contained" size="large" color="warning" onClick={handleWagerSubmit}
-                  disabled={myScore < 0}
-                  sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
-                >
-                  SUBMIT WAGER
-                </Button>
-              </>
+                          <>
+                            <TextField 
+                              fullWidth variant="filled" label="WAGER" type="number" value={localWager}
+                              onChange={(e) => setLocalWager(e.target.value)}
+                              sx={{ 
+                                bgcolor: '#c6c6c6', borderRadius: 0, 
+                                border: '4px solid #fff', borderRightColor: '#555', borderBottomColor: '#555',
+                                '& .MuiInputBase-input': { color: '#3f3f3f', fontWeight: 'bold' },
+                                '& .MuiInputLabel-root': { color: '#555' }
+                              }}
+                              inputProps={{ style: { fontFamily: '"Press Start 2P", cursive', fontSize: '1.2rem' } }}
+                            />
+                            <Button 
+                              fullWidth variant="contained" size="large" color="warning" onClick={handleWagerSubmit}
+                              disabled={myScore < 0}
+                              sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
+                            >
+                              SUBMIT WAGER
+                            </Button>
+                          </>
+              
             )}
           </Stack>
         )}
@@ -122,20 +128,26 @@ function PlayerContent() {
                 <Typography variant="h6">ANSWER LOCKED</Typography>
               </Paper>
             ) : (
-              <>
-                <TextField 
-                  fullWidth variant="filled" label="YOUR ANSWER" value={localAnswer}
-                  onChange={(e) => setLocalAnswer(e.target.value)}
-                  sx={{ bgcolor: 'white', borderRadius: 1 }}
-                  inputProps={{ style: { fontFamily: 'monospace', fontSize: '1.2rem', fontWeight: 'bold' } }}
-                />
-                <Button 
-                  fullWidth variant="contained" size="large" color="secondary" onClick={handleAnswerSubmit}
-                  sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
-                >
-                  SUBMIT ANSWER
-                </Button>
-              </>
+                          <>
+                            <TextField 
+                              fullWidth variant="filled" label="YOUR ANSWER" value={localAnswer}
+                              onChange={(e) => setLocalAnswer(e.target.value)}
+                              sx={{ 
+                                bgcolor: '#c6c6c6', borderRadius: 0, 
+                                border: '4px solid #fff', borderRightColor: '#555', borderBottomColor: '#555',
+                                '& .MuiInputBase-input': { color: '#3f3f3f', fontWeight: 'bold' },
+                                '& .MuiInputLabel-root': { color: '#555' }
+                              }}
+                              inputProps={{ style: { fontFamily: 'monospace', fontSize: '1.2rem', fontWeight: 'bold' } }}
+                            />
+                            <Button 
+                              fullWidth variant="contained" size="large" color="secondary" onClick={handleAnswerSubmit}
+                              sx={{ fontFamily: '"Press Start 2P", cursive', py: 2 }}
+                            >
+                              SUBMIT ANSWER
+                            </Button>
+                          </>
+              
             )}
           </Stack>
         )}

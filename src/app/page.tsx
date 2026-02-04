@@ -65,15 +65,31 @@ export default function Lobby() {
                   variant="filled" 
                   value={roomCode}
                   onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
-                  sx={{ bgcolor: 'white', borderRadius: 1 }}
-                  inputProps={{ style: { fontFamily: 'monospace', fontWeight: 'bold' } }}
+                  sx={{ 
+                    bgcolor: '#c6c6c6', 
+                    borderRadius: 0,
+                    border: '4px solid #fff',
+                    borderRightColor: '#555',
+                    borderBottomColor: '#555',
+                    '& .MuiInputBase-input': { color: '#3f3f3f', fontWeight: 'bold' },
+                    '& .MuiInputLabel-root': { color: '#555' }
+                  }}
+                  inputProps={{ style: { fontFamily: 'monospace' } }}
                 />
                 <TextField 
                   label="YOUR NAME" 
                   variant="filled" 
                   value={playerName}
                   onChange={(e) => setPlayerName(e.target.value)}
-                  sx={{ bgcolor: 'white', borderRadius: 1 }}
+                  sx={{ 
+                    bgcolor: '#c6c6c6', 
+                    borderRadius: 0,
+                    border: '4px solid #fff',
+                    borderRightColor: '#555',
+                    borderBottomColor: '#555',
+                    '& .MuiInputBase-input': { color: '#3f3f3f', fontWeight: 'bold' },
+                    '& .MuiInputLabel-root': { color: '#555' }
+                  }}
                   inputProps={{ style: { fontFamily: 'monospace' } }}
                 />
                 <Button 
