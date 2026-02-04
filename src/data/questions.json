@@ -24,8 +24,8 @@
       "name": "Technical",
       "pool": [
         { "difficulty": 1, "clue": "What key combination shows the debug screen in Java Edition?", "answer": "F3" },
-        { "difficulty": 2, "clue": "Pressing F3 + G toggles the visibility of these 16x16 chunk boundaries.", "answer": "Chunk Borders" },
-        { "difficulty": 3, "clue": "Which mob has the largest detection range for a player (without wearing mob heads)?", "answer": "Ghast (100 blocks)" },
+        { "difficulty": 2, "clue": "Pressing F3 + G toggles the visibility of what?", "answer": "Chunk Borders" },
+        { "difficulty": 3, "clue": "Excluding boss mobs, which hostile entity has the longest sight-based detection range at 100 blocks?", "answer": "Ghast" },
         { "difficulty": 4, "clue": "What specific NBT tag makes a Creeper charged?", "answer": "{powered:1b}" },
         { "difficulty": 5, "clue": "In Game Ticks (not Redstone ticks), exactly how long does a stone button pulse last?", "answer": "20 ticks" }
       ]
@@ -35,9 +35,9 @@
       "pool": [
         { "difficulty": 1, "clue": "Which mob drops a Totem of Undying?", "answer": "Evoker" },
         { "difficulty": 2, "clue": "This is the only mob in the game that can be 'milked' with a bowl to obtain Mushroom Stew.", "answer": "Mooshroom" },
-        { "difficulty": 3, "clue": "How many hearts of damage does a Warden's sonic boom attack deal on Normal difficulty (ignoring armor)?", "answer": "5 Hearts (10 Damage)" },
-        { "difficulty": 4, "clue": "What is the exact internal NBT 'Variant' integer value for the rare Blue Axolotl?", "answer": "4" },
-        { "difficulty": 5, "clue": "When a Ravager is blocked by a shield, what is the chance it has to be stunned?", "answer": "100%" }
+        { "difficulty": 3, "clue": "Name the specific variant of the Axolotl which is the rarest.", "answer": "Blue" },
+        { "difficulty": 4, "clue": "How many hearts of damage does a Warden's sonic boom attack deal on Normal difficulty (ignoring armor)?", "answer": "5 Hearts (10 Damage)" },
+        { "difficulty": 5, "clue": "When a Ravager is blocked by a shield, what is the chance it has to be stunned?", "answer": "50%" }
       ]
     },
     {
@@ -45,9 +45,9 @@
       "pool": [
         { "difficulty": 1, "clue": "Which food item provides the most saturation in the game?", "answer": "Golden Carrot (or Dandelion Suspicious Stew)" },
         { "difficulty": 2, "clue": "Exactly how many blocks of Obsidian are needed for a minimum size Nether Portal frame?", "answer": "10" },
-        { "difficulty": 3, "clue": "Excluding bedrock, this block requires the longest time to break with an empty hand (250 seconds).", "answer": "Obsidian" },
-        { "difficulty": 4, "clue": "How much Experience Points (not levels) does the Ender Dragon drop upon its first death?", "answer": "12,000 XP" },
-        { "difficulty": 5, "clue": "What is the percentage chance that a single End Portal Frame generates with an Eye of Ender already filled?", "answer": "10%" }
+        { "difficulty": 3, "clue": "Excluding unbreakable blocks, which block requires the longest time to break with an empty hand at 250 seconds?", "answer": "Obsidian (tied with Netherite Blocks and Respawn Anchors)" },
+        { "difficulty": 4, "clue": "What is the percentage chance that a single End Portal Frame generates with an Eye of Ender already filled?", "answer": "10%" },
+        { "difficulty": 5, "clue": "How much Experience Points (not levels) does the Ender Dragon drop upon its first death, to the nearest thousand?", "answer": "12,000 XP" }
       ]
     },
     {
@@ -56,7 +56,7 @@
         { "difficulty": 1, "clue": "In which structure can you find an Elytra?", "answer": "End Ship (End City)" },
         { "difficulty": 2, "clue": "These small blue spirits (Allays) can be found trapped in cages at Pillager Outposts and inside which other structure?", "answer": "Woodland Mansion" },
         { "difficulty": 3, "clue": "Suspicious Sand was first introduced being found in this small, often overlooked desert structure.", "answer": "Desert Well" },
-        { "difficulty": 4, "clue": "These large, procedurally generated structures found in the Nether are the exclusive home of Piglin Brutes.", "answer": "Bastion Remnant" },
+        { "difficulty": 4, "clue": "In Java Edition, what is the maximum number of chests that can naturally generate within a single Stronghold?", "answer": "8 (4 from corridors and 4 from libraries)" },
         { "difficulty": 5, "clue": "What is the exact percentage chance (approximate to nearest tenth) of finding a Silence Armor Trim in an Ancient City chest?", "answer": "1.2%" }
       ]
     },
@@ -66,7 +66,7 @@
         { "difficulty": 1, "clue": "Which command is used to grant a player a specific item?", "answer": "/give" },
         { "difficulty": 2, "clue": "This target selector argument is used to select all entities, not just players.", "answer": "@e" },
         { "difficulty": 3, "clue": "What NBT tag is used to make a mob silent (make no idle sounds)?", "answer": "{Silent:1b}" },
-        { "difficulty": 4, "clue": "Which command allows you to modify specific NBT data of an existing entity or block?", "answer": "/data merge (or /data modify)" },
+        { "difficulty": 4, "clue": "Which command allows you to modify specific NBT data of an existing entity?", "answer": "/data merge (or /data modify)" },
         { "difficulty": 5, "clue": "Which specific gamerule controls the percentage of players required to sleep to skip the night?", "answer": "playersSleepingPercentage" }
       ]
     },
@@ -74,9 +74,9 @@
       "name": "Speedrun",
       "pool": [
         { "difficulty": 1, "clue": "What item do speedrunners trade with Piglins to get Ender Pearls?", "answer": "Gold Ingot" },
-        { "difficulty": 2, "clue": "In the 'Any%' category, what is the final goal?", "answer": "Defeat the Ender Dragon (Enter the End Portal)" },
+        { "difficulty": 2, "clue": "In the 'Any%' category, what is the final goal?", "answer": "Enter the End Portal (after defeating the Dragon)" },
         { "difficulty": 3, "clue": "Speedrunners often use this method to calculate the location of a Stronghold using two Eye of Ender throws.", "answer": "Triangulation (or Calculator / Ninja Brain)" },
-        { "difficulty": 4, "clue": "What is the exact percentage chance of a Piglin dropping Ender Pearls per trade?", "answer": "2.18% (approx 2.2%)" },
+        { "difficulty": 4, "clue": "In the most commonly speedrun version of the game (1.16.1), what is the percentage chance (within 1%) of a Piglin dropping Ender Pearls per trade?", "answer": "4.73%" },
         { "difficulty": 5, "clue": "This glitch, used in specific categories, allows players to reach the End credits instantly from the Overworld.", "answer": "Credits Warp (End Portal duplication)" }
       ]
     },
@@ -123,21 +123,31 @@
     {
       "name": "Enchanting",
       "pool": [
-        { "difficulty": 1, "clue": "Which enchantment increases the speed of mining blocks?", "answer": "Efficiency" },
-        { "difficulty": 2, "clue": "This enchantment prevents an item from breaking by using XP to repair it.", "answer": "Mending" },
-        { "difficulty": 3, "clue": "What is the maximum level of the 'Sharpness' enchantment in vanilla survival?", "answer": "Sharpness V" },
+        { "difficulty": 1, "clue": "This Mace-exclusive enchantment increases the smash attack damage dealt per block fallen.", "answer": "Density" },
+        { "difficulty": 2, "clue": "This treasure enchantment, found exclusively in Ancient Cities, increases the player's movement speed while crouching.", "answer": "Swift Sneak" },
+        { "difficulty": 3, "clue": "This rare Mace enchantment, obtainable only from Ominous Vaults, emits a burst of air that launches the attacker upwards upon a successful hit.", "answer": "Wind Burst" },
         { "difficulty": 4, "clue": "How many bookshelves are required to reach the maximum enchantment table level of 30?", "answer": "15" },
-        { "difficulty": 5, "clue": "Which enchantment is mutually exclusive with 'Mending' on a Bow?", "answer": "Infinity" }
+        { "difficulty": 5, "clue": "The total damage reduction provided by Protection enchantments is capped at this percentage due to the 'Enchantment Protection Factor' limit.", "answer": "80%" }
+      ]
+    },
+    {
+      "name": "Advanced Crafting",
+      "pool": [
+        { "difficulty": 1, "clue": "Identify the item crafted from these raw materials: 3 Sugarcane and 1 Leather.", "answer": "Book" },
+        { "difficulty": 2, "clue": "Identify the item crafted from these raw materials: 3 Sticks, 3 String, 7 Cobblestone, and 1 Redstone Dust.", "answer": "Dispenser" },
+        { "difficulty": 3, "clue": "Identify the food item crafted from these raw materials: 1 Cooked Rabbit, 1 Carrot, 1 Baked Potato, 1 Mushroom, and 3 Wood Planks.", "answer": "Rabbit Stew" },
+        { "difficulty": 4, "clue": "Identify the item crafted from these raw materials: 7 Sand blocks, 1 Ghast Tear, 1 Ender Pearl, 1 Blaze Rod, 8 Cobblestone, and 1 Coal.", "answer": "End Crystal" },
+        { "difficulty": 5, "clue": "Identify the 1.21 block crafted from these raw materials: 5 Iron Ingots, 1 Oak Log, 7 Cobblestone, and 3 Redstone Dust.", "answer": "Crafter" }
       ]
     },
     {
       "name": "History & Dev",
       "pool": [
-        { "difficulty": 1, "clue": "Who is the original creator of Minecraft, known by his alias 'Notch'?", "answer": "Markus Persson" },
-        { "difficulty": 2, "clue": "This company acquired Mojang Studios in 2014 for $2.5 billion.", "answer": "Microsoft" },
-        { "difficulty": 3, "clue": "This update, Alpha 1.2.0, was the first to introduce the Nether dimension.", "answer": "The Halloween Update" },
-        { "difficulty": 4, "clue": "Before biomes were fully implemented, this 'Mode' gave worlds a chance to be generated entirely covered in snow.", "answer": "Winter Mode" },
-        { "difficulty": 5, "clue": "This version number (Beta 1.7.3) was the last to include this terrain generation bug before its removal in Beta 1.8.", "answer": "The Far Lands" }
+        { "difficulty": 1, "clue": "This company acquired Mojang Studios in 2014 for $2.5 billion.", "answer": "Microsoft" },
+        { "difficulty": 2, "clue": "Who is the original creator of Minecraft, known by his alias 'Notch'?", "answer": "Markus Persson" },
+        { "difficulty": 3, "clue": "This specific name was given to the Alpha 1.2.0 update, which was the first to introduce the Nether dimension and was named after a popular fall holiday.", "answer": "The Halloween Update" },
+        { "difficulty": 4, "clue": "Famously removed in Beta 1.8, what is the common name for the legendary distorted terrain generation glitch?", "answer": "The Far Lands" },
+        { "difficulty": 5, "clue": "Before biomes were fully implemented, this 'Mode' gave worlds a chance to be generated entirely covered in snow.", "answer": "Winter Mode" }
       ]
     },
     {
@@ -154,7 +164,7 @@
       "name": "Combat Mechanics",
       "pool": [
         { "difficulty": 1, "clue": "How many hearts of health does a player have by default?", "answer": "10 Hearts (20 HP)" },
-        { "difficulty": 2, "clue": "A critical hit is performed by attacking while the player is moving in this direction.", "answer": "Falling" },
+        { "difficulty": 2, "clue": "A critical hit is performed by attacking while the player is moving in this direction.", "answer": "Downwards" },
         { "difficulty": 3, "clue": "Added in 1.21, this heavy weapon has the slowest attack speed (0.6) of any weapon in the game.", "answer": "Mace" },
         { "difficulty": 4, "clue": "What is the exact percentage of damage reduction provided by a full set of Diamond Armor?", "answer": "80%" },
         { "difficulty": 5, "clue": "How many ticks of 'invulnerability frames' does a mob or player get after taking damage?", "answer": "10 Ticks (0.5s)" }
@@ -164,10 +174,10 @@
       "name": "Farming & Food",
       "pool": [
         { "difficulty": 1, "clue": "This purple fruit can be eaten even when the player's hunger bar is full.", "answer": "Chorus Fruit" },
-        { "difficulty": 2, "clue": "Which crop grows faster if planted in rows alternating with other crops?", "answer": "Wheat (or Carrots/Potatoes/Beetroots)" },
-        { "difficulty": 3, "clue": "How many distinct stages of growth does Wheat have?", "answer": "8 (Stages 0-7)" },
+        { "difficulty": 2, "clue": "How many growth stages does a Cocoa Pod have?", "answer": "3" },
+        { "difficulty": 3, "clue": "When crafting Cookies using Wheat and Cocoa Beans, exactly how many cookies are produced from a single crafting operation?", "answer": "8" },
         { "difficulty": 4, "clue": "What is the percentage chance that a Composter's level increases when a Cake is used?", "answer": "100%" },
-        { "difficulty": 5, "clue": "How many growth stages does a Cocoa Pod have?", "answer": "3" }
+        { "difficulty": 5, "clue": "How many distinct stages of growth does Wheat have?", "answer": "8 (Stages 0-7)" }
       ]
     },
     {
@@ -176,38 +186,38 @@
         { "difficulty": 1, "clue": "What tool is required to mine Nether Portal blocks (Obsidian)?", "answer": "Diamond Pickaxe (or Netherite)" },
         { "difficulty": 2, "clue": "Water placed in the Nether immediately does this.", "answer": "Evaporates (Turns to steam/particles)" },
         { "difficulty": 3, "clue": "In the End, what indestructible block makes up the central pillar of the exit portal?", "answer": "Bedrock" },
-        { "difficulty": 4, "clue": "What is the specific blast resistance value of End Stone?", "answer": "9" },
-        { "difficulty": 5, "clue": "In the End, how many obsidian pillars generate in the main dragon fight island?", "answer": "10" }
+        { "difficulty": 4, "clue": "In the End, how many obsidian pillars generate in the main dragon fight island?", "answer": "10" },
+        { "difficulty": 5, "clue": "Upon the Ender Dragon's first defeat, what is the maximum Y-level at which the Dragon Egg can successfully be generated?", "answer": "255" }
       ]
     },
     {
       "name": "Sound Design",
       "pool": [
-        { "difficulty": 1, "clue": "This German composer, known as C418, created the original soundtrack for Minecraft.", "answer": "Daniel Rosenfeld" },
-        { "difficulty": 2, "clue": "When viewed in a spectrogram, the audio file for 'Disc 11' (or cave14.ogg) reveals a hidden image of this mob's face.", "answer": "Creeper" },
-        { "difficulty": 3, "clue": "This hostile mob's idle sounds are actually recordings of a water hose.", "answer": "Spider" },
-        { "difficulty": 4, "clue": "When placed under a Note Block, this block produces a 'Pling' (Electric Piano) sound.", "answer": "Glowstone" },
+        { "difficulty": 1, "clue": "When viewed in a spectrogram, the audio file for 'Disc 11' (or cave14.ogg) reveals a hidden image of this mob's face.", "answer": "Creeper" },
+        { "difficulty": 2, "clue": "This hostile mob's idle sounds are actually recordings of a water hose.", "answer": "Spider" },
+        { "difficulty": 3, "clue": "When placed under a Note Block, this block produces a 'Pling' (Electric Piano) sound.", "answer": "Glowstone" },
+        { "difficulty": 4, "clue": "This German composer, known as C418, created the original soundtrack for Minecraft.", "answer": "Daniel Rosenfeld" },
         { "difficulty": 5, "clue": "The 'Cave' ambient sounds are technically triggered by a 'Mood' algorithm. What is the maximum value of the mood counter?", "answer": "100% (1.0)" }
       ]
     },
     {
       "name": "Block Properties",
       "pool": [
-        { "difficulty": 1, "clue": "What is the light level emitted by a Torch?", "answer": "14" },
-        { "difficulty": 2, "clue": "Besides Bedrock and Obsidian, this common block found in the End cannot be destroyed by the Ender Dragon.", "answer": "End Stone" },
-        { "difficulty": 3, "clue": "Which block is unique because Slime Blocks (and Honey Blocks) do not stick to it?", "answer": "Glazed Terracotta" },
-        { "difficulty": 4, "clue": "Obtainable in survival mode, this block has the highest blast resistance and hardness (50) of any mineable block.", "answer": "Obsidian" },
-        { "difficulty": 5, "clue": "Landing on this block reduces fall damage by 80%.", "answer": "Hay Bale" }
+        { "difficulty": 1, "clue": "Besides Bedrock and Obsidian, this common block found in the End cannot be destroyed by the Ender Dragon.", "answer": "End Stone" },
+        { "difficulty": 2, "clue": "What is the light level emitted by a Torch?", "answer": "14" },
+        { "difficulty": 3, "clue": "Crafted from nine units of a staple crop, this block reduces fall damage by 80% when landed on.", "answer": "Hay Bale" },
+        { "difficulty": 4, "clue": "This category of decorative blocks is unique because they can be pushed by pistons, but Slime and Honey blocks will not stick to them.", "answer": "Glazed Terracotta" },
+        { "difficulty": 5, "clue": "When placed under a Note Block, this specific mineral block produces a retro '8-bit' square wave sound.", "answer": "Block of Emerald" }
       ]
     },
     {
       "name": "Villager Trading",
       "pool": [
-        { "difficulty": 1, "clue": "Which job site block is required to employ a Villager as a Librarian?", "answer": "Lectern" },
-        { "difficulty": 2, "clue": "What is the universal currency item used for trading with Villagers?", "answer": "Emerald" },
+        { "difficulty": 1, "clue": "What is the universal currency item used for trading with Villagers?", "answer": "Emerald" },
+        { "difficulty": 2, "clue": "Which job site block is required to employ a Villager as a Librarian?", "answer": "Lectern" },
         { "difficulty": 3, "clue": "Defeating a Raid grants this status effect, which provides discounts on trades.", "answer": "Hero of the Village" },
-        { "difficulty": 4, "clue": "What is the specific NBT tag used to define a Villager's profession?", "answer": "VillagerData" },
-        { "difficulty": 5, "clue": "Regardless of discounts, what is the absolute minimum price a Villager will sell an item for?", "answer": "1 Emerald" }
+        { "difficulty": 4, "clue": "This rare villager profession is the only one that does not have a corresponding job site block and cannot be traded with.", "answer": "Nitwit" },
+        { "difficulty": 5, "clue": "Because these two specific biomes have no naturally generating villages, their corresponding Villager variants can only be obtained through breeding or curing Zombie Villagers within their borders.", "answer": "Jungle and Swamp" }
       ]
     },
     {
@@ -216,8 +226,8 @@
         { "difficulty": 1, "clue": "Which rail type is used to accelerate Minecarts?", "answer": "Powered Rail" },
         { "difficulty": 2, "clue": "This animal can be ridden with a Saddle but requires a Carrot on a Stick to control.", "answer": "Pig" },
         { "difficulty": 3, "clue": "How much durability does an Elytra lose for every second of flight?", "answer": "1 Durability" },
-        { "difficulty": 4, "clue": "This is the fastest mode of transport in the Nether, utilizing a boat and this specific block.", "answer": "Blue Ice" },
-        { "difficulty": 5, "clue": "What is the maximum speed, in meters per second, achievable by a boat traveling on Blue Ice?", "answer": "72.7 m/s" }
+        { "difficulty": 4, "clue": "Utilizing a boat for high-speed travel, which specific block provides the fastest mode of transport in the Nether?", "answer": "Blue Ice" },
+        { "difficulty": 5, "clue": "What is the maximum speed, in meters per second (within 10 m/s), achievable by a boat traveling on Blue Ice?", "answer": "72.7 m/s" }
       ]
     },
     {
@@ -231,13 +241,33 @@
       ]
     },
     {
-      "name": "Bedrock vs Java",
+      "name": "Hermitcraft",
       "pool": [
-        { "difficulty": 1, "clue": "Which edition of Minecraft allows players to place blocks in front of them (bridging) without crouching/looking down?", "answer": "Bedrock Edition" },
-        { "difficulty": 2, "clue": "Movable Tile Entities (like Chests and Furnaces being pushed by pistons) are exclusive to this edition.", "answer": "Bedrock Edition" },
-        { "difficulty": 3, "clue": "The 'Combat Update' mechanics (weapon cooldowns, sweep attacks) are exclusive to this edition.", "answer": "Java Edition" },
-        { "difficulty": 4, "clue": "Dyeing water in cauldrons to create colored armor is a feature exclusive to this edition.", "answer": "Bedrock Edition" },
-        { "difficulty": 5, "clue": "Which edition features 'Trident Killers' due to a bug where thrown tridents never despawn?", "answer": "Bedrock Edition" }
+        { "difficulty": 1, "clue": "Known for his iconic mustache and complex Redstone, this Hermit often builds massive over-engineered contraptions.", "answer": "Mumbo Jumbo" },
+        { "difficulty": 2, "clue": "This Hermit is famous for his chaotic building style, starting server 'wars', and the 'Hermit Challenges' series.", "answer": "Grian" },
+        { "difficulty": 3, "clue": "A legendary Minecraft veteran known for his incredibly long-running 'Let's Play' series, this Hermit is a genius of unique Redstone logic.", "answer": "EthosLab" },
+        { "difficulty": 4, "clue": "Known for his incredible terraforming and the 'ConCorp' brand, this Hermit often plays charismatic characters like 'The Mayor'.", "answer": "GoodTimesWithScar" },
+        { "difficulty": 5, "clue": "Serving as the server's lead administrator since the beginning, this Hermit is known for his technical 'Update' videos.", "answer": "XisumaVoid" }
+      ]
+    },
+    {
+      "name": "Minecraft Legends",
+      "pool": [
+        { "difficulty": 1, "clue": "Known for the 'Diamond Minecart' and his blue hair, this YouTuber famously lived in a lab with his skeleton dog, Grim.", "answer": "DanTDM" },
+        { "difficulty": 2, "clue": "This creator became a global phenomenon with his 'Minecraft Manhunt' series and his iconic white smiley face skin.", "answer": "Dream" },
+        { "difficulty": 3, "clue": "One of the longest-running creators, he is famous for his 'Survival Island' series and the legendary 'Revenge' parody.", "answer": "CaptainSparklez" },
+        { "difficulty": 4, "clue": "Known for his legendary 'War' against Im_a_squid_kid over a specific farming crop, this PvP legend is immortalized on the Hypixel server.", "answer": "Technoblade" },
+        { "difficulty": 5, "clue": "This British creator is famous for his long-running 'Lovely World' series, his iconic orange cat skin, and his distinctive high-pitched laugh.", "answer": "Stampy" }
+      ]
+    },
+    {
+      "name": "Iconic Groups",
+      "pool": [
+        { "difficulty": 1, "clue": "This massive roleplay server, founded by a famously controversial speedrunner in 2020, became a global phenomenon for its scripted storylines and political factions.", "answer": "Dream SMP" },
+        { "difficulty": 2, "clue": "This long-running private server group is famous for its incredible builders, technical geniuses, and its 'Season' format which began in 2012.", "answer": "Hermitcraft" },
+        { "difficulty": 3, "clue": "This energetic group of friends, featuring members like PrestonPlayz, Vikkstar123, and JeromeASF, was famous for their 'Pixelmon' and 'Hunger Games' collaborations.", "answer": "The Pack" },
+        { "difficulty": 4, "clue": "A dominant 'supergroup' of the early 2010s, this collective featured creators like SkyDoesMinecraft, Deadlox, and TheBajanCanadian.", "answer": "Team Crafted" },
+        { "difficulty": 5, "clue": "Founded by Guude in 2010, this was the first major 'private server' group to achieve mainstream success, featuring legends like Etho and SethBling.", "answer": "Mindcrack" }
       ]
     }
   ],

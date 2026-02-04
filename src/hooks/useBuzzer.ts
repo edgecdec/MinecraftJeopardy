@@ -49,9 +49,13 @@ export function useBuzzer(code: string, playerName?: string) {
 
   useEffect(() => {
     if (!code) return;
+    
+    // Initial fetch
     fetchState();
-    const interval = setInterval(fetchState, 500);
-    return () => clearInterval(interval);
+
+    // Polling disabled for now
+    // const interval = setInterval(fetchState, 500);
+    // return () => clearInterval(interval);
   }, [code, fetchState]);
 
   useEffect(() => {
