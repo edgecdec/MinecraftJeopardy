@@ -59,11 +59,11 @@ export default function ClueModal({
 
   // Typewriter Effect
   useEffect(() => {
-      if (!activeClue || round === 'FINAL') return; // Don't typewrite final jeopardy clue? Or maybe yes.
-      // Actually standard Final Jeopardy reveals all at once usually.
+      if (!activeClue || round === 'FINAL') return; 
       
       if (gameState === 'ANSWER' || gameState === 'DAILY_DOUBLE_WAGER') {
           setDisplayedText(activeClue.clue); // Show full
+          setCharIndex(activeClue.clue.length);
           return;
       }
 
@@ -71,8 +71,8 @@ export default function ClueModal({
 
       if (charIndex < activeClue.clue.length) {
           const timeout = setTimeout(() => {
-              setDisplayedText(prev => prev + activeClue.clue[charIndex]);
               setCharIndex(prev => prev + 1);
+              setDisplayedText(activeClue.clue.slice(0, charIndex + 1));
           }, 30); // Speed: 30ms per char
           return () => clearTimeout(timeout);
       }
