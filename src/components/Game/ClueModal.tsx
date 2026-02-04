@@ -19,6 +19,7 @@ interface ClueModalProps {
   onSubmitWager: (amount: number) => void;
   onAdvanceFinal: () => void;
   onResetGame: () => void;
+  onContinue: () => void; // New prop for resetting buzzer
 }
 
 export default function ClueModal({
@@ -35,7 +36,8 @@ export default function ClueModal({
   onCompleteClue,
   onSubmitWager,
   onAdvanceFinal,
-  onResetGame
+  onResetGame,
+  onContinue
 }: ClueModalProps) {
   const [wager, setWager] = useState('');
   const [displayedText, setDisplayedText] = useState('');
@@ -234,8 +236,52 @@ export default function ClueModal({
             <Box sx={{ mt: 'auto', width: '100%', display: 'flex', justifyContent: 'center', gap: 4 }}>
               {gameState === 'CLUE' && (
                 <>
-                  <Button variant="contained" color="secondary" size="large" onClick={onRevealAnswer} sx={{ fontFamily: '"Press Start 2P", cursive' }}>REVEAL ANSWER</Button>
-                  <Button variant="outlined" onClick={onClose} sx={{ color: 'grey.400', borderColor: 'grey.400', fontFamily: '"Press Start 2P", cursive' }}>SKIP</Button>
+                  {buzzedPlayer ? (
+                    // Show Grading Controls for the Buzzed Player
+                    <Stack spacing={2} alignItems="center">
+                        <Typography variant="h6">JUDGE: {buzzedPlayer}</Typography>
+                        <Stack direction="row" spacing={2}>
+                            {players.find(p => p.name === buzzedPlayer) && (
+                                <>
+                                    <Button 
+                                        variant="contained" color="success" size="large"
+                                        onClick={() => onCompleteClue(players.find(p => p.name === buzzedPlayer)!.id, true)}
+                                    >
+                                        CORRECT (+)
+                                    </Button>
+                                    <Button 
+                                        variant="contained" color="error" size="large"
+                                        onClick={() => onCompleteClue(players.find(p => p.name === buzzedPlayer)!.id, false)}
+                                    >
+                                        WRONG (-)
+                                    </Button>
+                                </>
+                            )}
+                            <Button variant="outlined" color="warning" onClick={onContinue}>
+                                CLEAR (NO SCORE)
+                            </Button>
+                        </Stack>
+                    </Stack>
+                  ) : (
+                    <>
+                        <Button 
+                        variant="outlined" 
+                        onClick={onClose} 
+                        sx={{ color: 'grey.400', borderColor: 'grey.400', fontFamily: '"Press Start 2P", cursive' }}
+                        >
+                        SKIP
+                        </Button>
+                        <Button 
+                            variant="contained" 
+                            color="secondary" 
+                            size="large" 
+                            onClick={onRevealAnswer} 
+                            sx={{ fontFamily: '"Press Start 2P", cursive' }}
+                        >
+                            REVEAL ANSWER
+                        </Button>
+                    </>
+                  )}
                 </>
               )}
               {gameState === 'ANSWER' && (

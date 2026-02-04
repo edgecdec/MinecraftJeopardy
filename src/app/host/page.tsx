@@ -117,6 +117,11 @@ function HostGameContent() {
       }
   };
 
+  const handleClearBuzzer = () => {
+      reset();
+      unlock();
+  };
+
   const handleNextRound = () => {
     playSound('boardFill');
     if (round === 'SINGLE') generateBoard('DOUBLE');
@@ -203,6 +208,7 @@ function HostGameContent() {
           }}
           onAdvanceFinal={advanceFinalJeopardy}
           onResetGame={() => generateBoard('SINGLE')}
+          onContinue={handleClearBuzzer}
         />
       </Container>
     </Box>
