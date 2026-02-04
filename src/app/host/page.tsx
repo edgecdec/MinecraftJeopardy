@@ -65,7 +65,14 @@ function HostGameContent() {
     }
   }, [activeClue, gameState]);
 
-  // ... (handlers stay same) ...
+  const handleScoreAdjust = (playerId: string, amount: number) => {
+    const player = allPlayers?.find(p => p.id === playerId);
+    if (player) {
+        updatePlayer(playerId, { score: player.score + amount });
+        if (amount > 0) playSound('correct');
+        else playSound('wrong');
+    }
+  };
 
   const handleUpdateName = (playerId: string, name: string) => {
       updatePlayer(playerId, { name });
