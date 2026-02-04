@@ -4,12 +4,24 @@ import { useState, useEffect, useCallback } from 'react';
 
 interface RoomState {
   locked: boolean;
-  buzzed: string | null; // This is the ID of the person who buzzed
-  buzzedName: string | null; // This is the visible name
+  buzzed: string | null;
+  buzzedName: string | null;
+  gameState: string;
+  scores: Record<string, number>;
+  wagers: Record<string, number>;
+  finalAnswers: Record<string, string>;
 }
 
 export function useBuzzer(code: string, playerName?: string) {
-  const [state, setState] = useState<RoomState>({ locked: true, buzzed: null, buzzedName: null });
+  const [state, setState] = useState<RoomState>({ 
+    locked: true, 
+    buzzed: null, 
+    buzzedName: null,
+    gameState: 'BOARD',
+    scores: {},
+    wagers: {},
+    finalAnswers: {}
+  });
   const [deviceId, setDeviceId] = useState<string>('');
 
   useEffect(() => {
@@ -41,8 +53,7 @@ export function useBuzzer(code: string, playerName?: string) {
     return () => clearInterval(interval);
   }, [code, fetchState]);
 
-  const performAction = async (action: string) => {
-    if (!deviceId) return;
+  const performAction = async (action: string, payload: any = {}) => {
     try {
       await fetch('/api/game', {
         method: 'POST',
@@ -51,7 +62,8 @@ export function useBuzzer(code: string, playerName?: string) {
           code, 
           action, 
           playerId: deviceId,
-          playerName: playerName 
+          playerName: playerName,
+          payload
         })
       });
       fetchState();
@@ -64,12 +76,21 @@ export function useBuzzer(code: string, playerName?: string) {
     locked: state.locked,
     buzzedId: state.buzzed,
     buzzedName: state.buzzedName,
+    gameState: state.gameState,
+    scores: state.scores,
+    myScore: state.scores[deviceId] || 0,
+    wagers: state.wagers,
+    finalAnswers: state.finalAnswers,
     isMe: state.buzzed === deviceId,
+    deviceId,
     buzz: () => performAction('buzz'),
     lock: () => performAction('lock'),
     unlock: () => performAction('unlock'),
     clear: () => performAction('clear'),
     reset: () => performAction('reset'),
+    updateState: (newState: { scores?: any, gameState?: string }) => performAction('update_state', newState),
+    submitWager: (wager: number) => performAction('submit_wager', { wager }),
+    submitAnswer: (answer: string) => performAction('submit_answer', { answer }),
     refresh: fetchState
   };
 }

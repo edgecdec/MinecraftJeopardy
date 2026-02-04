@@ -17,6 +17,10 @@ interface RoomState {
   buzzed: string | null; // Player ID
   buzzedName: string | null; // Player Name
   lastAction: number;
+  gameState: string; // BOARD, FINAL_WAGER, FINAL_CLUE, etc.
+  scores: Record<string, number>; // playerId -> score
+  wagers: Record<string, number>; // playerId -> wager
+  finalAnswers: Record<string, string>; // playerId -> answer
 }
 
 export async function GET(req: NextRequest) {
@@ -25,19 +29,37 @@ export async function GET(req: NextRequest) {
 
   if (!code) return NextResponse.json({ error: 'Code required' }, { status: 400 });
 
-  const room = global.gameRooms[code] || { locked: true, buzzed: null, buzzedName: null, lastAction: Date.now() };
+  const room = global.gameRooms[code] || { 
+    locked: true, 
+    buzzed: null, 
+    buzzedName: null, 
+    lastAction: Date.now(),
+    gameState: 'BOARD',
+    scores: {},
+    wagers: {},
+    finalAnswers: {}
+  };
   return NextResponse.json(room);
 }
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { code, action, playerId, playerName } = body;
+  const { code, action, playerId, playerName, payload } = body;
 
   if (!code) return NextResponse.json({ error: 'Code required' }, { status: 400 });
 
   // Init room if not exists
   if (!global.gameRooms[code]) {
-    global.gameRooms[code] = { locked: true, buzzed: null, buzzedName: null, lastAction: Date.now() };
+    global.gameRooms[code] = { 
+        locked: true, 
+        buzzed: null, 
+        buzzedName: null, 
+        lastAction: Date.now(),
+        gameState: 'BOARD',
+        scores: {},
+        wagers: {},
+        finalAnswers: {}
+    };
   }
 
   const room = global.gameRooms[code];
@@ -47,7 +69,7 @@ export async function POST(req: NextRequest) {
       if (!room.locked && !room.buzzed) {
         room.buzzed = playerId;
         room.buzzedName = playerName;
-        room.locked = true; // Auto-lock on buzz
+        room.locked = true;
         room.lastAction = Date.now();
       }
       break;
@@ -71,6 +93,25 @@ export async function POST(req: NextRequest) {
         room.buzzedName = null;
         room.locked = false;
         room.lastAction = Date.now();
+        break;
+    
+    // NEW ACTIONS
+    case 'update_state':
+        if (payload.scores) room.scores = payload.scores;
+        if (payload.gameState) room.gameState = payload.gameState;
+        room.lastAction = Date.now();
+        break;
+    case 'submit_wager':
+        if (playerId && payload.wager !== undefined) {
+            room.wagers[playerId] = payload.wager;
+            room.lastAction = Date.now();
+        }
+        break;
+    case 'submit_answer':
+        if (playerId && payload.answer !== undefined) {
+            room.finalAnswers[playerId] = payload.answer;
+            room.lastAction = Date.now();
+        }
         break;
   }
 

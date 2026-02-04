@@ -40,7 +40,18 @@ function HostGameContent() {
   } = useGame();
 
   const { playSound } = useSound();
-  const { buzzedName, lock, unlock, reset, clear } = useBuzzer(roomCode);
+  const { buzzedName, lock, unlock, reset, clear, updateState, wagers, finalAnswers } = useBuzzer(roomCode);
+
+  // Sync Game State to API so players see it
+  useEffect(() => {
+    // Map internal players array to a Record<id, score> for the API
+    const scoreMap = players.reduce((acc, p) => ({ ...acc, [p.id]: p.score }), {});
+    
+    updateState({ 
+        gameState, 
+        scores: scoreMap 
+    });
+  }, [gameState, players, updateState]);
 
   // unlock buzzer when clue opens (and it's not a daily double)
   useEffect(() => {
@@ -64,18 +75,22 @@ function HostGameContent() {
   };
 
   const handleCompleteClue = (pid: string | null, correct: boolean) => {
+      if (round === 'FINAL' && pid) {
+          const wager = wagers[pid] || 0;
+          updatePlayerScore(pid, correct ? wager : -wager);
+          // Don't close clue automatically for Final Jeopardy so we can grade everyone
+          if (correct) playSound('correct');
+          else playSound('wrong');
+          return;
+      }
+
       completeClue(pid, correct);
       if (correct) {
           playSound('correct');
-          reset(); // Clear buzzer state
+          reset(); 
       } else if (pid !== null) {
           playSound('wrong');
-          reset(); // Clear buzzer state so others can buzz? 
-          // Actually, if wrong, we might want to let others buzz.
-          // For now, let's just reset (which clears 'buzzed' user but keeps 'locked' state until unlock called?)
-          // Our API: reset() -> buzzed=null. 
-          // If we want re-buzz, we need unlock().
-          // Let's assume standard Jeopardy: if wrong, re-open for others.
+          reset(); 
           unlock();
       }
   };
@@ -133,6 +148,8 @@ function HostGameContent() {
           round={round}
           players={players}
           buzzedPlayer={buzzedName}
+          wagers={wagers}
+          finalAnswers={finalAnswers}
           onRevealAnswer={revealAnswer}
           onClose={closeClue}
           onCompleteClue={handleCompleteClue}
