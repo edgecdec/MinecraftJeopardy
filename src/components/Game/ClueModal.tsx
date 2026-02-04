@@ -38,10 +38,45 @@ export default function ClueModal({
   onResetGame
 }: ClueModalProps) {
   const [wager, setWager] = useState('');
+  const [displayedText, setDisplayedText] = useState('');
+  const [charIndex, setCharIndex] = useState(0);
 
   useEffect(() => {
-    if (!open) setWager('');
+    if (!open) {
+        setWager('');
+        setDisplayedText('');
+        setCharIndex(0);
+    }
   }, [open]);
+
+  // Reset typewriter when clue changes
+  useEffect(() => {
+      if (activeClue) {
+          setDisplayedText('');
+          setCharIndex(0);
+      }
+  }, [activeClue]);
+
+  // Typewriter Effect
+  useEffect(() => {
+      if (!activeClue || round === 'FINAL') return; // Don't typewrite final jeopardy clue? Or maybe yes.
+      // Actually standard Final Jeopardy reveals all at once usually.
+      
+      if (gameState === 'ANSWER' || gameState === 'DAILY_DOUBLE_WAGER') {
+          setDisplayedText(activeClue.clue); // Show full
+          return;
+      }
+
+      if (buzzedPlayer) return; // Pause when buzzed
+
+      if (charIndex < activeClue.clue.length) {
+          const timeout = setTimeout(() => {
+              setDisplayedText(prev => prev + activeClue.clue[charIndex]);
+              setCharIndex(prev => prev + 1);
+          }, 30); // Speed: 30ms per char
+          return () => clearTimeout(timeout);
+      }
+  }, [charIndex, activeClue, buzzedPlayer, gameState, round]);
 
   const handleWagerSubmit = () => {
     const amount = parseInt(wager);
@@ -57,7 +92,8 @@ export default function ClueModal({
       <Typography variant="h4" sx={{ mb: 6, color: 'secondary.main', fontFamily: '"Press Start 2P", cursive' }}>
         FINAL JEOPARDY: {activeClue?.category}
       </Typography>
-
+      {/* ... existing Final Jeopardy content ... */}
+      {/* Note: keeping existing Final Jeopardy logic as is, assuming no typewriter needed there for now unless requested */}
       {gameState === 'FINAL_CATEGORY' && (
         <Button variant="contained" size="large" onClick={onAdvanceFinal} sx={{ fontFamily: '"Press Start 2P", cursive' }}>
           REVEAL CATEGORY & WAGER
@@ -113,7 +149,6 @@ export default function ClueModal({
             </Typography>
           </Paper>
           
-          {/* Player Answers Display */}
           <Stack spacing={2} sx={{ mb: 4, alignItems: 'center' }}>
             {players.map(p => (
               <Paper key={p.id} sx={{ p: 2, bgcolor: 'grey.900', border: '2px solid grey', width: '100%', maxWidth: 600, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -185,7 +220,7 @@ export default function ClueModal({
         ) : (
           <>
             <Typography variant="h3" align="center" sx={{ mb: 8, maxWidth: '80%', fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '3rem' } }}>
-              {activeClue.clue}
+              {displayedText}
             </Typography>
             
             {gameState === 'ANSWER' && (
