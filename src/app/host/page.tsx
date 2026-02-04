@@ -80,6 +80,13 @@ function HostGameContent() {
       }
   };
 
+  const handleNextRound = () => {
+    playSound('boardFill');
+    if (round === 'SINGLE') generateBoard('DOUBLE');
+    else if (round === 'DOUBLE') generateBoard('FINAL');
+    else generateBoard('SINGLE');
+  };
+
   return (
     <Box 
       sx={{ 
