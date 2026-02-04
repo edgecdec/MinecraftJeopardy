@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Box, Button, Typography, Container } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 // import { useChannel, usePresence } from "@ably-labs/react-hooks"; 
 
-export default function PlayerPage() {
+function PlayerContent() {
   const searchParams = useSearchParams();
   const name = searchParams.get('name') || 'Steve';
   const code = searchParams.get('code') || 'TEST';
@@ -81,5 +81,13 @@ export default function PlayerPage() {
         </Button>
       )}
     </Box>
+  );
+}
+
+export default function PlayerPage() {
+  return (
+    <Suspense fallback={<Box sx={{ color: 'white', p: 4 }}>Loading Buzzer...</Box>}>
+      <PlayerContent />
+    </Suspense>
   );
 }

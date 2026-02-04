@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -12,7 +12,7 @@ import GameHeader from '@/components/Game/GameHeader';
 import GameBoard from '@/components/Game/GameBoard';
 import ClueModal from '@/components/Game/ClueModal';
 
-export default function HostPage() {
+function HostGameContent() {
   const searchParams = useSearchParams();
   const roomCode = searchParams.get('code') || 'LOCAL';
 
@@ -126,5 +126,13 @@ export default function HostPage() {
         />
       </Container>
     </Box>
+  );
+}
+
+export default function HostPage() {
+  return (
+    <Suspense fallback={<Box sx={{ color: 'white', p: 4 }}>Loading Host...</Box>}>
+      <HostGameContent />
+    </Suspense>
   );
 }
