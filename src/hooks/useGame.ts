@@ -23,7 +23,7 @@ export type Player = {
   score: number;
 };
 
-export type GameState = 'BOARD' | 'CLUE' | 'ANSWER' | 'DAILY_DOUBLE_WAGER' | 'FINAL_CATEGORY' | 'FINAL_WAGER' | 'FINAL_CLUE' | 'FINAL_SCORING';
+export type GameState = 'BOARD' | 'CLUE' | 'ANSWER' | 'DAILY_DOUBLE_WAGER' | 'FINAL_CATEGORY' | 'FINAL_WAGER' | 'FINAL_CLUE' | 'FINAL_SCORING' | 'GAME_OVER';
 export type Round = 'SINGLE' | 'DOUBLE' | 'FINAL';
 
 const STORAGE_KEY = 'minecraft-jeopardy-save-v2';
@@ -233,6 +233,10 @@ export function useGame() {
     }
   }, [activeClue, updatePlayerScore]);
 
+  const endGame = useCallback(() => {
+    setGameState('GAME_OVER');
+  }, []);
+
   const closeClue = useCallback(() => {
     if (activeClue) { setAnsweredClues(prev => new Set(prev).add(activeClue.id)); }
     setGameState('BOARD');
@@ -257,6 +261,7 @@ export function useGame() {
     closeClue,
     generateBoard,
     replaceCategory,
-    advanceFinalJeopardy
+    advanceFinalJeopardy,
+    endGame
   };
 }
