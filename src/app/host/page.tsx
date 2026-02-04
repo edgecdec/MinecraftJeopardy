@@ -45,16 +45,18 @@ function HostGameContent() {
   const { 
     buzzedName, lock, unlock, reset, clear, 
     updateState, updatePlayer, 
-    wagers, finalAnswers, allPlayers 
+    wagers, finalAnswers, allPlayers,
+    gameState: serverGameState 
   } = useBuzzer(roomCode);
 
-  // Sync Game State to API
+  // Sync Game State to API only when it changes locally
   useEffect(() => {
-    updateState({ 
-        gameState, 
-        players: players 
-    });
-  }, [gameState, players, updateState]);
+    if (gameState !== serverGameState) {
+        updateState({ gameState });
+    }
+    // We NO LONGER sync 'players' here to avoid infinite loops. 
+    // Players are managed by the API (joins) and specific updatePlayer calls.
+  }, [gameState, serverGameState, updateState]);
 
   // unlock buzzer when clue opens (and it's not a daily double)
   useEffect(() => {
