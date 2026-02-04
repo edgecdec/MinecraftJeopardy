@@ -12,6 +12,8 @@ import GameHeader from '@/components/Game/GameHeader';
 import GameBoard from '@/components/Game/GameBoard';
 import ClueModal from '@/components/Game/ClueModal';
 
+import { useBuzzer } from '@/hooks/useBuzzer';
+
 function HostGameContent() {
   const searchParams = useSearchParams();
   const roomCode = searchParams.get('code') || 'LOCAL';
@@ -38,6 +40,16 @@ function HostGameContent() {
   } = useGame();
 
   const { playSound } = useSound();
+  const { buzzed, lock, unlock, reset, clear } = useBuzzer(roomCode);
+
+  // unlock buzzer when clue opens (and it's not a daily double)
+  useEffect(() => {
+    if (activeClue && !activeClue.isDailyDouble && gameState === 'CLUE') {
+        unlock();
+    } else {
+        lock();
+    }
+  }, [activeClue, gameState]);
 
   const handleScoreAdjust = (player: string, amount: number) => {
     updatePlayerScore(player, amount);
@@ -48,25 +60,24 @@ function HostGameContent() {
   const handleSelectClue = (clue: any) => {
     playSound('click');
     selectClue(clue);
-  };
-
-  useEffect(() => {
-    if (gameState === 'DAILY_DOUBLE_WAGER') {
-        playSound('dailyDouble');
-    }
-  }, [gameState, playSound]);
-
-  const handleNextRound = () => {
-    playSound('boardFill');
-    if (round === 'SINGLE') generateBoard('DOUBLE');
-    else if (round === 'DOUBLE') generateBoard('FINAL');
-    else generateBoard('SINGLE');
+    // Buzzer unlock handled by effect above
   };
 
   const handleCompleteClue = (pid: string | null, correct: boolean) => {
       completeClue(pid, correct);
-      if (correct) playSound('correct');
-      else if (pid !== null) playSound('wrong');
+      if (correct) {
+          playSound('correct');
+          reset(); // Clear buzzer state
+      } else if (pid !== null) {
+          playSound('wrong');
+          reset(); // Clear buzzer state so others can buzz? 
+          // Actually, if wrong, we might want to let others buzz.
+          // For now, let's just reset (which clears 'buzzed' user but keeps 'locked' state until unlock called?)
+          // Our API: reset() -> buzzed=null. 
+          // If we want re-buzz, we need unlock().
+          // Let's assume standard Jeopardy: if wrong, re-open for others.
+          unlock();
+      }
   };
 
   return (
