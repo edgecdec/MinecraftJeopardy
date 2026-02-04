@@ -10,7 +10,7 @@ function PlayerContent() {
   const name = searchParams.get('name') || 'Steve';
   const code = searchParams.get('code') || 'TEST';
 
-  const { buzzedId, buzzedName, locked, buzz, isMe, gameState, myScore, submitWager, submitAnswer, wagers, finalAnswers, deviceId } = useBuzzer(code, name);
+  const { buzzedId, buzzedName, locked, buzz, isMe, gameState, myScore, submitWager, submitAnswer, wagers, finalAnswers, deviceId, allPlayers } = useBuzzer(code, name);
   const [localWager, setLocalWager] = useState('');
   const [localAnswer, setLocalAnswer] = useState('');
   const [wagerSubmitted, setWagerSubmitted] = useState(false);
