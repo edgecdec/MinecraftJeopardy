@@ -10,21 +10,19 @@ function PlayerContent() {
   const name = searchParams.get('name') || 'Steve';
   const code = searchParams.get('code') || 'TEST';
 
-  const { buzzed, locked, buzz } = useBuzzer(code, name);
+  const { buzzedId, buzzedName, locked, buzz, isMe } = useBuzzer(code, name);
 
   const handleBuzz = () => {
-    if (!locked && !buzzed) {
+    if (!locked && !buzzedId) {
       buzz();
     }
   };
-
-  const isWinner = buzzed === name;
 
   return (
     <Box 
       sx={{ 
         minHeight: '100vh', 
-        bgcolor: isWinner ? 'success.dark' : buzzed ? 'error.dark' : '#121212',
+        bgcolor: isMe ? 'success.dark' : buzzedId ? 'error.dark' : '#121212',
         color: 'white',
         display: 'flex',
         flexDirection: 'column',
@@ -38,9 +36,9 @@ function PlayerContent() {
         ROOM: {code} | PLAYER: {name}
       </Typography>
 
-      {buzzed ? (
+      {buzzedId ? (
         <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', textAlign: 'center', mb: 4 }}>
-          {isWinner ? 'YOU BUZZED!' : `${buzzed} BUZZED!`}
+          {isMe ? 'YOU BUZZED!' : `${buzzedName} BUZZED!`}
         </Typography>
       ) : (
         <Button

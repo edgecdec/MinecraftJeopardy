@@ -4,11 +4,23 @@ import { useState, useEffect, useCallback } from 'react';
 
 interface RoomState {
   locked: boolean;
-  buzzed: string | null;
+  buzzed: string | null; // This is the ID of the person who buzzed
+  buzzedName: string | null; // This is the visible name
 }
 
 export function useBuzzer(code: string, playerName?: string) {
-  const [state, setState] = useState<RoomState>({ locked: true, buzzed: null });
+  const [state, setState] = useState<RoomState>({ locked: true, buzzed: null, buzzedName: null });
+  const [deviceId, setDeviceId] = useState<string>('');
+
+  useEffect(() => {
+    // Generate or retrieve persistent Device ID
+    let id = localStorage.getItem('jeopardy_device_id');
+    if (!id) {
+      id = Math.random().toString(36).substring(2) + Date.now().toString(36);
+      localStorage.setItem('jeopardy_device_id', id);
+    }
+    setDeviceId(id);
+  }, []);
 
   const fetchState = useCallback(async () => {
     try {
@@ -24,23 +36,25 @@ export function useBuzzer(code: string, playerName?: string) {
 
   useEffect(() => {
     if (!code) return;
-    
-    // Initial fetch
     fetchState();
-
-    // Poll every 500ms
     const interval = setInterval(fetchState, 500);
     return () => clearInterval(interval);
   }, [code, fetchState]);
 
   const performAction = async (action: string) => {
+    if (!deviceId) return;
     try {
       await fetch('/api/game', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, action, player: playerName })
+        body: JSON.stringify({ 
+          code, 
+          action, 
+          playerId: deviceId,
+          playerName: playerName 
+        })
       });
-      fetchState(); // Immediate sync
+      fetchState();
     } catch (e) {
       console.error("Failed to perform action", e);
     }
@@ -48,7 +62,9 @@ export function useBuzzer(code: string, playerName?: string) {
 
   return {
     locked: state.locked,
-    buzzed: state.buzzed,
+    buzzedId: state.buzzed,
+    buzzedName: state.buzzedName,
+    isMe: state.buzzed === deviceId,
     buzz: () => performAction('buzz'),
     lock: () => performAction('lock'),
     unlock: () => performAction('unlock'),

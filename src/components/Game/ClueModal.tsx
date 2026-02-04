@@ -10,6 +10,7 @@ interface ClueModalProps {
   gameState: GameState;
   round: Round;
   players: Player[];
+  buzzedPlayer?: string | null;
   onRevealAnswer: () => void;
   onClose: () => void;
   onCompleteClue: (playerId: string | null, correct: boolean) => void;
@@ -24,6 +25,7 @@ export default function ClueModal({
   gameState,
   round,
   players,
+  buzzedPlayer,
   onRevealAnswer,
   onClose,
   onCompleteClue,
@@ -78,6 +80,27 @@ export default function ClueModal({
         ].map((pos, i) => (
           <Box key={i} sx={{ position: 'absolute', ...pos, width: 20, height: 20, bgcolor: 'grey.500', boxShadow: '2px 2px #000', border: '1px solid #fff' }} />
         ))}
+
+        {/* BUZZER NOTIFICATION OVERLAY */}
+        {buzzedPlayer && (
+          <Paper 
+            elevation={24}
+            sx={{ 
+              position: 'absolute', 
+              top: '10%', 
+              bgcolor: 'error.main', 
+              color: 'white', 
+              p: 4, 
+              border: '4px solid white', 
+              zIndex: 9999,
+              animation: 'pulse 0.5s infinite alternate'
+            }}
+          >
+            <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', textShadow: '4px 4px #000' }}>
+              {buzzedPlayer} BUZZED!
+            </Typography>
+          </Paper>
+        )}
 
         {round === 'FINAL' && activeClue ? (
           <>

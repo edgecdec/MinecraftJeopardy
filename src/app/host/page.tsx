@@ -40,7 +40,7 @@ function HostGameContent() {
   } = useGame();
 
   const { playSound } = useSound();
-  const { buzzed, lock, unlock, reset, clear } = useBuzzer(roomCode);
+  const { buzzedName, lock, unlock, reset, clear } = useBuzzer(roomCode);
 
   // unlock buzzer when clue opens (and it's not a daily double)
   useEffect(() => {
@@ -125,6 +125,7 @@ function HostGameContent() {
           gameState={gameState}
           round={round}
           players={players}
+          buzzedPlayer={buzzedName}
           onRevealAnswer={revealAnswer}
           onClose={closeClue}
           onCompleteClue={handleCompleteClue}

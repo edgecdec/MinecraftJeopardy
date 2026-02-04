@@ -14,7 +14,8 @@ if (!global.gameRooms) {
 
 interface RoomState {
   locked: boolean;
-  buzzed: string | null;
+  buzzed: string | null; // Player ID
+  buzzedName: string | null; // Player Name
   lastAction: number;
 }
 
@@ -24,19 +25,19 @@ export async function GET(req: NextRequest) {
 
   if (!code) return NextResponse.json({ error: 'Code required' }, { status: 400 });
 
-  const room = global.gameRooms[code] || { locked: true, buzzed: null, lastAction: Date.now() };
+  const room = global.gameRooms[code] || { locked: true, buzzed: null, buzzedName: null, lastAction: Date.now() };
   return NextResponse.json(room);
 }
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { code, action, player } = body;
+  const { code, action, playerId, playerName } = body;
 
   if (!code) return NextResponse.json({ error: 'Code required' }, { status: 400 });
 
   // Init room if not exists
   if (!global.gameRooms[code]) {
-    global.gameRooms[code] = { locked: true, buzzed: null, lastAction: Date.now() };
+    global.gameRooms[code] = { locked: true, buzzed: null, buzzedName: null, lastAction: Date.now() };
   }
 
   const room = global.gameRooms[code];
@@ -44,7 +45,8 @@ export async function POST(req: NextRequest) {
   switch (action) {
     case 'buzz':
       if (!room.locked && !room.buzzed) {
-        room.buzzed = player;
+        room.buzzed = playerId;
+        room.buzzedName = playerName;
         room.locked = true; // Auto-lock on buzz
         room.lastAction = Date.now();
       }
@@ -55,15 +57,18 @@ export async function POST(req: NextRequest) {
       break;
     case 'unlock':
       room.locked = false;
-      room.buzzed = null; // Clear previous buzz on unlock
+      room.buzzed = null;
+      room.buzzedName = null;
       room.lastAction = Date.now();
       break;
     case 'reset':
       room.buzzed = null;
+      room.buzzedName = null;
       room.lastAction = Date.now();
       break;
     case 'clear':
         room.buzzed = null;
+        room.buzzedName = null;
         room.locked = false;
         room.lastAction = Date.now();
         break;
