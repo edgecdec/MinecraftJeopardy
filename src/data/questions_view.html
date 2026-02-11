@@ -1,19 +1,37 @@
-{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Jeopardy Questions</title>
+    <style>
+        body { font-family: monospace; background-color: #f4f4f4; padding: 20px; }
+        .category { background: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { margin-top: 0; color: #333; }
+        .question { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .difficulty { font-weight: bold; color: #555; }
+        .clue { color: #000; }
+        .answer { color: #0077cc; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Minecraft Jeopardy Question Pool</h1>
+    <div id="content"></div>
+    <script>
+        const data = {
   "categories": [
     {
       "name": "Update 1.21",
-      "description": "Questions regarding the latest major Minecraft update, focusing on Trial Chambers, the Breeze, and new blocks.",
       "pool": [
         { "difficulty": 1, "clue": "This new hostile mob, found in Trial Chambers, moves by jumping and shoots wind charges.", "answer": "The Breeze" },
         { "difficulty": 2, "clue": "What specific item is required to breed two Armadillos?", "answer": "Spider Eye" },
-        { "difficulty": 3, "clue": "This new item, dropped by the Breeze, can be used by players to leap into the air or activate components from a distance.", "answer": "Wind Charge" },
+        { "difficulty": 3, "clue": "This new block, found in Trial Chambers, automatically crafts items when powered by Redstone.", "answer": "Crafter" },
         { "difficulty": 4, "clue": "Breeze Rods can be crafted into exactly how many Wind Charges?", "answer": "4" },
         { "difficulty": 5, "clue": "Which block surrounds the Trial Spawner that specifically spawns a Breeze?", "answer": "Chiseled Tuff" }
       ]
     },
     {
       "name": "Redstone",
-      "description": "Fundamental concepts and components of Minecraft's complex engineering and logic system.",
       "pool": [
         { "difficulty": 1, "clue": "What is the maximum number of blocks a piston can push?", "answer": "12" },
         { "difficulty": 2, "clue": "How many Redstone ticks are in one real-world second?", "answer": "10" },
@@ -24,7 +42,6 @@
     },
     {
       "name": "Technical",
-      "description": "Deep-level game mechanics, debug shortcuts, and technical entity data.",
       "pool": [
         { "difficulty": 1, "clue": "What key combination shows the debug screen in Java Edition?", "answer": "F3" },
         { "difficulty": 2, "clue": "Pressing F3 + G toggles the visibility of what?", "answer": "Chunk Borders" },
@@ -35,7 +52,6 @@
     },
     {
       "name": "Mobs",
-      "description": "Facts, stats, and behaviors of the various creatures inhabiting the Minecraft world.",
       "pool": [
         { "difficulty": 1, "clue": "Which mob drops a Totem of Undying?", "answer": "Evoker" },
         { "difficulty": 2, "clue": "This is the only mob in the game that can be 'milked' with a bowl to obtain Mushroom Stew.", "answer": "Mooshroom" },
@@ -46,7 +62,6 @@
     },
     {
       "name": "Survival",
-      "description": "Core gameplay mechanics, essential item stats, and survival strategies.",
       "pool": [
         { "difficulty": 1, "clue": "Which food item provides the most saturation in the game?", "answer": "Golden Carrot (or Dandelion Suspicious Stew)" },
         { "difficulty": 2, "clue": "Exactly how many blocks of Obsidian are needed for a minimum size Nether Portal frame?", "answer": "10" },
@@ -57,7 +72,6 @@
     },
     {
       "name": "Structures",
-      "description": "Details about naturally generating ruins, monuments, and buildings across all dimensions.",
       "pool": [
         { "difficulty": 1, "clue": "In which structure can you find an Elytra?", "answer": "End Ship (End City)" },
         { "difficulty": 2, "clue": "These small blue spirits (Allays) can be found trapped in cages at Pillager Outposts and inside which other structure?", "answer": "Woodland Mansion" },
@@ -68,7 +82,6 @@
     },
     {
       "name": "Commands",
-      "description": "Usage and syntax of slash commands, target selectors, and internal game rules.",
       "pool": [
         { "difficulty": 1, "clue": "Which command is used to grant a player a specific item?", "answer": "/give" },
         { "difficulty": 2, "clue": "This target selector argument is used to select all entities, not just players.", "answer": "@e" },
@@ -79,7 +92,6 @@
     },
     {
       "name": "Speedrun",
-      "description": "Strategies, glitches, and specific RNG rates used by the competitive speedrunning community.",
       "pool": [
         { "difficulty": 1, "clue": "What item do speedrunners trade with Piglins to get Ender Pearls?", "answer": "Gold Ingot" },
         { "difficulty": 2, "clue": "In the 'Any%' category, what is the final goal?", "answer": "Enter the End Portal (after defeating the Dragon)" },
@@ -90,7 +102,6 @@
     },
     {
       "name": "Secrets",
-      "description": "Easter eggs, hidden features, and rare occurrences hidden throughout the game.",
       "pool": [
         { "difficulty": 1, "clue": "Naming a sheep this will cause its wool to cycle through rainbow colors.", "answer": "jeb_" },
         { "difficulty": 2, "clue": "Naming any mob 'Dinnerbone' or 'Grumm' causes it to do this.", "answer": "Turn upside down" },
@@ -101,7 +112,6 @@
     },
     {
       "name": "Deep Tech",
-      "description": "Advanced game engine concepts, chunk loading, and internal technical limits.",
       "pool": [
         { "difficulty": 1, "clue": "How many items make up a standard stack?", "answer": "64" },
         { "difficulty": 2, "clue": "What is the maximum number of mobs that can occupy one block before taking suffocation damage (Entity Cramming)?", "answer": "24" },
@@ -112,7 +122,6 @@
     },
     {
       "name": "Biomes",
-      "description": "Unique characteristics and rare variations of Minecraft's natural environments.",
       "pool": [
         { "difficulty": 1, "clue": "In which biome are you most likely to find Ocelots?", "answer": "Jungle" },
         { "difficulty": 2, "clue": "Which biome features the highest frequency of Gold Ore generation?", "answer": "Badlands (Mesa)" },
@@ -123,7 +132,6 @@
     },
     {
       "name": "Potions",
-      "description": "Brewing recipes, effect durations, and advanced alchemy mechanics.",
       "pool": [
         { "difficulty": 1, "clue": "What item is the base ingredient for almost all functional potions?", "answer": "Nether Wart" },
         { "difficulty": 2, "clue": "Which ingredient is added to a potion to reverse its effect (e.g., Healing to Harming)?", "answer": "Fermented Spider Eye" },
@@ -134,7 +142,6 @@
     },
     {
       "name": "Enchanting",
-      "description": "Enhancing gear with magical properties and understanding technical protection mechanics.",
       "pool": [
         { "difficulty": 1, "clue": "This Mace-exclusive enchantment increases the smash attack damage dealt per block fallen.", "answer": "Density" },
         { "difficulty": 2, "clue": "This treasure enchantment, found exclusively in Ancient Cities, increases the player's movement speed while crouching.", "answer": "Swift Sneak" },
@@ -145,7 +152,6 @@
     },
     {
       "name": "Advanced Crafting",
-      "description": "Complex items identified by their raw, unprocessed base materials and crafting steps.",
       "pool": [
         { "difficulty": 1, "clue": "Identify the item crafted from these raw materials: 3 Sugarcane and 1 Leather.", "answer": "Book" },
         { "difficulty": 2, "clue": "Identify the item crafted from these raw materials: 3 Sticks, 3 String, 7 Cobblestone, and 1 Redstone Dust.", "answer": "Dispenser" },
@@ -156,7 +162,6 @@
     },
     {
       "name": "History & Dev",
-      "description": "The development timeline, key figures, and corporate milestones of Minecraft's history.",
       "pool": [
         { "difficulty": 1, "clue": "This company acquired Mojang Studios in 2014 for $2.5 billion.", "answer": "Microsoft" },
         { "difficulty": 2, "clue": "Who is the original creator of Minecraft, known by his alias 'Notch'?", "answer": "Markus Persson" },
@@ -167,7 +172,6 @@
     },
     {
       "name": "Removed Features",
-      "description": "A look back at content, blocks, and mechanics that have been deleted from the game.",
       "pool": [
         { "difficulty": 1, "clue": "Which block was used to activate the Nether Reactor in Minecraft Pocket Edition?", "answer": "Nether Reactor Core" },
         { "difficulty": 2, "clue": "In early Indev versions, players would spawn in a small, pre-built structure known as this.", "answer": "Indev House (or Starter House)" },
@@ -178,7 +182,6 @@
     },
     {
       "name": "Combat Mechanics",
-      "description": "Technical details of damage calculation, health stats, and combat timing mechanics.",
       "pool": [
         { "difficulty": 1, "clue": "How many hearts of health does a player have by default?", "answer": "10 Hearts (20 HP)" },
         { "difficulty": 2, "clue": "A critical hit is performed by attacking while the player is moving in this direction.", "answer": "Downwards" },
@@ -189,7 +192,6 @@
     },
     {
       "name": "Farming & Food",
-      "description": "Mechanics of agricultural growth, crop stages, and food item properties.",
       "pool": [
         { "difficulty": 1, "clue": "This purple fruit can be eaten even when the player's hunger bar is full.", "answer": "Chorus Fruit" },
         { "difficulty": 2, "clue": "How many growth stages does a Cocoa Pod have?", "answer": "3" },
@@ -200,7 +202,6 @@
     },
     {
       "name": "Dimensions",
-      "description": "Specific facts and mechanics unique to the Overworld, Nether, and End dimensions.",
       "pool": [
         { "difficulty": 1, "clue": "What tool is required to mine Nether Portal blocks (Obsidian)?", "answer": "Diamond Pickaxe (or Netherite)" },
         { "difficulty": 2, "clue": "Water placed in the Nether immediately does this.", "answer": "Evaporates (Turns to steam/particles)" },
@@ -211,7 +212,6 @@
     },
     {
       "name": "Sound Design",
-      "description": "The origins, technical implementation, and hidden audio secrets of Minecraft.",
       "pool": [
         { "difficulty": 1, "clue": "When viewed in a spectrogram, the audio file for 'Disc 11' (or cave14.ogg) reveals a hidden image of this mob's face.", "answer": "Creeper" },
         { "difficulty": 2, "clue": "This hostile mob's idle sounds are actually recordings of a water hose.", "answer": "Spider" },
@@ -222,7 +222,6 @@
     },
     {
       "name": "Block Properties",
-      "description": "Blast resistance, light emission, and unique physical interactions of specific blocks.",
       "pool": [
         { "difficulty": 1, "clue": "Besides Bedrock and Obsidian, this common block found in the End cannot be destroyed by the Ender Dragon.", "answer": "End Stone" },
         { "difficulty": 2, "clue": "What is the light level emitted by a Torch?", "answer": "14" },
@@ -233,7 +232,6 @@
     },
     {
       "name": "Villager Trading",
-      "description": "Economic mechanics, professions, and rare variant mechanics of Villagers.",
       "pool": [
         { "difficulty": 1, "clue": "What is the universal currency item used for trading with Villagers?", "answer": "Emerald" },
         { "difficulty": 2, "clue": "Which job site block is required to employ a Villager as a Librarian?", "answer": "Lectern" },
@@ -244,7 +242,6 @@
     },
     {
       "name": "Transport",
-      "description": "Mechanics and efficiency of player and entity movement methods across the world.",
       "pool": [
         { "difficulty": 1, "clue": "Which rail type is used to accelerate Minecarts?", "answer": "Powered Rail" },
         { "difficulty": 2, "clue": "This animal can be ridden with a Saddle but requires a Carrot on a Stick to control.", "answer": "Pig" },
@@ -255,7 +252,6 @@
     },
     {
       "name": "Community & Mods",
-      "description": "Famous community-created content, mini-games, and historical modding milestones.",
       "pool": [
         { "difficulty": 1, "clue": "This popular survival map challenges players to survive on a tiny floating island with minimal resources.", "answer": "Skyblock" },
         { "difficulty": 2, "clue": "This popular mini-game involves protecting a bed while destroying opponents' beds.", "answer": "Bedwars" },
@@ -266,7 +262,6 @@
     },
     {
       "name": "Hermitcraft",
-      "description": "Personalities and history of the long-running private Survival Multiplayer series.",
       "pool": [
         { "difficulty": 1, "clue": "Known for his iconic mustache and complex Redstone, this Hermit often builds massive over-engineered contraptions.", "answer": "Mumbo Jumbo" },
         { "difficulty": 2, "clue": "This Hermit is famous for his chaotic building style, starting server 'wars', and the 'Hermit Challenges' series.", "answer": "Grian" },
@@ -277,7 +272,6 @@
     },
     {
       "name": "Minecraft Legends",
-      "description": "Iconic and influential YouTubers who shaped the game's culture and legacy.",
       "pool": [
         { "difficulty": 1, "clue": "Known for the 'Diamond Minecart' and his blue hair, this YouTuber famously lived in a lab with his skeleton dog, Grim.", "answer": "DanTDM" },
         { "difficulty": 2, "clue": "This creator became a global phenomenon with his 'Minecraft Manhunt' series and his iconic white smiley face skin.", "answer": "Dream" },
@@ -288,7 +282,6 @@
     },
     {
       "name": "Iconic Groups",
-      "description": "Famous server collectives, teams, and factions throughout Minecraft's history.",
       "pool": [
         { "difficulty": 1, "clue": "This massive roleplay server, founded by a famously controversial speedrunner in 2020, became a global phenomenon for its scripted storylines and political factions.", "answer": "Dream SMP" },
         { "difficulty": 2, "clue": "This long-running private server group is famous for its incredible builders, technical geniuses, and its 'Season' format which began in 2012.", "answer": "Hermitcraft" },
@@ -310,7 +303,48 @@
     { "category": "Server Tech", "clue": "This is the default TCP port number used for hosting a Minecraft Java Edition server.", "answer": "25565" },
     { "category": "Removed Mechanics", "clue": "In version 1.9, the crafting recipe for this powerful golden item was permanently removed from the game.", "answer": "Enchanted Golden Apple (Notch Apple)" },
     { "category": "Audio History", "clue": "This iconic sound effect, played when a player took damage, was removed in Beta 1.7.3 and replaced with a generic 'damage tick' sound.", "answer": "The 'Oof' Sound" },
-    { "category": "World Generation", "clue": "In the Nether, this Y-coordinate represents the highest layer of bedrock generation (the ceiling).", "answer": "Y=127" },
-    { "category": "Obscure History", "clue": "In very early versions, this block was known as 'Adminium' and was used to define the boundaries of the world.", "answer": "Bedrock" }
+    { "category": "World Generation", "clue": "In the Nether, this Y-coordinate represents the highest layer of bedrock generation (the ceiling).", "answer": "Y=127" }
   ]
 }
+        };
+
+        const contentDiv = document.getElementById('content');
+        data.categories.forEach(category => {
+            const catDiv = document.createElement('div');
+            catDiv.className = 'category';
+            const h2 = document.createElement('h2');
+            h2.textContent = category.name;
+            catDiv.appendChild(h2);
+
+            category.pool.forEach(q => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                qDiv.innerHTML = `
+                    <span class="difficulty">Difficulty ${q.difficulty}:</span>
+                    <span class="clue">${q.clue}</span><br>
+                    <span class="answer">Answer: ${q.answer}</span>
+                `;
+                catDiv.appendChild(qDiv);
+            });
+            contentDiv.appendChild(catDiv);
+        });
+
+        // Final Jeopardy
+        const finalDiv = document.createElement('div');
+        finalDiv.className = 'category';
+        finalDiv.innerHTML = '<h2>Final Jeopardy</h2>';
+        data.finalJeopardy.forEach(q => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question';
+            qDiv.innerHTML = `
+                <span class="difficulty">Category: ${q.category}</span><br>
+                <span class="clue">${q.clue}</span><br>
+                <span class="answer">Answer: ${q.answer}</span>
+            `;
+            finalDiv.appendChild(qDiv);
+        });
+        contentDiv.appendChild(finalDiv);
+
+    </script>
+</body>
+</html>

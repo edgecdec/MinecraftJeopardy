@@ -14,6 +14,7 @@ export type Clue = {
 
 export type Category = {
   category: string;
+  description?: string;
   clues: Clue[];
 };
 
@@ -69,8 +70,13 @@ export function useGame() {
           answer: poolClue.answer
         });
       }
-      return { category: cat.name, clues: selectedClues };
-    });
+            return {
+              category: cat.name,
+              description: cat.description,
+              clues: selectedClues
+            };
+          });
+      
 
     setQuestions(newBoard);
     setAnsweredClues(new Set());
@@ -175,7 +181,11 @@ export function useGame() {
         });
       }
       
-      const newCategoryBoard = { category: newCatData.name, clues: selectedClues };
+      const newCategoryBoard = { 
+        category: newCatData.name, 
+        description: newCatData.description,
+        clues: selectedClues 
+      };
       const newQuestions = prevQuestions.map(q => q.category === categoryName ? newCategoryBoard : q);
       
       // Re-roll DDs if lost? Simplified: just leave existing DDs. 
