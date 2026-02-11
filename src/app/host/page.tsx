@@ -20,11 +20,6 @@ function HostGameContent() {
   const roomCode = searchParams.get('code') || 'LOCAL';
 
   const { 
-    players,
-    addPlayer,
-    removePlayer,
-    updatePlayerName,
-    updatePlayerScore,
     answeredClues, 
     activeClue, 
     gameState, 
@@ -45,6 +40,7 @@ function HostGameContent() {
   const { 
     buzzedName, lock, unlock, reset, clear, 
     updateState, updatePlayer, removePlayer: removePlayerApi,
+    addPlayer: addPlayerApi,
     wagers, finalAnswers, allPlayers,
     gameState: serverGameState 
   } = useBuzzer(roomCode);
@@ -54,8 +50,6 @@ function HostGameContent() {
     if (gameState !== serverGameState) {
         updateState({ gameState });
     }
-    // We NO LONGER sync 'players' here to avoid infinite loops. 
-    // Players are managed by the API (joins) and specific updatePlayer calls.
   }, [gameState, serverGameState, updateState]);
 
   // unlock buzzer when clue opens (and it's not a daily double)
@@ -86,10 +80,7 @@ function HostGameContent() {
   };
 
   const handleCompleteClue = (pid: string | null, correct: boolean) => {
-      // Find the player object to get current score if needed, or just send delta
       const player = allPlayers?.find(p => p.id === pid);
-      
-      // Capture value BEFORE completeClue resets it
       const clueValue = activeClue?.value || 0;
 
       if (round === 'FINAL' && pid && player) {
@@ -101,10 +92,9 @@ function HostGameContent() {
           return;
       }
 
-      completeClue(pid, correct); // Advances game state locally (close clue)
+      completeClue(pid, correct); 
       
       if (pid && player) {
-         // Apply score to API using captured value
          updatePlayer(pid, { score: player.score + (correct ? clueValue : -clueValue) });
       }
 
@@ -127,11 +117,10 @@ function HostGameContent() {
     playSound('boardFill');
     if (round === 'SINGLE') generateBoard('DOUBLE');
     else if (round === 'DOUBLE') generateBoard('FINAL');
-    else endGame(); // Was generateBoard('SINGLE') reset logic
+    else endGame(); 
   };
 
   const handleFullReset = () => {
-      // Optional: Reset all scores to 0 here if desired
       allPlayers?.forEach(p => updatePlayer(p.id, { score: 0 }));
       generateBoard('SINGLE');
   };
@@ -183,11 +172,7 @@ function HostGameContent() {
           players={allPlayers || []} 
           onAdjust={handleScoreAdjust} 
           onUpdateName={handleUpdateName}
-          onAddPlayer={addPlayer} // Keep local add? No, should be removed or adapted.
-          // Actually, Host can still add "Bot" players locally if needed, but for now let's just pass empty or adapt
-          // The ScoreBoard expects onAddPlayer. 
-          // Since we are moving to "Players Join", we might want to hide the "Add" button or make it generate a dummy player via API.
-          // Let's implement a dummy add via API.
+          onAddPlayer={addPlayerApi} 
           onRemovePlayer={removePlayerApi} 
         />
 

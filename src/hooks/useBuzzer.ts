@@ -116,6 +116,7 @@ export function useBuzzer(code: string, playerName?: string) {
     unlock: () => performAction('unlock'),
     clear: () => performAction('clear'),
     reset: () => performAction('reset'),
+    addPlayer: () => performAction('add_player'),
     updateState: (newState: { players?: any[], gameState?: string }) => performAction('update_state', newState),
     updatePlayer: (id: string, updates: { score?: number, name?: string }) => performAction('update_player', updates, id),
     removePlayer: (id: string) => performAction('remove_player', {}, id),

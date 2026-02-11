@@ -55,12 +55,26 @@ export async function POST(req: NextRequest) {
   switch (action) {
     case 'join':
         if (playerId && playerName) {
-            const exists = room.players.find(p => p.id === playerId);
-            if (!exists) {
-                room.players.push({ id: playerId, name: playerName, score: 0 });
+            const existingPlayerIndex = room.players.findIndex(p => p.id === playerId);
+            if (existingPlayerIndex === -1) {
+                let safeName = playerName;
+                let suffix = 1;
+                while (room.players.some(p => p.name === safeName)) {
+                    safeName = `${playerName} (${suffix++})`;
+                }
+                room.players.push({ id: playerId, name: safeName, score: 0 });
+            } else {
+                room.players[existingPlayerIndex].name = playerName;
             }
         }
         break;
+
+    case 'add_player':
+        const newId = `bot-${Math.random().toString(36).substring(2, 7)}`;
+        const botName = `Player ${room.players.length + 1}`;
+        room.players.push({ id: newId, name: botName, score: 0 });
+        break;
+
     case 'buzz':
       if (!room.locked && !room.buzzed) {
         room.buzzed = playerId;
