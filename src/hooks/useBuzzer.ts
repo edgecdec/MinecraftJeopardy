@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 interface RoomState {
-  hostId: string | null;
+  // hostId is hidden now
   locked: boolean;
   buzzed: string | null;
   buzzedName: string | null;
@@ -16,7 +16,6 @@ interface RoomState {
 
 export function useBuzzer(code: string, playerName?: string) {
   const [state, setState] = useState<RoomState>({ 
-    hostId: null,
     locked: true, 
     buzzed: null, 
     buzzedName: null,
@@ -25,6 +24,7 @@ export function useBuzzer(code: string, playerName?: string) {
     wagers: {},
     finalAnswers: {}
   });
+  const [isHost, setIsHost] = useState(false); // Local state for role
   const [deviceId, setDeviceId] = useState<string>('');
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const socketRef = useRef<Socket | null>(null);
@@ -57,6 +57,10 @@ export function useBuzzer(code: string, playerName?: string) {
         setState(newState);
     });
 
+    socket.on('set_role', (role: string) => {
+        setIsHost(role === 'host');
+    });
+
     socket.on('host_taken', () => {
         setConnectionError('This room already has a host.');
         socket.disconnect();
@@ -81,7 +85,6 @@ export function useBuzzer(code: string, playerName?: string) {
 
   const myPlayer = state.players.find(p => p.id === deviceId);
   const myScore = myPlayer ? myPlayer.score : 0;
-  const isHost = state.hostId === deviceId;
 
   return {
     connectionError,

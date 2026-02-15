@@ -27,6 +27,12 @@ const getInitialState = () => ({
   finalAnswers: {}
 });
 
+// Helper to remove secrets before broadcasting
+const getPublicState = (room) => {
+    const { hostId, ...publicState } = room;
+    return publicState;
+};
+
 app.prepare().then(() => {
   const httpServer = createServer(async (req, res) => {
     try {
@@ -70,14 +76,19 @@ app.prepare().then(() => {
        if (!rooms[roomCode]) rooms[roomCode] = getInitialState();
        const room = rooms[roomCode];
 
+       let assignedRole = 'player';
+
        if (role === 'host') {
            if (!room.hostId) {
                room.hostId = playerId;
                console.log(`Room ${roomCode} claimed by host ${playerId}`);
-           } else if (room.hostId !== playerId) {
-               // Host taken!
+               assignedRole = 'host';
+           } else if (room.hostId === playerId) {
+               // Rejoining host
+               assignedRole = 'host';
+           } else {
                socket.emit('host_taken');
-               return; // Do not send state_update, do not allow view
+               return; 
            }
        } else {
            if (playerId && name) {
@@ -85,8 +96,17 @@ app.prepare().then(() => {
                if (!existing) room.players.push({ id: playerId, name, score: 0 });
                else existing.name = name;
            }
+           // Check if this player is actually the host rejoining as "player" (shouldn't happen often but good fallback)
+           if (room.hostId === playerId) {
+               assignedRole = 'host';
+           }
        }
-       io.to(roomCode).emit('state_update', room);
+
+       // Tell the specific client their role (Securely)
+       socket.emit('set_role', assignedRole);
+
+       // Broadcast public state (WITHOUT hostId)
+       io.to(roomCode).emit('state_update', getPublicState(room));
     });
 
     socket.on('game_action', ({ code, action, payload, senderId, targetId }) => {
@@ -94,28 +114,35 @@ app.prepare().then(() => {
         if (!rooms[roomCode]) return;
         const room = rooms[roomCode];
 
+        const isHost = (room.hostId && room.hostId === senderId);
+
+        // Public Actions
         if (action === 'buzz') {
             if (!room.locked && !room.buzzed) {
                 room.buzzed = senderId;
                 const p = room.players.find(pl => pl.id === senderId);
                 room.buzzedName = p ? p.name : 'Unknown';
                 room.locked = true;
-                io.to(roomCode).emit('state_update', room);
+                io.to(roomCode).emit('state_update', getPublicState(room));
             }
             return;
         }
         if (action === 'submit_wager') {
             room.wagers[senderId] = payload.wager;
-            io.to(roomCode).emit('state_update', room);
+            io.to(roomCode).emit('state_update', getPublicState(room));
             return;
         }
         if (action === 'submit_answer') {
             room.finalAnswers[senderId] = payload.answer;
-            io.to(roomCode).emit('state_update', room);
+            io.to(roomCode).emit('state_update', getPublicState(room));
             return;
         }
 
-        if (room.hostId && room.hostId !== senderId) return;
+        // Host-Only Actions
+        if (!isHost) {
+            // console.log(`Unauthorized action ${action} from ${senderId}`);
+            return; 
+        }
 
         switch (action) {
             case 'lock': room.locked = true; break;
@@ -135,7 +162,7 @@ app.prepare().then(() => {
                 room.players.push({ id: botId, name: `Player ${room.players.length+1}`, score: 0 });
                 break;
         }
-        io.to(roomCode).emit('state_update', room);
+        io.to(roomCode).emit('state_update', getPublicState(room));
     });
   });
 
