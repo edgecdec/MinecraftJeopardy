@@ -18,11 +18,11 @@ const rooms = {};
 
 const getInitialState = () => ({
   hostId: null,
-  controlPlayerId: null, // Who has control of the board
   locked: true,
   buzzed: null,
   buzzedName: null,
-  incorrectBuzzes: [], // List of IDs who answered wrong for current clue
+  incorrectBuzzes: [],
+  controlPlayerId: null,
   gameState: 'BOARD',
   players: [],
   wagers: {},
@@ -33,6 +33,13 @@ const getInitialState = () => ({
 const getPublicState = (room) => {
     const { hostId, ...publicState } = room;
     return publicState;
+};
+
+// Helper to parse cookies from header
+const parseCookie = (str, name) => {
+    if (!str) return null;
+    const match = str.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
 };
 
 app.prepare().then(() => {
@@ -54,8 +61,6 @@ app.prepare().then(() => {
                 res.statusCode = 200; res.end('Deploying');
                 exec('/var/www/MinecraftJeopardy/deploy_webhook.sh', (error, stdout, stderr) => {
                     if (error) console.error(`exec error: ${error}`);
-                    if (stdout) console.log(`stdout: ${stdout}`);
-                    if (stderr) console.error(`stderr: ${stderr}`);
                 });
             } else {
                 res.statusCode = 403; res.end('Forbidden');
@@ -75,7 +80,18 @@ app.prepare().then(() => {
   const io = new Server(httpServer);
 
   io.on('connection', (socket) => {
-    socket.on('join_room', ({ code, name, playerId, role }) => {
+    // SECURITY: Extract ID from HttpOnly cookie
+    const cookieString = socket.request.headers.cookie;
+    const secureId = parseCookie(cookieString, 'jeopardy_id');
+
+    if (!secureId) {
+        console.log(`Socket ${socket.id} rejected: No secure cookie.`);
+        socket.disconnect();
+        return;
+    }
+
+    // Determine Role based on payload BUT use secureId for Identity
+    socket.on('join_room', ({ code, name, role }) => {
        const roomCode = code.toUpperCase();
        socket.join(roomCode);
        
@@ -86,40 +102,44 @@ app.prepare().then(() => {
 
        if (role === 'host') {
            if (!room.hostId) {
-               room.hostId = playerId;
-               console.log(`Room ${roomCode} claimed by host ${playerId}`);
+               room.hostId = secureId; // Bind Host to Cookie ID
+               console.log(`Room ${roomCode} claimed by host ${secureId} (Socket ${socket.id})`);
                assignedRole = 'host';
-           } else if (room.hostId === playerId) {
+           } else if (room.hostId === secureId) {
                assignedRole = 'host';
            } else {
                socket.emit('host_taken');
                return; 
            }
        } else {
-           if (playerId && name) {
-               const existing = room.players.find(p => p.id === playerId);
-               if (!existing) room.players.push({ id: playerId, name, score: 0 });
-               else existing.name = name;
+           if (name) {
+               const existing = room.players.find(p => p.id === secureId);
+               if (!existing) {
+                   room.players.push({ id: secureId, name, score: 0 }); // Bind Player to Cookie ID
+               } else {
+                   existing.name = name; // Update name for existing session
+               }
            }
-           if (room.hostId === playerId) {
+           if (room.hostId === secureId) {
                assignedRole = 'host';
            }
        }
 
-       socket.emit('set_role', assignedRole);
+       socket.emit('set_role', { role: assignedRole, id: secureId });
        io.to(roomCode).emit('state_update', getPublicState(room));
     });
 
-    socket.on('game_action', ({ code, action, payload, senderId, targetId }) => {
+    socket.on('game_action', ({ code, action, payload, targetId }) => {
+        // senderId is ignored from payload, use secureId
+        const senderId = secureId; 
+        
         const roomCode = code.toUpperCase();
         if (!rooms[roomCode]) return;
         const room = rooms[roomCode];
 
         const isHost = (room.hostId && room.hostId === senderId);
 
-        // Public Actions
         if (action === 'buzz') {
-            // Cannot buzz if locked, already buzzed, or PREVIOUSLY incorrect on this clue
             if (!room.locked && !room.buzzed && !room.incorrectBuzzes.includes(senderId)) {
                 room.buzzed = senderId;
                 const p = room.players.find(pl => pl.id === senderId);
@@ -140,58 +160,35 @@ app.prepare().then(() => {
             return;
         }
 
-        // Host-Only Actions
         if (!isHost) return;
 
         switch (action) {
             case 'lock': room.locked = true; break;
             case 'unlock': room.locked = false; break;
             case 'reset': 
-                // Full reset for NEXT CLUE (clears incorrect list)
-                room.buzzed = null; 
-                room.buzzedName = null; 
-                room.locked = true; 
-                room.incorrectBuzzes = []; // Clear history
+                room.buzzed = null; room.buzzedName = null; 
+                room.locked = true; room.incorrectBuzzes = []; 
                 break;
             case 'clear': 
-                // Clear buzzer but KEEP incorrect list (e.g. wrong answer, let others buzz)
-                if (room.buzzed) {
-                    room.incorrectBuzzes.push(room.buzzed); // Add current buzzed player to lockout
-                }
-                room.buzzed = null; 
-                room.buzzedName = null; 
-                room.locked = false; // Auto unlock for others
+                if (room.buzzed) room.incorrectBuzzes.push(room.buzzed);
+                room.buzzed = null; room.buzzedName = null; room.locked = false; 
                 break;
             case 'mark_correct':
-                // Explicit action to handle scoring + control
-                // payload: { playerId, points }
                 const winner = room.players.find(p => p.id === payload.playerId);
                 if (winner) {
                     winner.score += payload.points;
-                    room.controlPlayerId = payload.playerId; // Give control
+                    room.controlPlayerId = payload.playerId; 
                 }
-                // Reset board
-                room.buzzed = null;
-                room.buzzedName = null;
-                room.locked = true;
-                room.incorrectBuzzes = [];
+                room.buzzed = null; room.buzzedName = null; 
+                room.locked = true; room.incorrectBuzzes = [];
                 break;
             case 'mark_wrong':
-                 // Payload: { playerId, points }
                  const loser = room.players.find(p => p.id === payload.playerId);
-                 if (loser) {
-                     loser.score -= payload.points;
-                 }
-                 // Add to lockout, clear buzzer, unlock for others
-                 if (!room.incorrectBuzzes.includes(payload.playerId)) {
-                     room.incorrectBuzzes.push(payload.playerId);
-                 }
-                 room.buzzed = null;
-                 room.buzzedName = null;
-                 room.locked = false; 
+                 if (loser) loser.score -= payload.points;
+                 if (!room.incorrectBuzzes.includes(payload.playerId)) room.incorrectBuzzes.push(payload.playerId);
+                 room.buzzed = null; room.buzzedName = null; room.locked = false; 
                  break;
             
-            // Legacy actions (kept for compatibility if needed, or updated to use new flow)
             case 'update_state': Object.assign(room, payload); break;
             case 'update_player': 
                 const p = room.players.find(x => x.id === targetId);

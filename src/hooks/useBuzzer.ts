@@ -7,8 +7,8 @@ interface RoomState {
   locked: boolean;
   buzzed: string | null;
   buzzedName: string | null;
-  incorrectBuzzes: string[]; // List of IDs who answered wrong
-  controlPlayerId: string | null; // Who picked the last clue
+  incorrectBuzzes: string[]; 
+  controlPlayerId: string | null;
   gameState: string;
   players: any[]; 
   wagers: Record<string, number>;
@@ -33,16 +33,7 @@ export function useBuzzer(code: string, playerName?: string) {
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
-    let id = localStorage.getItem('jeopardy_device_id');
-    if (!id) {
-      id = Math.random().toString(36).substring(2) + Date.now().toString(36);
-      localStorage.setItem('jeopardy_device_id', id);
-    }
-    setDeviceId(id);
-  }, []);
-
-  useEffect(() => {
-    if (!code || !deviceId) return;
+    if (!code) return;
 
     const socket = io();
     socketRef.current = socket;
@@ -51,7 +42,6 @@ export function useBuzzer(code: string, playerName?: string) {
         socket.emit('join_room', { 
             code, 
             name: playerName || 'Host', 
-            playerId: deviceId,
             role: playerName ? 'player' : 'host' 
         });
     });
@@ -60,8 +50,9 @@ export function useBuzzer(code: string, playerName?: string) {
         setState(newState);
     });
 
-    socket.on('set_role', (role: string) => {
-        setIsHost(role === 'host');
+    socket.on('set_role', (data: { role: string, id: string }) => {
+        setIsHost(data.role === 'host');
+        setDeviceId(data.id);
     });
 
     socket.on('host_taken', () => {
@@ -72,7 +63,7 @@ export function useBuzzer(code: string, playerName?: string) {
     return () => {
         socket.disconnect();
     };
-  }, [code, deviceId, playerName]);
+  }, [code, playerName]);
 
   const performAction = (action: string, payload: any = {}, targetId?: string) => {
     if (socketRef.current) {
@@ -80,7 +71,7 @@ export function useBuzzer(code: string, playerName?: string) {
             code,
             action,
             payload,
-            senderId: deviceId, 
+            // senderId is inferred from Cookie on server
             targetId: targetId 
         });
     }
@@ -109,8 +100,8 @@ export function useBuzzer(code: string, playerName?: string) {
     buzz: () => performAction('buzz'),
     lock: () => performAction('lock'),
     unlock: () => performAction('unlock'),
-    clear: () => performAction('clear'), // Clear buzzer but KEEP clue active (wrong answer)
-    reset: () => performAction('reset'), // Full reset (new clue)
+    clear: () => performAction('clear'), 
+    reset: () => performAction('reset'), 
     markCorrect: (pid: string, points: number) => performAction('mark_correct', { playerId: pid, points }),
     markWrong: (pid: string, points: number) => performAction('mark_wrong', { playerId: pid, points }),
     addPlayer: () => performAction('add_bot'),
