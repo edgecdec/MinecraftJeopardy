@@ -12,6 +12,7 @@ import GameHeader from '@/components/Game/GameHeader';
 import GameBoard from '@/components/Game/GameBoard';
 import ClueModal from '@/components/Game/ClueModal';
 import ResultsView from '@/components/Game/ResultsView';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 import { useBuzzer } from '@/hooks/useBuzzer';
 
@@ -20,26 +21,38 @@ function HostGameContent() {
   const roomCode = searchParams.get('code') || 'LOCAL';
   const gameId = searchParams.get('game') || 'minecraft';
 
-  const { 
-    gameTitle,
-    allCategories,
-    answeredClues, 
-    activeClue, 
-    gameState, 
-    round,
-    selectClue, 
-    submitWager,
-    revealAnswer, 
-    completeClue, 
-    closeClue,
-    questions,
-    generateBoard,
-    replaceCategory,
-    advanceFinalJeopardy,
-    endGame
-  } = useGame(gameId, roomCode); 
+  const game = useGame(gameId, roomCode);
+  const sound = useSound();
+  const buzzer = useBuzzer(roomCode);
 
-  const { playSound, speak, cancelSpeech, ttsEnabled, setTtsEnabled } = useSound();
+  // Destructure with safety defaults
+  const { 
+    gameTitle = "JEOPARDY",
+    allCategories = [],
+    answeredClues = new Set(), 
+    activeClue = null, 
+    gameState = 'BOARD', 
+    round = 'SINGLE',
+    selectClue = () => {}, 
+    submitWager = () => {},
+    revealAnswer = () => {}, 
+    completeClue = () => {}, 
+    closeClue = () => {},
+    questions = [],
+    generateBoard = () => {},
+    replaceCategory = () => {},
+    advanceFinalJeopardy = () => {},
+    endGame = () => {}
+  } = game || {};
+
+  const { 
+    playSound = () => {}, 
+    speak = () => {}, 
+    cancelSpeech = () => {}, 
+    ttsEnabled = true, 
+    setTtsEnabled = () => {} 
+  } = sound || {};
+
   const { 
     connectionError,
     buzzedName, lock, unlock, reset, clear, markCorrect, markWrong,
@@ -51,24 +64,24 @@ function HostGameContent() {
     incorrectBuzzes,
     controlPlayerId,
     gameState: serverGameState 
-  } = useBuzzer(roomCode);
+  } = buzzer || {};
 
   useEffect(() => {
-    if (gameState !== serverGameState) {
+    if (gameState !== serverGameState && updateState) {
         updateState({ gameState });
     }
   }, [gameState, serverGameState, updateState]);
 
   useEffect(() => {
     if (activeClue && !activeClue.isDailyDouble && gameState === 'CLUE') {
-        unlock();
+        if (unlock) unlock();
     } else {
-        lock();
+        if (lock) lock();
     }
-  }, [activeClue, gameState]);
+  }, [activeClue, gameState, lock, unlock]);
 
   useEffect(() => {
-    if (buzzedName) {
+    if (buzzedName && playSound) {
         playSound('click');
     }
   }, [buzzedName, playSound]);
@@ -244,7 +257,9 @@ function HostGameContent() {
 export default function HostPage() {
   return (
     <Suspense fallback={<Box sx={{ color: 'white', p: 4 }}>Loading Host...</Box>}>
-      <HostGameContent />
+      <ErrorBoundary>
+        <HostGameContent />
+      </ErrorBoundary>
     </Suspense>
   );
 }
