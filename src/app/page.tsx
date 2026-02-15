@@ -11,9 +11,6 @@ export default function Lobby() {
   const [playerName, setPlayerName] = useState('');
   const [selectedGame, setSelectedGame] = useState(DEFAULT_GAME_ID);
 
-  const selectedGameObj = AVAILABLE_GAMES.find(g => g.id === selectedGame);
-  const displayTitle = selectedGameObj ? `${selectedGameObj.title.toUpperCase()} JEOPARDY` : 'JEOPARDY';
-
   const handleHost = () => {
     // Generate random 4-letter code
     const code = Math.random().toString(36).substring(2, 6).toUpperCase();
