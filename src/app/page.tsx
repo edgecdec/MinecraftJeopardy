@@ -11,6 +11,9 @@ export default function Lobby() {
   const [playerName, setPlayerName] = useState('');
   const [selectedGame, setSelectedGame] = useState(DEFAULT_GAME_ID);
 
+  const selectedGameObj = AVAILABLE_GAMES.find(g => g.id === selectedGame);
+  const displayTitle = selectedGameObj ? `${selectedGameObj.title.toUpperCase()} JEOPARDY` : 'JEOPARDY';
+
   const handleHost = () => {
     // Generate random 4-letter code
     const code = Math.random().toString(36).substring(2, 6).toUpperCase();
@@ -38,8 +41,8 @@ export default function Lobby() {
     >
       <Container maxWidth="sm">
         <Paper sx={{ p: 4, bgcolor: 'rgba(0,0,0,0.8)', border: '4px solid grey', textAlign: 'center' }}>
-          <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', mb: 4, color: 'secondary.main' }}>
-            MINECRAFT JEOPARDY
+          <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', mb: 4, color: 'secondary.main', fontSize: { xs: '1.5rem', md: '3rem' } }}>
+            {displayTitle}
           </Typography>
 
           <Stack spacing={4}>

@@ -4,8 +4,8 @@ import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Minecraft Jeopardy',
-  description: 'A locally hosted Minecraft-themed Jeopardy game',
+  title: 'Jeopardy Game',
+  description: 'A locally hosted Jeopardy game',
 };
 
 export default function RootLayout({

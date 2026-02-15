@@ -301,7 +301,7 @@ export function useGame(gameId: string = 'minecraft', roomCode: string = 'LOCAL'
     setPlayers(prev => prev.map(p => p.id === id ? { ...p, score: p.score + delta } : p));
   }, []);
 
-  const gameTitle = selectedGame.id === 'stardew' ? 'STARDEW VALLEY JEOPARDY' : 'MINECRAFT JEOPARDY';
+  const gameTitle = `${selectedGame.title.toUpperCase()} JEOPARDY`;
 
   return {
     gameTitle,
