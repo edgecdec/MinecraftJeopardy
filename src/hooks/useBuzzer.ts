@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 interface RoomState {
+  hostId: string | null;
   locked: boolean;
   buzzed: string | null;
   buzzedName: string | null;
@@ -15,6 +16,7 @@ interface RoomState {
 
 export function useBuzzer(code: string, playerName?: string) {
   const [state, setState] = useState<RoomState>({ 
+    hostId: null,
     locked: true, 
     buzzed: null, 
     buzzedName: null,
@@ -38,17 +40,15 @@ export function useBuzzer(code: string, playerName?: string) {
   useEffect(() => {
     if (!code || !deviceId) return;
 
-    // Connect to Socket
     const socket = io();
     socketRef.current = socket;
 
     socket.on('connect', () => {
-        // console.log('Connected to socket');
-        // Join room with identity
         socket.emit('join_room', { 
             code, 
             name: playerName || 'Host', 
-            playerId: deviceId 
+            playerId: deviceId,
+            role: playerName ? 'player' : 'host' 
         });
     });
 
@@ -67,15 +67,18 @@ export function useBuzzer(code: string, playerName?: string) {
             code,
             action,
             payload,
-            playerId: targetId || deviceId
+            senderId: deviceId,  // Who am I?
+            targetId: targetId   // Who am I modifying? (Optional)
         });
     }
   };
 
   const myPlayer = state.players.find(p => p.id === deviceId);
   const myScore = myPlayer ? myPlayer.score : 0;
+  const isHost = state.hostId === deviceId;
 
   return {
+    isHost,
     locked: state.locked,
     buzzedId: state.buzzed,
     buzzedName: state.buzzedName,
@@ -97,6 +100,6 @@ export function useBuzzer(code: string, playerName?: string) {
     removePlayer: (id: string) => performAction('remove_player', {}, id),
     submitWager: (wager: number) => performAction('submit_wager', { wager }),
     submitAnswer: (answer: string) => performAction('submit_answer', { answer }),
-    refresh: () => {} // No-op for sockets
+    refresh: () => {} 
   };
 }
