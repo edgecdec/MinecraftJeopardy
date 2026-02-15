@@ -11,7 +11,11 @@ function PlayerContent() {
   const name = rawName.substring(0, 15);
   const code = searchParams.get('code') || 'TEST';
 
-  const { buzzedId, buzzedName, locked, buzz, isMe, gameState, myScore, submitWager, submitAnswer, wagers, finalAnswers, deviceId, allPlayers } = useBuzzer(code, name);
+  const { 
+    connectionError,
+    buzzedId, buzzedName, locked, buzz, isMe, gameState, myScore, submitWager, submitAnswer, wagers, finalAnswers, deviceId, allPlayers 
+  } = useBuzzer(code, name);
+  
   const [localWager, setLocalWager] = useState('');
   const [localAnswer, setLocalAnswer] = useState('');
   const [wagerSubmitted, setWagerSubmitted] = useState(false);
@@ -39,7 +43,6 @@ function PlayerContent() {
     setAnswerSubmitted(true);
   };
 
-  // Reset local state if game resets
   useEffect(() => {
     if (gameState === 'BOARD') {
         setWagerSubmitted(false);
@@ -49,7 +52,18 @@ function PlayerContent() {
     }
   }, [gameState]);
 
-  const isWinner = buzzedId === deviceId; // Use deviceId for consistency
+  const isWinner = buzzedId === deviceId; 
+
+  if (connectionError) {
+      return (
+        <Box sx={{ minHeight: '100vh', bgcolor: '#121212', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, textAlign: 'center' }}>
+            <Typography variant="h5" sx={{ fontFamily: '"Press Start 2P", cursive', color: 'error.main' }}>
+                CONNECTION ERROR<br/><br/>
+                <span style={{ fontSize: '1rem', color: 'white' }}>{connectionError}</span>
+            </Typography>
+        </Box>
+      );
+  }
 
   return (
     <Box 

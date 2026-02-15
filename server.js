@@ -29,13 +29,11 @@ const getInitialState = () => ({
   finalAnswers: {}
 });
 
-// Helper to remove secrets before broadcasting
 const getPublicState = (room) => {
     const { hostId, ...publicState } = room;
     return publicState;
 };
 
-// Helper to parse cookies from header
 const parseCookie = (str, name) => {
     if (!str) return null;
     const match = str.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -59,7 +57,6 @@ app.prepare().then(() => {
             if (signature === digest) {
                 console.log('Webhook verified. Deploying...');
                 res.statusCode = 200; res.end('Deploying');
-                // Use bash explicitly to avoid permission/shebang issues
                 exec('bash /var/www/MinecraftJeopardy/deploy_webhook.sh', (error, stdout, stderr) => {
                     if (error) console.error(`exec error: ${error}`);
                     if (stdout) console.log(`stdout: ${stdout}`);
@@ -83,7 +80,6 @@ app.prepare().then(() => {
   const io = new Server(httpServer);
 
   io.on('connection', (socket) => {
-    // SECURITY: Extract ID from HttpOnly cookie
     const cookieString = socket.request.headers.cookie;
     const secureId = parseCookie(cookieString, 'jeopardy_id');
 
@@ -93,7 +89,6 @@ app.prepare().then(() => {
         return;
     }
 
-    // Determine Role based on payload BUT use secureId for Identity
     socket.on('join_room', ({ code, name, role }) => {
        const roomCode = code.toUpperCase();
        socket.join(roomCode);
@@ -105,7 +100,7 @@ app.prepare().then(() => {
 
        if (role === 'host') {
            if (!room.hostId) {
-               room.hostId = secureId; // Bind Host to Cookie ID
+               room.hostId = secureId; 
                console.log(`Room ${roomCode} claimed by host ${secureId} (Socket ${socket.id})`);
                assignedRole = 'host';
            } else if (room.hostId === secureId) {
@@ -118,9 +113,14 @@ app.prepare().then(() => {
            if (name) {
                const existing = room.players.find(p => p.id === secureId);
                if (!existing) {
-                   room.players.push({ id: secureId, name, score: 0 }); // Bind Player to Cookie ID
+                   // CHECK CAPACITY
+                   if (room.players.length >= 25) {
+                       socket.emit('room_full');
+                       return;
+                   }
+                   room.players.push({ id: secureId, name, score: 0 }); 
                } else {
-                   existing.name = name; // Update name for existing session
+                   existing.name = name; 
                }
            }
            if (room.hostId === secureId) {
@@ -133,9 +133,7 @@ app.prepare().then(() => {
     });
 
     socket.on('game_action', ({ code, action, payload, targetId }) => {
-        // senderId is ignored from payload, use secureId
         const senderId = secureId; 
-        
         const roomCode = code.toUpperCase();
         if (!rooms[roomCode]) return;
         const room = rooms[roomCode];
@@ -201,8 +199,11 @@ app.prepare().then(() => {
                 room.players = room.players.filter(x => x.id !== targetId);
                 break;
             case 'add_bot':
-                const botId = `bot-${Math.random().toString(36).substring(2,7)}`;
-                room.players.push({ id: botId, name: `Player ${room.players.length+1}`, score: 0 });
+                // Respect limit for bots too?
+                if (room.players.length < 25) {
+                    const botId = `bot-${Math.random().toString(36).substring(2,7)}`;
+                    room.players.push({ id: botId, name: `Player ${room.players.length+1}`, score: 0 });
+                }
                 break;
         }
         io.to(roomCode).emit('state_update', getPublicState(room));

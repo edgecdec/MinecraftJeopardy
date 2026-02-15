@@ -60,6 +60,11 @@ export function useBuzzer(code: string, playerName?: string) {
         socket.disconnect();
     });
 
+    socket.on('room_full', () => {
+        setConnectionError('This room is full (Max 25 players).');
+        socket.disconnect();
+    });
+
     return () => {
         socket.disconnect();
     };
