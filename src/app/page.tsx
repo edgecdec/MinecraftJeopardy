@@ -99,7 +99,11 @@ export default function Lobby() {
                   label="YOUR NAME" 
                   variant="filled" 
                   value={playerName}
-                  onChange={(e) => setPlayerName(e.target.value)}
+                  onChange={(e) => {
+                    if (e.target.value.length <= 15) {
+                        setPlayerName(e.target.value);
+                    }
+                  }}
                   sx={{ 
                     bgcolor: '#c6c6c6', 
                     borderRadius: 0,
@@ -109,7 +113,10 @@ export default function Lobby() {
                     '& .MuiInputBase-input': { color: '#3f3f3f', fontWeight: 'bold' },
                     '& .MuiInputLabel-root': { color: '#555' }
                   }}
-                  inputProps={{ style: { fontFamily: 'monospace' } }}
+                  inputProps={{ 
+                    style: { fontFamily: 'monospace' },
+                    maxLength: 15
+                  }}
                 />
                 <Button 
                   fullWidth 
