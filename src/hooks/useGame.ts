@@ -187,13 +187,23 @@ export function useGame(gameId: string = 'minecraft', roomCode: string = 'LOCAL'
     else if (gameState === 'FINAL_CLUE') setGameState('FINAL_SCORING');
   }, [gameState]);
   
-  const replaceCategory = useCallback((categoryName: string) => {
+  const replaceCategory = useCallback((categoryName: string, newCategoryName?: string) => {
      setQuestions(prevQuestions => {
       const currentNames = new Set(prevQuestions.map(q => q.category));
-      const availableCats = selectedGame.categories.filter(c => !currentNames.has(c.name));
-      if (availableCats.length === 0) return prevQuestions;
+      let newCatData;
 
-      const newCatData = availableCats[Math.floor(Math.random() * availableCats.length)];
+      if (newCategoryName) {
+          // Find specific
+          newCatData = selectedGame.categories.find(c => c.name === newCategoryName);
+      } else {
+          // Find random
+          const availableCats = selectedGame.categories.filter(c => !currentNames.has(c.name));
+          if (availableCats.length === 0) return prevQuestions;
+          newCatData = availableCats[Math.floor(Math.random() * availableCats.length)];
+      }
+
+      if (!newCatData) return prevQuestions;
+
       const multiplier = round === 'DOUBLE' ? 400 : 200;
       
       const selectedClues: Clue[] = [];
@@ -202,6 +212,17 @@ export function useGame(gameId: string = 'minecraft', roomCode: string = 'LOCAL'
         const poolClue = potentialClues.length > 0 
           ? potentialClues[Math.floor(Math.random() * potentialClues.length)]
           : newCatData.pool[0];
+
+        if (!poolClue) {
+             selectedClues.push({
+                id: `error-${Math.random()}`,
+                category: newCatData.name,
+                value: diff * multiplier,
+                clue: "ERROR",
+                answer: "ERROR"
+            });
+            continue;
+        }
 
         selectedClues.push({
           id: `${newCatData.name}-${diff}-${Math.random().toString(36).substr(2, 5)}`,
@@ -284,6 +305,7 @@ export function useGame(gameId: string = 'minecraft', roomCode: string = 'LOCAL'
 
   return {
     gameTitle,
+    allCategories: selectedGame.categories, // Export full list
     players,
     addPlayer,
     removePlayer,

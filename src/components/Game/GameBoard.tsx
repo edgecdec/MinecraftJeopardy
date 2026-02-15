@@ -1,24 +1,52 @@
 'use client';
 
-import React from 'react';
-import { Box, Grid, Stack, Paper, Typography, IconButton, Tooltip } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Grid, Stack, Paper, Typography, IconButton, Tooltip, Menu, MenuItem, ListItemText, Divider } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import JeopardyTile from '@/components/JeopardyTile';
 import { Category, Clue } from '@/hooks/useGame';
 
 interface GameBoardProps {
   questions: Category[];
+  allCategories: Category[]; 
   answeredClues: Set<string>;
   onSelectClue: (clue: Clue) => void;
-  onReplaceCategory: (category: string) => void;
+  onReplaceCategory: (oldCat: string, newCat?: string) => void;
 }
 
 export default function GameBoard({ 
   questions, 
+  allCategories,
   answeredClues, 
   onSelectClue, 
   onReplaceCategory 
 }: GameBoardProps) {
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>, category: string) => {
+    event.stopPropagation(); 
+    setMenuAnchor(event.currentTarget);
+    setActiveCategory(category);
+  };
+
+  const handleCloseMenu = () => {
+    setMenuAnchor(null);
+    setActiveCategory(null);
+  };
+
+  const handleReplace = (newCategory?: string) => {
+    if (activeCategory) {
+        onReplaceCategory(activeCategory, newCategory);
+    }
+    handleCloseMenu();
+  };
+
+  // Safe property access for dynamic JSON data
+  const getCatName = (c: any) => c.name || c.category;
+
+  const currentCategoryNames = new Set(questions.map(q => q.category));
+  const unusedCategories = allCategories ? allCategories.filter(c => !currentCategoryNames.has(getCatName(c))) : [];
   
   if (!questions || questions.length === 0) {
     return (
@@ -107,10 +135,7 @@ export default function GameBoard({
                   <IconButton
                     className="refresh-btn"
                     size="small"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onReplaceCategory(cat.category);
-                    }}
+                    onClick={(e) => handleOpenMenu(e, cat.category)}
                     sx={{
                       position: 'absolute',
                       top: 2,
@@ -147,6 +172,36 @@ export default function GameBoard({
           </Grid>
         ))}
       </Grid>
+
+      {/* Replacement Menu */}
+      <Menu
+        anchorEl={menuAnchor}
+        open={Boolean(menuAnchor)}
+        onClose={handleCloseMenu}
+        PaperProps={{
+            sx: { bgcolor: '#c6c6c6', border: '2px solid white', borderRadius: 0 }
+        }}
+      >
+        <MenuItem onClick={() => handleReplace()}>
+            <ListItemText primary="RANDOM REPLACEMENT" primaryTypographyProps={{ fontFamily: '"Press Start 2P", cursive', fontSize: '0.7rem' }} />
+        </MenuItem>
+        <Divider />
+        {unusedCategories.map((c) => (
+            <MenuItem key={getCatName(c)} onClick={() => handleReplace(getCatName(c))}>
+                <ListItemText 
+                    primary={getCatName(c).toUpperCase()} 
+                    secondary={c.description}
+                    primaryTypographyProps={{ fontFamily: 'monospace', fontWeight: 'bold' }}
+                    secondaryTypographyProps={{ fontSize: '0.7rem' }}
+                />
+            </MenuItem>
+        ))}
+        {unusedCategories.length === 0 && (
+            <MenuItem disabled>
+                <ListItemText primary="NO OTHER CATEGORIES AVAILABLE" />
+            </MenuItem>
+        )}
+      </Menu>
     </Box>
   );
 }

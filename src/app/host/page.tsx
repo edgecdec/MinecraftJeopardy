@@ -22,6 +22,7 @@ function HostGameContent() {
 
   const { 
     gameTitle,
+    allCategories, // Get full list
     answeredClues, 
     activeClue, 
     gameState, 
@@ -36,7 +37,7 @@ function HostGameContent() {
     replaceCategory,
     advanceFinalJeopardy,
     endGame
-  } = useGame(gameId, roomCode); // Pass roomCode here!
+  } = useGame(gameId, roomCode); 
 
   const { playSound } = useSound();
   const { 
@@ -177,6 +178,7 @@ function HostGameContent() {
         {round !== 'FINAL' ? (
           <GameBoard 
             questions={questions}
+            allCategories={allCategories} // Pass it here
             answeredClues={answeredClues}
             onSelectClue={handleSelectClue}
             onReplaceCategory={replaceCategory}
