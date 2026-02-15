@@ -54,7 +54,7 @@ export default function ClueModal({
         setWager('');
         setDisplayedText('');
         setCharIndex(0);
-        cancelSpeech();
+        if (cancelSpeech) cancelSpeech();
     }
   }, [open, cancelSpeech]);
 
@@ -71,13 +71,13 @@ export default function ClueModal({
           // Speak the clue
           // Small delay to allow transition
           const timer = setTimeout(() => {
-              speak(activeClue.clue);
+              if (speak) speak(activeClue.clue);
           }, 500);
-          return () => { clearTimeout(timer); cancelSpeech(); };
+          return () => { clearTimeout(timer); if (cancelSpeech) cancelSpeech(); };
       }
       // Stop speech if buzzed or state changes
       if (buzzedPlayer || !open) {
-          cancelSpeech();
+          if (cancelSpeech) cancelSpeech();
       }
   }, [activeClue, open, gameState, buzzedPlayer, speak, cancelSpeech]);
 
