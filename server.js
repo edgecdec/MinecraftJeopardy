@@ -18,9 +18,11 @@ const rooms = {};
 
 const getInitialState = () => ({
   hostId: null,
+  controlPlayerId: null, // Who has control of the board
   locked: true,
   buzzed: null,
   buzzedName: null,
+  incorrectBuzzes: [], // List of IDs who answered wrong for current clue
   gameState: 'BOARD',
   players: [],
   wagers: {},
@@ -84,7 +86,6 @@ app.prepare().then(() => {
                console.log(`Room ${roomCode} claimed by host ${playerId}`);
                assignedRole = 'host';
            } else if (room.hostId === playerId) {
-               // Rejoining host
                assignedRole = 'host';
            } else {
                socket.emit('host_taken');
@@ -96,16 +97,12 @@ app.prepare().then(() => {
                if (!existing) room.players.push({ id: playerId, name, score: 0 });
                else existing.name = name;
            }
-           // Check if this player is actually the host rejoining as "player" (shouldn't happen often but good fallback)
            if (room.hostId === playerId) {
                assignedRole = 'host';
            }
        }
 
-       // Tell the specific client their role (Securely)
        socket.emit('set_role', assignedRole);
-
-       // Broadcast public state (WITHOUT hostId)
        io.to(roomCode).emit('state_update', getPublicState(room));
     });
 
@@ -118,7 +115,8 @@ app.prepare().then(() => {
 
         // Public Actions
         if (action === 'buzz') {
-            if (!room.locked && !room.buzzed) {
+            // Cannot buzz if locked, already buzzed, or PREVIOUSLY incorrect on this clue
+            if (!room.locked && !room.buzzed && !room.incorrectBuzzes.includes(senderId)) {
                 room.buzzed = senderId;
                 const p = room.players.find(pl => pl.id === senderId);
                 room.buzzedName = p ? p.name : 'Unknown';
@@ -139,16 +137,57 @@ app.prepare().then(() => {
         }
 
         // Host-Only Actions
-        if (!isHost) {
-            // console.log(`Unauthorized action ${action} from ${senderId}`);
-            return; 
-        }
+        if (!isHost) return;
 
         switch (action) {
             case 'lock': room.locked = true; break;
             case 'unlock': room.locked = false; break;
-            case 'reset': room.buzzed = null; room.buzzedName = null; room.locked = true; break;
-            case 'clear': room.buzzed = null; room.buzzedName = null; room.locked = true; break;
+            case 'reset': 
+                // Full reset for NEXT CLUE (clears incorrect list)
+                room.buzzed = null; 
+                room.buzzedName = null; 
+                room.locked = true; 
+                room.incorrectBuzzes = []; // Clear history
+                break;
+            case 'clear': 
+                // Clear buzzer but KEEP incorrect list (e.g. wrong answer, let others buzz)
+                if (room.buzzed) {
+                    room.incorrectBuzzes.push(room.buzzed); // Add current buzzed player to lockout
+                }
+                room.buzzed = null; 
+                room.buzzedName = null; 
+                room.locked = false; // Auto unlock for others
+                break;
+            case 'mark_correct':
+                // Explicit action to handle scoring + control
+                // payload: { playerId, points }
+                const winner = room.players.find(p => p.id === payload.playerId);
+                if (winner) {
+                    winner.score += payload.points;
+                    room.controlPlayerId = payload.playerId; // Give control
+                }
+                // Reset board
+                room.buzzed = null;
+                room.buzzedName = null;
+                room.locked = true;
+                room.incorrectBuzzes = [];
+                break;
+            case 'mark_wrong':
+                 // Payload: { playerId, points }
+                 const loser = room.players.find(p => p.id === payload.playerId);
+                 if (loser) {
+                     loser.score -= payload.points;
+                 }
+                 // Add to lockout, clear buzzer, unlock for others
+                 if (!room.incorrectBuzzes.includes(payload.playerId)) {
+                     room.incorrectBuzzes.push(payload.playerId);
+                 }
+                 room.buzzed = null;
+                 room.buzzedName = null;
+                 room.locked = false; 
+                 break;
+            
+            // Legacy actions (kept for compatibility if needed, or updated to use new flow)
             case 'update_state': Object.assign(room, payload); break;
             case 'update_player': 
                 const p = room.players.find(x => x.id === targetId);

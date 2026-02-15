@@ -4,10 +4,11 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 interface RoomState {
-  // hostId is hidden now
   locked: boolean;
   buzzed: string | null;
   buzzedName: string | null;
+  incorrectBuzzes: string[]; // List of IDs who answered wrong
+  controlPlayerId: string | null; // Who picked the last clue
   gameState: string;
   players: any[]; 
   wagers: Record<string, number>;
@@ -19,12 +20,14 @@ export function useBuzzer(code: string, playerName?: string) {
     locked: true, 
     buzzed: null, 
     buzzedName: null,
+    incorrectBuzzes: [],
+    controlPlayerId: null,
     gameState: 'BOARD',
     players: [],
     wagers: {},
     finalAnswers: {}
   });
-  const [isHost, setIsHost] = useState(false); // Local state for role
+  const [isHost, setIsHost] = useState(false);
   const [deviceId, setDeviceId] = useState<string>('');
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const socketRef = useRef<Socket | null>(null);
@@ -89,9 +92,12 @@ export function useBuzzer(code: string, playerName?: string) {
   return {
     connectionError,
     isHost,
+    // State
     locked: state.locked,
     buzzedId: state.buzzed,
     buzzedName: state.buzzedName,
+    incorrectBuzzes: state.incorrectBuzzes,
+    controlPlayerId: state.controlPlayerId,
     gameState: state.gameState,
     allPlayers: state.players,
     myScore,
@@ -99,11 +105,14 @@ export function useBuzzer(code: string, playerName?: string) {
     finalAnswers: state.finalAnswers,
     isMe: state.buzzed === deviceId,
     deviceId,
+    // Actions
     buzz: () => performAction('buzz'),
     lock: () => performAction('lock'),
     unlock: () => performAction('unlock'),
-    clear: () => performAction('clear'),
-    reset: () => performAction('reset'),
+    clear: () => performAction('clear'), // Clear buzzer but KEEP clue active (wrong answer)
+    reset: () => performAction('reset'), // Full reset (new clue)
+    markCorrect: (pid: string, points: number) => performAction('mark_correct', { playerId: pid, points }),
+    markWrong: (pid: string, points: number) => performAction('mark_wrong', { playerId: pid, points }),
     addPlayer: () => performAction('add_bot'),
     updateState: (newState: { players?: any[], gameState?: string }) => performAction('update_state', newState),
     updatePlayer: (id: string, updates: { score?: number, name?: string }) => performAction('update_player', updates, id),

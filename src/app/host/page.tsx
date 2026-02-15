@@ -22,7 +22,7 @@ function HostGameContent() {
 
   const { 
     gameTitle,
-    allCategories, // Get full list
+    allCategories,
     answeredClues, 
     activeClue, 
     gameState, 
@@ -42,10 +42,12 @@ function HostGameContent() {
   const { playSound } = useSound();
   const { 
     connectionError,
-    buzzedName, lock, unlock, reset, clear, 
+    buzzedName, lock, unlock, reset, clear, markCorrect, markWrong,
     updateState, updatePlayer, removePlayer: removePlayerApi,
     addPlayer: addPlayerApi,
     wagers, finalAnswers, allPlayers,
+    incorrectBuzzes, // Need this to show who is locked out? Optional.
+    controlPlayerId, // Need this for Daily Double?
     gameState: serverGameState 
   } = useBuzzer(roomCode);
 
@@ -57,6 +59,9 @@ function HostGameContent() {
   }, [gameState, serverGameState, updateState]);
 
   // unlock buzzer when clue opens (and it's not a daily double)
+  // UPDATED LOGIC: 
+  // If Daily Double, DO NOT unlock.
+  // If Control Player exists, maybe show "Waiting for [Player]"?
   useEffect(() => {
     if (activeClue && !activeClue.isDailyDouble && gameState === 'CLUE') {
         unlock();
@@ -91,37 +96,42 @@ function HostGameContent() {
   };
 
   const handleCompleteClue = (pid: string | null, correct: boolean) => {
-      const player = allPlayers?.find(p => p.id === pid);
       const clueValue = activeClue?.value || 0;
 
-      if (round === 'FINAL' && pid && player) {
-          const wager = wagers[pid] || 0;
-          updatePlayer(pid, { score: player.score + (correct ? wager : -wager) });
-          
-          if (correct) playSound('correct');
-          else playSound('wrong');
+      // Final Jeopardy Logic (Wagers)
+      if (round === 'FINAL' && pid) {
+          const player = allPlayers?.find(p => p.id === pid);
+          if (player) {
+            const wager = wagers[pid] || 0;
+            updatePlayer(pid, { score: player.score + (correct ? wager : -wager) });
+            if (correct) playSound('correct');
+            else playSound('wrong');
+          }
           return;
       }
 
-      completeClue(pid, correct); 
-      
-      if (pid && player) {
-         updatePlayer(pid, { score: player.score + (correct ? clueValue : -clueValue) });
-      }
-
-      if (correct) {
-          playSound('correct');
-          reset(); 
-      } else if (pid !== null) {
-          playSound('wrong');
-          reset(); 
-          unlock();
+      // Regular Play
+      if (pid) {
+          if (correct) {
+              markCorrect(pid, clueValue);
+              playSound('correct');
+              completeClue(pid, true); // Close local clue
+          } else {
+              markWrong(pid, clueValue);
+              playSound('wrong');
+              // DO NOT completeClue(). Keep it open for others to buzz.
+              // Just clear buzzer (handled by server markWrong)
+          }
+      } else {
+          // Skip / No one got it
+          reset();
+          completeClue(null, false);
       }
   };
 
   const handleClearBuzzer = () => {
-      reset();
-      unlock();
+      // Manual clear (e.g. accidental buzz)
+      clear(); 
   };
 
   const handleNextRound = () => {
@@ -178,7 +188,7 @@ function HostGameContent() {
         {round !== 'FINAL' ? (
           <GameBoard 
             questions={questions}
-            allCategories={allCategories} // Pass it here
+            allCategories={allCategories} 
             answeredClues={answeredClues}
             onSelectClue={handleSelectClue}
             onReplaceCategory={replaceCategory}
@@ -206,6 +216,7 @@ function HostGameContent() {
           round={round}
           players={allPlayers || []}
           buzzedPlayer={buzzedName}
+          controlPlayerId={controlPlayerId} // Pass Control
           wagers={wagers}
           finalAnswers={finalAnswers}
           onRevealAnswer={revealAnswer}

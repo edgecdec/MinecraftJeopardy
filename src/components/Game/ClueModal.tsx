@@ -11,6 +11,7 @@ interface ClueModalProps {
   round: Round;
   players: Player[];
   buzzedPlayer?: string | null;
+  controlPlayerId?: string | null;
   wagers?: Record<string, number>;
   finalAnswers?: Record<string, string>;
   onRevealAnswer: () => void;
@@ -19,7 +20,7 @@ interface ClueModalProps {
   onSubmitWager: (amount: number) => void;
   onAdvanceFinal: () => void;
   onResetGame: () => void;
-  onContinue: () => void; // New prop for resetting buzzer
+  onContinue: () => void; 
 }
 
 export default function ClueModal({
@@ -29,6 +30,7 @@ export default function ClueModal({
   round,
   players,
   buzzedPlayer,
+  controlPlayerId,
   wagers = {},
   finalAnswers = {},
   onRevealAnswer,
@@ -51,7 +53,6 @@ export default function ClueModal({
     }
   }, [open]);
 
-  // Reset typewriter when clue changes
   useEffect(() => {
       if (activeClue) {
           setDisplayedText('');
@@ -59,23 +60,22 @@ export default function ClueModal({
       }
   }, [activeClue]);
 
-  // Typewriter Effect
   useEffect(() => {
       if (!activeClue || round === 'FINAL') return; 
       
       if (gameState === 'ANSWER' || gameState === 'DAILY_DOUBLE_WAGER') {
-          setDisplayedText(activeClue.clue); // Show full
+          setDisplayedText(activeClue.clue); 
           setCharIndex(activeClue.clue.length);
           return;
       }
 
-      if (buzzedPlayer) return; // Pause when buzzed
+      if (buzzedPlayer) return; 
 
       if (charIndex < activeClue.clue.length) {
           const timeout = setTimeout(() => {
               setCharIndex(prev => prev + 1);
               setDisplayedText(activeClue.clue.slice(0, charIndex + 1));
-          }, 30); // Speed: 30ms per char
+          }, 30);
           return () => clearTimeout(timeout);
       }
   }, [charIndex, activeClue, buzzedPlayer, gameState, round]);
@@ -87,6 +87,11 @@ export default function ClueModal({
     }
   };
 
+  const getControlPlayerName = () => {
+      const p = players.find(p => p.id === controlPlayerId);
+      return p ? p.name : "Active Player";
+  };
+
   if ((!activeClue && round !== 'FINAL') || !open) return null;
 
   const renderFinalJeopardy = () => (
@@ -94,8 +99,6 @@ export default function ClueModal({
       <Typography variant="h4" sx={{ mb: 6, color: 'secondary.main', fontFamily: '"Press Start 2P", cursive' }}>
         FINAL JEOPARDY: {activeClue?.category}
       </Typography>
-      {/* ... existing Final Jeopardy content ... */}
-      {/* Note: keeping existing Final Jeopardy logic as is, assuming no typewriter needed there for now unless requested */}
       {gameState === 'FINAL_CATEGORY' && (
         <Button variant="contained" size="large" onClick={onAdvanceFinal} sx={{ fontFamily: '"Press Start 2P", cursive' }}>
           REVEAL CATEGORY & WAGER
@@ -105,7 +108,6 @@ export default function ClueModal({
       {gameState === 'FINAL_WAGER' && (
         <Box sx={{ textAlign: 'center', width: '100%', maxWidth: 800 }}>
           <Typography sx={{ mb: 4, fontFamily: '"Press Start 2P", cursive' }}>PLAYERS, LOCK IN YOUR WAGERS!</Typography>
-          
           <Stack direction="row" spacing={4} justifyContent="center" sx={{ mb: 4, flexWrap: 'wrap' }}>
             {players.map(p => (
               <Paper key={p.id} sx={{ p: 2, bgcolor: wagers[p.id] !== undefined ? 'success.dark' : 'grey.800', minWidth: 150 }}>
@@ -114,7 +116,6 @@ export default function ClueModal({
               </Paper>
             ))}
           </Stack>
-
           <Button variant="contained" size="large" onClick={onAdvanceFinal} sx={{ fontFamily: '"Press Start 2P", cursive' }}>
             REVEAL CLUE
           </Button>
@@ -161,22 +162,8 @@ export default function ClueModal({
                 <Box sx={{ textAlign: 'right' }}>
                   <Typography variant="caption">WAGER: ${wagers[p.id] || 0}</Typography>
                   <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-                      <Button 
-                        size="small" 
-                        color="success" 
-                        variant="contained" 
-                        onClick={() => onCompleteClue(p.id, true)}
-                      >
-                        CORRECT
-                      </Button>
-                      <Button 
-                        size="small" 
-                        color="error" 
-                        variant="contained"
-                        onClick={() => onCompleteClue(p.id, false)}
-                      >
-                        WRONG
-                      </Button>
+                      <Button size="small" color="success" variant="contained" onClick={() => onCompleteClue(p.id, true)}>CORRECT</Button>
+                      <Button size="small" color="error" variant="contained" onClick={() => onCompleteClue(p.id, false)}>WRONG</Button>
                   </Stack>
                 </Box>
               </Paper>
@@ -201,8 +188,11 @@ export default function ClueModal({
         
         {gameState === 'DAILY_DOUBLE_WAGER' ? (
           <Box sx={{ textAlign: 'center', width: '100%', maxWidth: 600 }}>
-            <Typography variant="h2" sx={{ mb: 4, fontFamily: '"Press Start 2P", cursive', color: 'error.main', animation: 'popIn 0.5s infinite alternate' }}>
+            <Typography variant="h2" sx={{ mb: 2, fontFamily: '"Press Start 2P", cursive', color: 'error.main', animation: 'popIn 0.5s infinite alternate' }}>
               DAILY DOUBLE!
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4, fontFamily: '"Press Start 2P", cursive' }}>
+                {getControlPlayerName().toUpperCase()} TO WAGER
             </Typography>
             <Stack direction="row" spacing={2} justifyContent="center">
               <TextField 
@@ -236,8 +226,27 @@ export default function ClueModal({
             <Box sx={{ mt: 'auto', width: '100%', display: 'flex', justifyContent: 'center', gap: 4 }}>
               {gameState === 'CLUE' && (
                 <>
-                  {buzzedPlayer ? (
-                    // Show Grading Controls for the Buzzed Player
+                  {activeClue.isDailyDouble ? (
+                      // Daily Double Grading (Control Player Only)
+                      <Stack spacing={2} alignItems="center">
+                        <Typography variant="h6">JUDGE: {getControlPlayerName()}</Typography>
+                        <Stack direction="row" spacing={2}>
+                            <Button 
+                                variant="contained" color="success" size="large"
+                                onClick={() => onCompleteClue(controlPlayerId || null, true)}
+                            >
+                                CORRECT (+${activeClue.value})
+                            </Button>
+                            <Button 
+                                variant="contained" color="error" size="large"
+                                onClick={() => onCompleteClue(controlPlayerId || null, false)}
+                            >
+                                WRONG (-${activeClue.value})
+                            </Button>
+                        </Stack>
+                    </Stack>
+                  ) : buzzedPlayer ? (
+                    // Standard Buzz Grading
                     <Stack spacing={2} alignItems="center">
                         <Typography variant="h6">JUDGE: {buzzedPlayer}</Typography>
                         <Stack direction="row" spacing={2}>
@@ -264,27 +273,14 @@ export default function ClueModal({
                     </Stack>
                   ) : (
                     <>
-                        <Button 
-                        variant="outlined" 
-                        onClick={onClose} 
-                        sx={{ color: 'grey.400', borderColor: 'grey.400', fontFamily: '"Press Start 2P", cursive' }}
-                        >
-                        SKIP
-                        </Button>
-                        <Button 
-                            variant="contained" 
-                            color="secondary" 
-                            size="large" 
-                            onClick={onRevealAnswer} 
-                            sx={{ fontFamily: '"Press Start 2P", cursive' }}
-                        >
-                            REVEAL ANSWER
-                        </Button>
+                        <Button variant="outlined" onClick={onClose} sx={{ color: 'grey.400', borderColor: 'grey.400', fontFamily: '"Press Start 2P", cursive' }}>SKIP</Button>
+                        <Button variant="contained" color="secondary" size="large" onClick={onRevealAnswer} sx={{ fontFamily: '"Press Start 2P", cursive' }}>REVEAL ANSWER</Button>
                     </>
                   )}
                 </>
               )}
               {gameState === 'ANSWER' && (
+                // Backup manual grading (in case revealed first)
                 <Stack direction="row" spacing={4} alignItems="center" sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
                   {players.map(player => (
                     <Stack key={player.id} spacing={1} alignItems="center">
@@ -336,21 +332,25 @@ export default function ClueModal({
           <Box key={i} sx={{ position: 'absolute', ...pos, width: 20, height: 20, bgcolor: 'grey.500', boxShadow: '2px 2px #000', border: '1px solid #fff' }} />
         ))}
 
-        {buzzedPlayer && (
+        {/* Moved Buzzed Banner to Top Left to avoid covering text */}
+        {buzzedPlayer && !activeClue?.isDailyDouble && (
           <Paper 
             elevation={24}
             sx={{ 
               position: 'absolute', 
-              top: '10%', 
+              top: 20, 
+              left: '50%',
+              transform: 'translateX(-50%)',
               bgcolor: 'error.main', 
               color: 'white', 
-              p: 4, 
+              p: 2, 
+              px: 6,
               border: '4px solid white', 
               zIndex: 9999,
               animation: 'pulse 0.5s infinite alternate'
             }}
           >
-            <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', textShadow: '4px 4px #000' }}>
+            <Typography variant="h4" sx={{ fontFamily: '"Press Start 2P", cursive', textShadow: '4px 4px #000' }}>
               {buzzedPlayer} BUZZED!
             </Typography>
           </Paper>
