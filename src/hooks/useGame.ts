@@ -191,6 +191,39 @@ export function useGame() {
     });
   }, [round]);
 
+  const selectClue = useCallback((clue: Clue) => {
+    if (answeredClues.has(clue.id)) return;
+    
+    if (dailyDoubleIds.has(clue.id)) {
+      setActiveClue({ ...clue, isDailyDouble: true });
+      setGameState('DAILY_DOUBLE_WAGER');
+    } else {
+      setActiveClue(clue);
+      setGameState('CLUE');
+    }
+  }, [answeredClues, dailyDoubleIds]);
+
+  const submitWager = useCallback((amount: number) => {
+    if (activeClue) {
+      setActiveClue({ ...activeClue, value: amount });
+      setGameState('CLUE');
+    }
+  }, [activeClue]);
+
+  const revealAnswer = useCallback(() => {
+    setGameState('ANSWER');
+  }, []);
+
+  const completeClue = useCallback((winnerId: string | null, correct: boolean) => {
+    if (activeClue) {
+      if (correct || winnerId === null) {
+        setAnsweredClues(prev => new Set(prev).add(activeClue.id));
+        setGameState('BOARD');
+        setActiveClue(null);
+      }
+    }
+  }, [activeClue]);
+
   const endGame = useCallback(() => {
     setGameState('GAME_OVER');
   }, []);
