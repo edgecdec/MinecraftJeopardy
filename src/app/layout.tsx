@@ -5,7 +5,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Jeopardy Game',
-  description: 'A locally hosted Jeopardy game',
+  description: 'A self-hosted, real-time multiplayer Jeopardy game',
 };
 
 export default function RootLayout({
