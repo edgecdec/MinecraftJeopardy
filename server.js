@@ -59,7 +59,7 @@ app.prepare().then(() => {
             if (signature === digest) {
                 console.log('Webhook verified. Deploying...');
                 res.statusCode = 200; res.end('Deploying');
-                // Use bash to execute script (avoids permission issues)
+                // Use bash explicitly to avoid permission/shebang issues
                 exec('bash /var/www/MinecraftJeopardy/deploy_webhook.sh', (error, stdout, stderr) => {
                     if (error) console.error(`exec error: ${error}`);
                     if (stdout) console.log(`stdout: ${stdout}`);
