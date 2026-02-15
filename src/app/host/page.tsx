@@ -45,6 +45,8 @@ function HostGameContent() {
     buzzedName, lock, unlock, reset, clear, markCorrect, markWrong,
     updateState, updatePlayer, removePlayer: removePlayerApi,
     addPlayer: addPlayerApi,
+    updateMaxPlayers, // New Action
+    maxPlayers,       // New State
     wagers, finalAnswers, allPlayers,
     incorrectBuzzes,
     controlPlayerId,
@@ -195,9 +197,11 @@ function HostGameContent() {
 
         <ScoreBoard 
           players={allPlayers || []} 
+          maxPlayers={maxPlayers}
           onAdjust={handleScoreAdjust} 
           onUpdateName={handleUpdateName}
           onUpdateScore={handleUpdateScore}
+          onUpdateMaxPlayers={updateMaxPlayers}
           onAddPlayer={addPlayerApi} 
           onRemovePlayer={removePlayerApi} 
         />
