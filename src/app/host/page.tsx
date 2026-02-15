@@ -39,14 +39,14 @@ function HostGameContent() {
     endGame
   } = useGame(gameId, roomCode); 
 
-  const { playSound } = useSound();
+  const { playSound, speak, cancelSpeech, ttsEnabled, setTtsEnabled } = useSound();
   const { 
     connectionError,
     buzzedName, lock, unlock, reset, clear, markCorrect, markWrong,
     updateState, updatePlayer, removePlayer: removePlayerApi,
     addPlayer: addPlayerApi,
-    updateMaxPlayers, // New Action
-    maxPlayers,       // New State
+    updateMaxPlayers,
+    maxPlayers,
     wagers, finalAnswers, allPlayers,
     incorrectBuzzes,
     controlPlayerId,
@@ -177,7 +177,14 @@ function HostGameContent() {
       }}
     >
       <Container maxWidth={false} sx={{ px: 4 }}>
-        <GameHeader title={gameTitle} round={round} roomCode={roomCode} onNextRound={handleNextRound} />
+        <GameHeader 
+            title={gameTitle} 
+            round={round} 
+            roomCode={roomCode} 
+            onNextRound={handleNextRound} 
+            ttsEnabled={ttsEnabled}
+            onToggleTts={() => setTtsEnabled(!ttsEnabled)}
+        />
 
         {round !== 'FINAL' ? (
           <GameBoard 
@@ -226,6 +233,8 @@ function HostGameContent() {
           onAdvanceFinal={advanceFinalJeopardy}
           onResetGame={() => generateBoard('SINGLE')}
           onContinue={handleClearBuzzer}
+          speak={speak}
+          cancelSpeech={cancelSpeech}
         />
       </Container>
     </Box>
