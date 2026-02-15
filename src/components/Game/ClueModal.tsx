@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, Dialog, Stack, TextField, Paper } from '@mui/material';
+import { Box, Typography, Button, Dialog, Stack, TextField, Paper, IconButton } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Clue, GameState, Round, Player } from '@/hooks/useGame';
 
 interface ClueModalProps {
@@ -68,14 +69,11 @@ export default function ClueModal({
   // TTS Effect
   useEffect(() => {
       if (open && activeClue && gameState === 'CLUE' && !buzzedPlayer && !activeClue.isDailyDouble) {
-          // Speak the clue
-          // Small delay to allow transition
           const timer = setTimeout(() => {
               if (speak) speak(activeClue.clue);
           }, 500);
           return () => { clearTimeout(timer); if (cancelSpeech) cancelSpeech(); };
       }
-      // Stop speech if buzzed or state changes
       if (buzzedPlayer || !open) {
           if (cancelSpeech) cancelSpeech();
       }
@@ -106,6 +104,30 @@ export default function ClueModal({
     if (!isNaN(amount) && amount >= 0) {
       onSubmitWager(amount);
     }
+  };
+
+  const handlePeekAnswer = () => {
+      if (activeClue) {
+          const w = window.open('', 'AnswerPeek', 'width=400,height=200,menubar=no,toolbar=no,location=no,status=no,resizable=yes,scrollbars=yes');
+          if (w) {
+              w.document.body.innerHTML = ''; // Clear if reused
+              w.document.write(`
+                  <html>
+                      <head>
+                          <title>Answer</title>
+                          <style>
+                              body { background: #121212; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: monospace; text-align: center; }
+                              h1 { font-size: 24px; padding: 20px; }
+                          </style>
+                      </head>
+                      <body>
+                          <h1>${activeClue.answer}</h1>
+                      </body>
+                  </html>
+              `);
+              w.focus();
+          }
+      }
   };
 
   const getControlPlayerName = () => {
@@ -321,6 +343,21 @@ export default function ClueModal({
           p: 4
         }}
       >
+        <IconButton
+            onClick={handlePeekAnswer}
+            sx={{
+                position: 'absolute',
+                top: 20,
+                right: 20,
+                color: 'rgba(255,255,255,0.2)',
+                '&:hover': { color: 'white', bgcolor: 'rgba(255,255,255,0.1)' },
+                zIndex: 10000
+            }}
+            title="Peek Answer (Opens Popup)"
+        >
+            <VisibilityIcon />
+        </IconButton>
+
         {[
           { top: 10, left: 10 }, { top: 10, right: 10 }, 
           { bottom: 10, left: 10 }, { bottom: 10, right: 10 }
