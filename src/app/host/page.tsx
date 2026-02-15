@@ -46,22 +46,17 @@ function HostGameContent() {
     updateState, updatePlayer, removePlayer: removePlayerApi,
     addPlayer: addPlayerApi,
     wagers, finalAnswers, allPlayers,
-    incorrectBuzzes, // Need this to show who is locked out? Optional.
-    controlPlayerId, // Need this for Daily Double?
+    incorrectBuzzes,
+    controlPlayerId,
     gameState: serverGameState 
   } = useBuzzer(roomCode);
 
-  // Sync Game State to API only when it changes locally
   useEffect(() => {
     if (gameState !== serverGameState) {
         updateState({ gameState });
     }
   }, [gameState, serverGameState, updateState]);
 
-  // unlock buzzer when clue opens (and it's not a daily double)
-  // UPDATED LOGIC: 
-  // If Daily Double, DO NOT unlock.
-  // If Control Player exists, maybe show "Waiting for [Player]"?
   useEffect(() => {
     if (activeClue && !activeClue.isDailyDouble && gameState === 'CLUE') {
         unlock();
@@ -70,7 +65,6 @@ function HostGameContent() {
     }
   }, [activeClue, gameState]);
 
-  // Play sound when someone buzzes
   useEffect(() => {
     if (buzzedName) {
         playSound('click');
@@ -90,6 +84,10 @@ function HostGameContent() {
       updatePlayer(playerId, { name });
   };
 
+  const handleUpdateScore = (playerId: string, newScore: number) => {
+      updatePlayer(playerId, { score: newScore });
+  };
+
   const handleSelectClue = (clue: any) => {
     playSound('click');
     selectClue(clue);
@@ -98,7 +96,6 @@ function HostGameContent() {
   const handleCompleteClue = (pid: string | null, correct: boolean) => {
       const clueValue = activeClue?.value || 0;
 
-      // Final Jeopardy Logic (Wagers)
       if (round === 'FINAL' && pid) {
           const player = allPlayers?.find(p => p.id === pid);
           if (player) {
@@ -110,27 +107,22 @@ function HostGameContent() {
           return;
       }
 
-      // Regular Play
       if (pid) {
           if (correct) {
               markCorrect(pid, clueValue);
               playSound('correct');
-              completeClue(pid, true); // Close local clue
+              completeClue(pid, true); 
           } else {
               markWrong(pid, clueValue);
               playSound('wrong');
-              // DO NOT completeClue(). Keep it open for others to buzz.
-              // Just clear buzzer (handled by server markWrong)
           }
       } else {
-          // Skip / No one got it
           reset();
           completeClue(null, false);
       }
   };
 
   const handleClearBuzzer = () => {
-      // Manual clear (e.g. accidental buzz)
       clear(); 
   };
 
@@ -205,6 +197,7 @@ function HostGameContent() {
           players={allPlayers || []} 
           onAdjust={handleScoreAdjust} 
           onUpdateName={handleUpdateName}
+          onUpdateScore={handleUpdateScore}
           onAddPlayer={addPlayerApi} 
           onRemovePlayer={removePlayerApi} 
         />
@@ -216,7 +209,7 @@ function HostGameContent() {
           round={round}
           players={allPlayers || []}
           buzzedPlayer={buzzedName}
-          controlPlayerId={controlPlayerId} // Pass Control
+          controlPlayerId={controlPlayerId}
           wagers={wagers}
           finalAnswers={finalAnswers}
           onRevealAnswer={revealAnswer}

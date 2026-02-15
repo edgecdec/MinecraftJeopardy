@@ -10,23 +10,42 @@ interface ScoreBoardProps {
   players: Player[];
   onAdjust: (playerId: string, amount: number) => void;
   onUpdateName: (playerId: string, name: string) => void;
+  onUpdateScore: (playerId: string, newScore: number) => void;
   onAddPlayer: () => void;
   onRemovePlayer: (playerId: string) => void;
 }
 
-export default function ScoreBoard({ players, onAdjust, onUpdateName, onAddPlayer, onRemovePlayer }: ScoreBoardProps) {
-  const [editingId, setEditingId] = useState<string | null>(null);
+export default function ScoreBoard({ players, onAdjust, onUpdateName, onUpdateScore, onAddPlayer, onRemovePlayer }: ScoreBoardProps) {
+  const [editingNameId, setEditingNameId] = useState<string | null>(null);
   const [editName, setEditName] = useState('');
 
-  const startEditing = (player: Player) => {
-    setEditingId(player.id);
+  const [editingScoreId, setEditingScoreId] = useState<string | null>(null);
+  const [editScore, setEditScore] = useState('');
+
+  const startNameEdit = (player: Player) => {
+    setEditingNameId(player.id);
     setEditName(player.name);
   };
 
-  const saveEditing = () => {
-    if (editingId) {
-      onUpdateName(editingId, editName);
-      setEditingId(null);
+  const saveNameEdit = () => {
+    if (editingNameId) {
+      onUpdateName(editingNameId, editName);
+      setEditingNameId(null);
+    }
+  };
+
+  const startScoreEdit = (player: Player) => {
+    setEditingScoreId(player.id);
+    setEditScore(player.score.toString());
+  };
+
+  const saveScoreEdit = () => {
+    if (editingScoreId) {
+      const val = parseInt(editScore);
+      if (!isNaN(val)) {
+        onUpdateScore(editingScoreId, val);
+      }
+      setEditingScoreId(null);
     }
   };
 
@@ -52,7 +71,7 @@ export default function ScoreBoard({ players, onAdjust, onUpdateName, onAddPlaye
           sx={{ 
             position: 'relative',
             width: 200,
-            bgcolor: '#c6c6c6', // Standard MC GUI Light Grey
+            bgcolor: '#c6c6c6', 
             border: '4px solid',
             borderColor: 'white',
             borderRightColor: '#555',
@@ -83,13 +102,13 @@ export default function ScoreBoard({ players, onAdjust, onUpdateName, onAddPlaye
           </IconButton>
 
           {/* Player Name Tag (Editable) */}
-          {editingId === player.id ? (
+          {editingNameId === player.id ? (
             <TextField
               variant="standard"
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
-              onBlur={saveEditing}
-              onKeyDown={(e) => e.key === 'Enter' && saveEditing()}
+              onBlur={saveNameEdit}
+              onKeyDown={(e) => e.key === 'Enter' && saveNameEdit()}
               autoFocus
               inputProps={{ 
                 style: { 
@@ -104,7 +123,7 @@ export default function ScoreBoard({ players, onAdjust, onUpdateName, onAddPlaye
           ) : (
             <Typography 
               align="center" 
-              onClick={() => startEditing(player)}
+              onClick={() => startNameEdit(player)}
               sx={{ 
                 color: '#3f3f3f', 
                 fontSize: '0.8rem', 
@@ -119,26 +138,54 @@ export default function ScoreBoard({ players, onAdjust, onUpdateName, onAddPlaye
             </Typography>
           )}
           
-          {/* Score Display (Dark inset) */}
-          <Box sx={{ 
-            bgcolor: '#000', 
-            border: '2px solid #8b8b8b', 
-            borderRightColor: '#fff', 
-            borderBottomColor: '#fff',
-            p: 1,
-            mb: 1
-          }}>
-            <Typography 
-              variant="h5" 
-              align="center" 
-              sx={{ 
-                fontFamily: '"Press Start 2P", cursive',
-                color: player.score >= 0 ? '#55ff55' : '#ff5555',
-                textShadow: '2px 2px #000'
-              }}
-            >
-               ${player.score}
-            </Typography>
+          {/* Score Display (Editable) */}
+          <Box 
+            sx={{ 
+              bgcolor: '#000', 
+              border: '2px solid #8b8b8b', 
+              borderRightColor: '#fff', 
+              borderBottomColor: '#fff',
+              p: 1,
+              mb: 1,
+              cursor: 'pointer'
+            }}
+            onClick={() => startScoreEdit(player)}
+          >
+            {editingScoreId === player.id ? (
+                <TextField
+                  variant="standard"
+                  value={editScore}
+                  onChange={(e) => setEditScore(e.target.value)}
+                  onBlur={saveScoreEdit}
+                  onKeyDown={(e) => e.key === 'Enter' && saveScoreEdit()}
+                  autoFocus
+                  inputProps={{ 
+                    style: { 
+                      textAlign: 'center', 
+                      fontFamily: '"Press Start 2P", cursive', 
+                      color: '#55ff55',
+                      fontSize: '1.2rem'
+                    },
+                    type: 'number' 
+                  }}
+                  sx={{ 
+                      '& .MuiInput-underline:before': { borderBottomColor: 'white' },
+                      '& .MuiInput-underline:after': { borderBottomColor: '#55ff55' }
+                  }}
+                />
+            ) : (
+                <Typography 
+                  variant="h5" 
+                  align="center" 
+                  sx={{ 
+                    fontFamily: '"Press Start 2P", cursive',
+                    color: player.score >= 0 ? '#55ff55' : '#ff5555',
+                    textShadow: '2px 2px #000'
+                  }}
+                >
+                   ${player.score}
+                </Typography>
+            )}
           </Box>
 
           {/* Controls */}
