@@ -338,7 +338,7 @@ export default function ClueModal({
             elevation={24}
             sx={{ 
               position: 'absolute', 
-              top: 20, 
+              top: '15%', 
               left: '50%',
               transform: 'translateX(-50%)',
               bgcolor: 'error.main', 
@@ -347,7 +347,10 @@ export default function ClueModal({
               px: 6,
               border: '4px solid white', 
               zIndex: 9999,
-              animation: 'pulse 0.5s infinite alternate'
+              animation: 'pulse 0.5s infinite alternate',
+              width: 'auto',
+              minWidth: 300,
+              textAlign: 'center'
             }}
           >
             <Typography variant="h4" sx={{ fontFamily: '"Press Start 2P", cursive', textShadow: '4px 4px #000' }}>
