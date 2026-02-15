@@ -8,10 +8,12 @@ interface GameHeaderProps {
   title?: string;
   round: Round;
   roomCode?: string;
+  ttsEnabled: boolean;
+  onToggleTts: () => void;
   onNextRound: () => void;
 }
 
-export default function GameHeader({ title = "JEOPARDY", round, roomCode, onNextRound }: GameHeaderProps) {
+export default function GameHeader({ title = "JEOPARDY", round, roomCode, ttsEnabled, onToggleTts, onNextRound }: GameHeaderProps) {
   return (
     <Box sx={{ textAlign: 'center', mb: 4, position: 'relative' }}>
       <Typography 
@@ -37,6 +39,16 @@ export default function GameHeader({ title = "JEOPARDY", round, roomCode, onNext
           ROUND: <span style={{ color: '#fff' }}>{round}</span>
         </Typography>
         
+        <Button 
+          size="small" 
+          variant="contained" 
+          color={ttsEnabled ? "success" : "inherit"}
+          onClick={onToggleTts}
+          sx={{ fontFamily: '"Press Start 2P", cursive', fontSize: '0.6rem' }}
+        >
+          VOICE: {ttsEnabled ? 'ON' : 'OFF'}
+        </Button>
+
         <Button 
           size="small" 
           variant="contained" 

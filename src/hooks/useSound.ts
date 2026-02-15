@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
 const SOUNDS = {
   click: '/sounds/click.mp3',
@@ -12,15 +12,53 @@ const SOUNDS = {
 };
 
 export function useSound() {
+  // Initialize from localStorage if possible, default true
+  const [ttsEnabled, setTtsEnabled] = useState(true);
+
   const playSound = useCallback((type: keyof typeof SOUNDS) => {
     try {
       const audio = new Audio(SOUNDS[type]);
-      audio.volume = 0.5; // Default volume 50%
-      audio.play().catch(e => console.warn("Audio play failed (user interaction needed first):", e));
+      audio.volume = 0.5; 
+      audio.play().catch(e => console.warn("Audio play failed:", e));
     } catch (e) {
       console.warn("Audio init failed:", e);
     }
   }, []);
 
-  return { playSound };
+  const speak = useCallback((text: string) => {
+    if (!ttsEnabled || typeof window === 'undefined' || !window.speechSynthesis) return;
+
+    window.speechSynthesis.cancel(); // Stop previous speech
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.0; 
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+    
+    // Try to find a good voice
+    const voices = window.speechSynthesis.getVoices();
+    // Prefer English voices
+    const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Samantha'))) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+    
+    if (preferredVoice) utterance.voice = preferredVoice;
+
+    window.speechSynthesis.speak(utterance);
+  }, [ttsEnabled]);
+
+  const cancelSpeech = useCallback(() => {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+    }
+  }, []);
+
+  // Ensure voices are loaded (Chrome needs this event)
+  useEffect(() => {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+          window.speechSynthesis.onvoiceschanged = () => {
+              window.speechSynthesis.getVoices();
+          };
+      }
+  }, []);
+
+  return { playSound, speak, cancelSpeech, ttsEnabled, setTtsEnabled };
 }

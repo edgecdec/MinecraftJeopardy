@@ -20,7 +20,9 @@ interface ClueModalProps {
   onSubmitWager: (amount: number) => void;
   onAdvanceFinal: () => void;
   onResetGame: () => void;
-  onContinue: () => void; 
+  onContinue: () => void;
+  speak: (text: string) => void;
+  cancelSpeech: () => void;
 }
 
 export default function ClueModal({
@@ -39,7 +41,9 @@ export default function ClueModal({
   onSubmitWager,
   onAdvanceFinal,
   onResetGame,
-  onContinue
+  onContinue,
+  speak,
+  cancelSpeech
 }: ClueModalProps) {
   const [wager, setWager] = useState('');
   const [displayedText, setDisplayedText] = useState('');
@@ -50,8 +54,9 @@ export default function ClueModal({
         setWager('');
         setDisplayedText('');
         setCharIndex(0);
+        cancelSpeech();
     }
-  }, [open]);
+  }, [open, cancelSpeech]);
 
   useEffect(() => {
       if (activeClue) {
@@ -59,6 +64,22 @@ export default function ClueModal({
           setCharIndex(0);
       }
   }, [activeClue]);
+
+  // TTS Effect
+  useEffect(() => {
+      if (open && activeClue && gameState === 'CLUE' && !buzzedPlayer && !activeClue.isDailyDouble) {
+          // Speak the clue
+          // Small delay to allow transition
+          const timer = setTimeout(() => {
+              speak(activeClue.clue);
+          }, 500);
+          return () => { clearTimeout(timer); cancelSpeech(); };
+      }
+      // Stop speech if buzzed or state changes
+      if (buzzedPlayer || !open) {
+          cancelSpeech();
+      }
+  }, [activeClue, open, gameState, buzzedPlayer, speak, cancelSpeech]);
 
   useEffect(() => {
       if (!activeClue || round === 'FINAL') return; 
@@ -227,48 +248,24 @@ export default function ClueModal({
               {gameState === 'CLUE' && (
                 <>
                   {activeClue.isDailyDouble ? (
-                      // Daily Double Grading (Control Player Only)
                       <Stack spacing={2} alignItems="center">
                         <Typography variant="h6">JUDGE: {getControlPlayerName()}</Typography>
                         <Stack direction="row" spacing={2}>
-                            <Button 
-                                variant="contained" color="success" size="large"
-                                onClick={() => onCompleteClue(controlPlayerId || null, true)}
-                            >
-                                CORRECT (+${activeClue.value})
-                            </Button>
-                            <Button 
-                                variant="contained" color="error" size="large"
-                                onClick={() => onCompleteClue(controlPlayerId || null, false)}
-                            >
-                                WRONG (-${activeClue.value})
-                            </Button>
+                            <Button variant="contained" color="success" size="large" onClick={() => onCompleteClue(controlPlayerId || null, true)}>CORRECT (+${activeClue.value})</Button>
+                            <Button variant="contained" color="error" size="large" onClick={() => onCompleteClue(controlPlayerId || null, false)}>WRONG (-${activeClue.value})</Button>
                         </Stack>
                     </Stack>
                   ) : buzzedPlayer ? (
-                    // Standard Buzz Grading
                     <Stack spacing={2} alignItems="center">
                         <Typography variant="h6">JUDGE: {buzzedPlayer}</Typography>
                         <Stack direction="row" spacing={2}>
                             {players.find(p => p.name === buzzedPlayer) && (
                                 <>
-                                    <Button 
-                                        variant="contained" color="success" size="large"
-                                        onClick={() => onCompleteClue(players.find(p => p.name === buzzedPlayer)!.id, true)}
-                                    >
-                                        CORRECT (+)
-                                    </Button>
-                                    <Button 
-                                        variant="contained" color="error" size="large"
-                                        onClick={() => onCompleteClue(players.find(p => p.name === buzzedPlayer)!.id, false)}
-                                    >
-                                        WRONG (-)
-                                    </Button>
+                                    <Button variant="contained" color="success" size="large" onClick={() => onCompleteClue(players.find(p => p.name === buzzedPlayer)!.id, true)}>CORRECT (+)</Button>
+                                    <Button variant="contained" color="error" size="large" onClick={() => onCompleteClue(players.find(p => p.name === buzzedPlayer)!.id, false)}>WRONG (-)</Button>
                                 </>
                             )}
-                            <Button variant="outlined" color="warning" onClick={onContinue}>
-                                CLEAR (NO SCORE)
-                            </Button>
+                            <Button variant="outlined" color="warning" onClick={onContinue}>CLEAR (NO SCORE)</Button>
                         </Stack>
                     </Stack>
                   ) : (
@@ -280,7 +277,6 @@ export default function ClueModal({
                 </>
               )}
               {gameState === 'ANSWER' && (
-                // Backup manual grading (in case revealed first)
                 <Stack direction="row" spacing={4} alignItems="center" sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
                   {players.map(player => (
                     <Stack key={player.id} spacing={1} alignItems="center">
@@ -332,7 +328,6 @@ export default function ClueModal({
           <Box key={i} sx={{ position: 'absolute', ...pos, width: 20, height: 20, bgcolor: 'grey.500', boxShadow: '2px 2px #000', border: '1px solid #fff' }} />
         ))}
 
-        {/* Moved Buzzed Banner to Top Left to avoid covering text */}
         {buzzedPlayer && !activeClue?.isDailyDouble && (
           <Paper 
             elevation={24}
