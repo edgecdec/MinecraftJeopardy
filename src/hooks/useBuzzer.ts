@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { io, Socket } from 'socket.io-client';
 
 interface RoomState {
   locked: boolean;
@@ -23,9 +24,9 @@ export function useBuzzer(code: string, playerName?: string) {
     finalAnswers: {}
   });
   const [deviceId, setDeviceId] = useState<string>('');
+  const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
-    // Generate or retrieve persistent Device ID
     let id = localStorage.getItem('jeopardy_device_id');
     if (!id) {
       id = Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -34,66 +35,40 @@ export function useBuzzer(code: string, playerName?: string) {
     setDeviceId(id);
   }, []);
 
-  const fetchState = useCallback(async () => {
-    if (!code) return;
-    try {
-      const res = await fetch(`/api/game?code=${code}`);
-      if (res.ok) {
-        const data = await res.json();
-        setState(data);
-      }
-    } catch (e) {
-      console.error("Failed to fetch game state", e);
-    }
-  }, [code]);
-
   useEffect(() => {
-    if (!code) return;
-    fetchState();
+    if (!code || !deviceId) return;
 
-    // Polling enabled ONLY for Dev Server
-    if (process.env.NODE_ENV === 'development') {
-        const interval = setInterval(fetchState, 500);
-        return () => clearInterval(interval);
-    }
-  }, [code, fetchState]);
+    // Connect to Socket
+    const socket = io();
+    socketRef.current = socket;
 
-  useEffect(() => {
-    if (!code || !deviceId || !playerName) return;
-    
-    // Join the game to register self
-    const joinGame = async () => {
-        try {
-            await fetch('/api/game', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code, action: 'join', playerId: deviceId, playerName })
-            });
-            fetchState();
-        } catch (e) {
-            console.error("Failed to join", e);
-        }
+    socket.on('connect', () => {
+        // console.log('Connected to socket');
+        // Join room with identity
+        socket.emit('join_room', { 
+            code, 
+            name: playerName || 'Host', 
+            playerId: deviceId 
+        });
+    });
+
+    socket.on('state_update', (newState: RoomState) => {
+        setState(newState);
+    });
+
+    return () => {
+        socket.disconnect();
     };
-    
-    joinGame();
-  }, [code, deviceId, playerName]); // Re-join if name/code changes
+  }, [code, deviceId, playerName]);
 
-  const performAction = async (action: string, payload: any = {}, targetId?: string) => {
-    try {
-      await fetch('/api/game', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          code, 
-          action, 
-          playerId: targetId || deviceId,
-          playerName: playerName,
-          payload
-        })
-      });
-      fetchState();
-    } catch (e) {
-      console.error("Failed to perform action", e);
+  const performAction = (action: string, payload: any = {}, targetId?: string) => {
+    if (socketRef.current) {
+        socketRef.current.emit('game_action', {
+            code,
+            action,
+            payload,
+            playerId: targetId || deviceId
+        });
     }
   };
 
@@ -116,12 +91,12 @@ export function useBuzzer(code: string, playerName?: string) {
     unlock: () => performAction('unlock'),
     clear: () => performAction('clear'),
     reset: () => performAction('reset'),
-    addPlayer: () => performAction('add_player'),
+    addPlayer: () => performAction('add_bot'),
     updateState: (newState: { players?: any[], gameState?: string }) => performAction('update_state', newState),
     updatePlayer: (id: string, updates: { score?: number, name?: string }) => performAction('update_player', updates, id),
     removePlayer: (id: string) => performAction('remove_player', {}, id),
     submitWager: (wager: number) => performAction('submit_wager', { wager }),
     submitAnswer: (answer: string) => performAction('submit_answer', { answer }),
-    refresh: fetchState
+    refresh: () => {} // No-op for sockets
   };
 }

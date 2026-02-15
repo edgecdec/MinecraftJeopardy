@@ -9,7 +9,7 @@
         { "difficulty": 2, "clue": "While most villagers follow a set weekly schedule, this solitary writer disappears to the library on rainy days and locks himself in his beach cabin to work on his novel.", "answer": "Elliott" },
         { "difficulty": 3, "clue": "This mysterious character, who lives in the Sewers, sells rare items like Void Eggs and Stardrops, and strictly loves Void Mayonnaise and Diamonds.", "answer": "Krobus" },
         { "difficulty": 4, "clue": "If you want to maximize your friendship with the carpenter Robin, you should avoid giving her this specific crafting material, which she confusingly hates despite working with it every day.", "answer": "Wood" },
-        { "difficulty": 5, "clue": "On the 25th of Winter, you can receive a gift from your 'Secret Friend'; this specific villager is the only one who can gift you a Tea Set.", "answer": "The Secret Gift-Giver (Adult Villagers)" }
+        { "difficulty": 5, "clue": "On the 25th of Winter at the Feast of the Winter Star, this specific rare item can be received as a gift from any adult villager, but never from a child.", "answer": "Tea Set" }
       ]
     },
     {
@@ -18,20 +18,20 @@
       "pool": [
         { "difficulty": 1, "clue": "Of the three crops needed to unlock the Greenhouse via the Pantry Bundle—Pumpkin, Corn, and Eggplant—this is the only one that can grow in both Summer and Fall.", "answer": "Corn" },
         { "difficulty": 2, "clue": "Placed in a Preserves Jar, vegetables turn into Pickles, but placing fruits in the same machine will produce this sweet artisan good.", "answer": "Jelly" },
-        { "difficulty": 3, "clue": "This specific artisan good, made by placing Sturgeon Roe into a Preserves Jar, is the only roe product that does not turn into 'Aged Roe'.", "answer": "Caviar" },
-        { "difficulty": 4, "clue": "To maximize efficiency, players often plant this crop on Day 1 of Fall; despite taking 24 days to grow, it is the most valuable recurring crop in the game if planted in the Greenhouse.", "answer": "Ancient Fruit" },
-        { "difficulty": 5, "clue": "While most crops die on the 1st of Winter, this 'wild' seed variant is the only crop that can be grown outdoors in the snow.", "answer": "Winter Seeds (or Wild Seeds Winter)" }
+        { "difficulty": 3, "clue": "While most fish roe turns into 'Aged Roe' in a Preserves Jar, the roe of this specific fish turns into Caviar.", "answer": "Sturgeon" },
+        { "difficulty": 4, "clue": "This crop's seeds cannot be bought at Pierre's or Joja, but can be crafted from a specific blue artifact found in the mines or digging spots.", "answer": "Ancient Fruit" },
+        { "difficulty": 5, "clue": "To craft a batch of 10 Winter Seeds, you need Crocus, Crystal Fruit, Snow Yam, and this fourth foraged root.", "answer": "Winter Root" }
       ]
     },
     {
       "name": "Gone Fishing",
       "description": "Ichthyological Simulation: Spawn conditions, locations, and legendary catches.",
       "pool": [
-        { "difficulty": 1, "clue": "Known for its difficulty and erratic movement, this fish can be caught in the rain during Spring and Fall, or more easily on the Riverland farm.", "answer": "Catfish" },
-        { "difficulty": 2, "clue": "This bottom-feeding fish is notoriously easy to catch because it simply rests at the bottom of the fishing bar.", "answer": "Carp" },
+        { "difficulty": 1, "clue": "This bottom-feeding fish is notoriously easy to catch because it simply rests at the bottom of the fishing bar.", "answer": "Carp" },
+        { "difficulty": 2, "clue": "This difficult river fish can only be caught in the rain during Spring and Fall, or on the Riverland Farm.", "answer": "Catfish" },
         { "difficulty": 3, "clue": "This valuable purple fish, often requested by the Wizard, can only be caught in the Ocean during the evening hours (6 PM to 2 AM) of Summer and Winter.", "answer": "Super Cucumber" },
         { "difficulty": 4, "clue": "Of the five original Legendary Fish, this is the only one that spawns in the Sewers and requires no specific season or weather condition to catch.", "answer": "Mutant Carp" },
-        { "difficulty": 5, "clue": "This difficult catch is found on Floor 100 of the Mines and in the Volcano Caldera; it has the highest base sell price of any non-legendary fish.", "answer": "Lava Eel" }
+        { "difficulty": 5, "clue": "Found on Floor 100 of the Mines, this fish has the highest difficulty of any non-legendary fish and turns Fish Pond water red.", "answer": "Lava Eel" }
       ]
     },
     {
@@ -42,7 +42,7 @@
         { "difficulty": 2, "clue": "These black, fuzzy enemies found in the frozen floors (40-79) are hunted by players not just for safety, but because they have a high chance to drop Coal.", "answer": "Dust Sprites" },
         { "difficulty": 3, "clue": "This weapon, rewarded from the chest on Floor 90, is often the player's first major power spike, featuring a black blade and high attack speed.", "answer": "Obsidian Edge" },
         { "difficulty": 4, "clue": "In the Skull Cavern, these prehistoric enemies breathe fire and are the primary source of Dinosaur Eggs and Prehistoric Ribs.", "answer": "Pepper Rex" },
-        { "difficulty": 5, "clue": "This specific ring, obtained by killing 1000 Slimes for the Adventurer's Guild, prevents all damage from Slimes.", "answer": "Slime Charmer Ring" }
+        { "difficulty": 5, "clue": "Rewarded for killing 250 Serpents, this ring causes enemies to explode upon death, destroying nearby rocks.", "answer": "Napalm Ring" }
       ]
     },
     {
@@ -51,26 +51,229 @@
       "pool": [
         { "difficulty": 1, "clue": "To repair the bridge to the Quarry, you must complete the Crafts Room bundles, which primarily ask for these seasonal items found on the ground.", "answer": "Forage items" },
         { "difficulty": 2, "clue": "This specific bundle in the Pantry requires products like Large Milk, Large Eggs, and Wool, incentivizing the player to upgrade their Barn and Coop.", "answer": "Animal Bundle" },
-        { "difficulty": 3, "clue": "Completing the Vault room bundles costs a total of 42,500 gold and rewards the player with the repair of this vehicle.", "answer": "Bus" },
+        { "difficulty": 3, "clue": "Completing the Vault room bundles to repair the Bus costs a total of exactly this much gold.", "answer": "42,500g" },
         { "difficulty": 4, "clue": "After the Community Center is fully restored, a cutscene triggers where the Junimos wave goodbye; however, if you choose the Joja route, the center is replaced by this building.", "answer": "Joja Warehouse" },
-        { "difficulty": 5, "clue": "To unlock the Movie Theater via the Community Center route, you must complete the 'Missing Bundle' in the abandoned JojaMart; this bundle requires this roe-based artisan good produced from Sturgeon.", "answer": "Caviar" }
+        { "difficulty": 5, "clue": "The 'Missing Bundle' to unlock the Movie Theater requires 5 rare items; one of the options is this mayonnaise made from a prehistoric creature.", "answer": "Dinosaur Mayonnaise" }
       ]
     },
     {
       "name": "Secrets",
       "description": "Esoteric Knowledge: Easter eggs, glitches, and rare events.",
       "pool": [
-        { "difficulty": 1, "clue": "Clicking this celestial body on the shipping screen 10 times will cause a disgruntled face to appear on it.", "answer": "Full Moon" },
-        { "difficulty": 2, "clue": "If you place a Staircase into the pants slot of your character's inventory, it transforms into this wearable item, jokingly referring to Mayor Lewis's scandalous secret.", "answer": "Trimmed Lucky Purple Shorts" },
-        { "difficulty": 3, "clue": "Located in the Cindersap Forest, this vendor only appears on Fridays and Sundays, selling rare items from a pig-drawn cart.", "answer": "Traveling Cart (or Merchant)" },
-        { "difficulty": 4, "clue": "Interacting with a bush near the bridge to the beach at exactly 12:40 PM on the 28th of any season will reward the player with this giant decorative plushie.", "answer": "Junimo Plush" },
-        { "difficulty": 5, "clue": "This unintelligible language, seen on the scrolls in the Community Center, is actually a simple substitution cipher of English; the game files refer to its font as 'font_bold.xnb'.", "answer": "Junimo" }
+        { "difficulty": 1, "clue": "Located in the Cindersap Forest, this vendor only appears on Fridays and Sundays, selling rare items from a pig-drawn cart.", "answer": "Traveling Cart (or Merchant)" },
+        { "difficulty": 2, "clue": "Interacting with a bush near the bridge to the beach at exactly 12:40 PM on the 28th of any season will reward the player with this giant decorative plushie.", "answer": "Junimo Plush" },
+        { "difficulty": 3, "clue": "Clicking this celestial body on the shipping screen 10 times will cause a disgruntled face to appear on it.", "answer": "Full Moon" },
+        { "difficulty": 4, "clue": "If you place a Staircase into the pants slot of your character's inventory, it transforms into this wearable item, jokingly referring to Mayor Lewis's scandalous secret.", "answer": "Trimmed Lucky Purple Shorts" },
+        { "difficulty": 5, "clue": "To obtain the '??Foroguam??' statue, you must place this specific artisan good in the hidden box behind the Saloon.", "answer": "Duck Mayonnaise" }
+      ]
+    },
+    {
+      "name": "Culinary Arts",
+      "description": "The Mechanics of Buffs",
+      "pool": [
+        { "difficulty": 1, "clue": "New recipes are primarily learned by befriending villagers or by watching this television channel, which airs a new recipe every Sunday for the first two years.", "answer": "The Queen of Sauce" },
+        { "difficulty": 2, "clue": "This spicy dish, a favorite of the Skull Cavern explorer, provides both a Speed and Luck buff; it is a rare drop from Serpents or can be traded for Rubies at the Desert Trader.", "answer": "Spicy Eel" },
+        { "difficulty": 3, "clue": "Essential for catching legendary fish, this pudding grants a +4 Fishing buff, the highest fishing boost available from a cooked dish.", "answer": "Seafoam Pudding" },
+        { "difficulty": 4, "clue": "While most coffee grants a short speed boost, combining three coffees into this espresso triples the duration, making it a staple for efficient movement.", "answer": "Triple Shot Espresso" },
+        { "difficulty": 5, "clue": "This multicolored hard candy is arguably the most powerful food item in the game, granting +5 Luck, +1 Speed, and multiple other buffs; it can be obtained by donating a Prismatic Shard to the Desert Trader on Thursdays.", "answer": "Magic Rock Candy" }
+      ]
+    },
+    {
+      "name": "Island Life",
+      "description": "The Ginger Island Expansion (1.5 Update)",
+      "pool": [
+        { "difficulty": 1, "clue": "To reach Ginger Island, you must first repair the boat in the back room of this villager's shop, costing 200 Hardwood, 5 Iridium Bars, and 5 Battery Packs.", "answer": "Willy" },
+        { "difficulty": 2, "clue": "These golden edibles act as the currency of Ginger Island, used to unlock the Farmhouse, Resort, and Trader; there are exactly 130 of them hidden across the island.", "answer": "Golden Walnuts" },
+        { "difficulty": 3, "clue": "This young boy, who initially lives in a hut on Ginger Island with parrots, can eventually move to Pelican Town and become friends with Vincent and Jas.", "answer": "Leo" },
+        { "difficulty": 4, "clue": "Located at the top of the Volcano Dungeon, this machine allows you to combine rings and add buffs to tools using Cinder Shards and Prismatic Shards.", "answer": "The Forge" },
+        { "difficulty": 5, "clue": "This elderly NPC on the west side of the island initiates 'The Pirate's Wife' quest, a long trading sequence that eventually rewards the player with a Fairy Dust recipe.", "answer": "Birdie" }
+      ]
+    },
+    {
+      "name": "The Curator's Collection",
+      "description": "Archaeology and Rewards",
+      "pool": [
+        { "difficulty": 1, "clue": "This blue-clad curator runs the library and museum but strangely refuses to accept donations if he already has a specimen of that type.", "answer": "Gunther" },
+        { "difficulty": 2, "clue": "While finding the artifact version of this item is useless, donating it rewards you with a packet of plantable seeds and the recipe to craft more from the harvested fruit.", "answer": "Ancient Seed" },
+        { "difficulty": 3, "clue": "This rainbow-colored mineral is one of the rarest drops in the game and is required to complete the 'Missing Bundle' (or movie theater).", "answer": "Prismatic Shard" },
+        { "difficulty": 4, "clue": "This specific Dwarf Scroll (I, II, III, or IV) is the only one that can be obtained by tilling soil in the Mines (Floors 95+).", "answer": "Dwarf Scroll IV" },
+        { "difficulty": 5, "clue": "To earn the Blue Stardrop reward from the Museum, you must donate exactly this many items.", "answer": "95" }
+      ]
+    },
+    {
+      "name": "Festival Fever",
+      "description": "Seasonal Rhythm",
+      "pool": [
+        { "difficulty": 1, "clue": "Held on the 13th of Spring, this festival is the only opportunity to buy Strawberry Seeds, widely considered the best crop for Spring.", "answer": "The Egg Festival" },
+        { "difficulty": 2, "clue": "To dance with a partner at the Flower Dance, you must have reached this specific friendship heart level with them; otherwise, you will be brutally rejected.", "answer": "Four Hearts" },
+        { "difficulty": 3, "clue": "During the Summer Luau, the player must add an item to the communal potluck; adding a high-quality item pleases this visiting dignitary.", "answer": "The Governor" },
+        { "difficulty": 4, "clue": "In Winter, the Night Market features a submarine ride that takes players to the deep ocean, allowing them to catch unique fish like the Blobfish and Spook Fish.", "answer": "The Deep Sea Submarine" },
+        { "difficulty": 5, "clue": "To achieve a maximum score in the Grange Display, you do not need to fill all 9 slots with unique categories; instead, you only need to represent this minimum number of categories.", "answer": "6" }
+      ]
+    },
+    {
+      "name": "Barnyard Biology",
+      "description": "Livestock Mechanics",
+      "pool": [
+        { "difficulty": 1, "clue": "This rancher sells animals and supplies, but she is infamous among players for constantly being away from her shop counter on Mondays and Tuesdays.", "answer": "Marnie" },
+        { "difficulty": 2, "clue": "Pigs do not produce goods inside the barn; instead, they must be let outside to dig up this high-value forage item, which can be pressed into oil.", "answer": "Truffles" },
+        { "difficulty": 3, "clue": "A random overnight event involving a witch flying over your coop can leave you with a Void Egg, which can be hatched into this spooky avian variant.", "answer": "Void Chicken" },
+        { "difficulty": 4, "clue": "This large bird is unique because its eggs are not hatched in a coop incubator, but in a specialized incubator unlocked by solving puzzles on Ginger Island.", "answer": "Ostrich" },
+        { "difficulty": 5, "clue": "After seeing Shane's 8-heart event, buying a chicken from Marnie has a 1/4 chance of being this special color.", "answer": "Blue" }
+      ]
+    },
+    {
+      "name": "Qi's Challenge",
+      "description": "The End Game",
+      "pool": [
+        { "difficulty": 1, "clue": "In Winter Year 1, a 'Shadowy Figure' gives you this tool, which unlocks the ability to find and read Secret Notes hidden in stones, trees, and monsters.", "answer": "Magnifying Glass" },
+        { "difficulty": 2, "clue": "Reaching Floor 100 of the Skull Cavern rewards the player with 'Iridium Snake Milk,' which permanently increases this vital stat by 25 points.", "answer": "Health" },
+        { "difficulty": 3, "clue": "Inside the Walnut Room on Ginger Island, completing special orders rewards you with this currency, used to buy Key to the Town, Horse Flute, and Pierre's Stocklist.", "answer": "Qi Gems" },
+        { "difficulty": 4, "clue": "To enter the Casino behind Sandy's Oasis store, you must obtain the Club Card by completing a quest line that begins by putting a battery pack in a box in this location.", "answer": "The Tunnel (or the Bus Tunnel)" },
+        { "difficulty": 5, "clue": "One of Qi's most difficult challenges, 'Danger in the Deep,' resets the local Mines to a more difficult version with new radioactive ore; this ore allows you to craft 'Hyper Speed-Gro,' which speeds up crop growth by this percentage.", "answer": "33% (or at least 33%)" }
+      ]
+    },
+    {
+      "name": "Tool of the Trade",
+      "description": "Mechanical Upgrades: Specific capabilities of upgraded tools and enchantments.",
+      "pool": [
+        { "difficulty": 1, "clue": "Obtaining this item from the Glittering Boulder removal allows you to find ore, coal, and gems in the shimmering lights of the rivers and lakes.", "answer": "Copper Pan" },
+        { "difficulty": 2, "clue": "This machine, available from the Joja Warehouse route or as a rare chest drop in the Skull Cavern, automatically pets your animals, preventing friendship decay.", "answer": "Auto-Petter" },
+        { "difficulty": 3, "clue": "Sold by Krobus for 2,000,000g, this scepter allows the player to warp to the front door of the Farmhouse instantly, significantly optimizing daily time management.", "answer": "Return Scepter" },
+        { "difficulty": 4, "clue": "Exclusive to the Axe, this enchantment grants 3 extra wood from trees and gives a chance to harvest extra hardwood from stumps.", "answer": "Shaving" },
+        { "difficulty": 5, "clue": "This high-tier footwear, purchasable from the Volcano Dungeon shop for 100 Cinder Shards, offers the highest combined Defense (+6) and Immunity (+5) stats in the game.", "answer": "Cinderclown Shoes" }
+      ]
+    },
+    {
+      "name": "Lore & Order",
+      "description": "Deep World Building: Political and mythological background of the Stardew universe.",
+      "pool": [
+        { "difficulty": 1, "clue": "Stardew Valley is located within this nation, which is currently at war with the Gotoro Empire.", "answer": "Ferngill Republic" },
+        { "difficulty": 2, "clue": "The conflict between the Dwarves and the Shadow People, referenced by the Wizard and the museum artifacts, is known as this 'War'.", "answer": "Elemental Wars" },
+        { "difficulty": 3, "clue": "According to the 'Highlights from the Book of Yoba' found in the library, Yoba created the world in this many days.", "answer": "11 Days" },
+        { "difficulty": 4, "clue": "This author wrote the lost book 'The hidden truths of the universe' and is implied to be the geologist who first discovered the properties of the minerals in the valley.", "answer": "M. Jasper" },
+        { "difficulty": 5, "clue": "During the 'Spirit's Eve' festival, this character can be seen locked in a cage, implying he is either a monster or a performer; later, you can build a hut for his kind to harvest crops.", "answer": "Junimo" }
+      ]
+    },
+    {
+      "name": "Cinema Sins",
+      "description": "The Movie Theater Mechanics: Trivia related to the Movie Theater unlocked after the Community Center.",
+      "pool": [
+        { "difficulty": 1, "clue": "There are 8 distinct movies that play in the theater; because they change seasonally, it takes exactly this long to see the full rotation return to the beginning.", "answer": "Two Years" },
+        { "difficulty": 2, "clue": "A standard Movie Ticket costs this amount of gold, which you must pay for both yourself and any guest you invite.", "answer": "1,000g" },
+        { "difficulty": 3, "clue": "This minigame in the theater lobby has a 25% chance of being occupied by a man, making it unplayable before the movie starts.", "answer": "Crane Game" },
+        { "difficulty": 4, "clue": "If you unlock the Movie Theater via the Joja route (not the Community Center), this exclusive snack will always appear in the concession rotation.", "answer": "JojaCorn" },
+        { "difficulty": 5, "clue": "This horror movie, showing in Fall of Year 1, is described as 'A dark and mysterious film' and is loved by Sebastian and Abigail.", "answer": "Mysterium" }
+      ]
+    },
+    {
+      "name": "Monster Manual",
+      "description": "Combat Specifics: Focusing on enemy stats, drops, and behaviors.",
+      "pool": [
+        { "difficulty": 1, "clue": "Found in the Skull Cavern, this bandaged enemy can be knocked down but will revive unless destroyed with a bomb.", "answer": "Mummy" },
+        { "difficulty": 2, "clue": "This flying green enemy in the Skull Cavern is infamous for its high speed and weird hitbox; it has a chance to drop the Spicy Eel dish.", "answer": "Serpent" },
+        { "difficulty": 3, "clue": "This enemy disguises itself as a rock in the Mines; you can identify it because it doesn't have a shadow (or by hitting it with a pickaxe).", "answer": "Rock Crab" },
+        { "difficulty": 4, "clue": "Killing 150 of these flying fireballs in the Volcano Dungeon rewards you with Marlon's Phone Number, allowing you to recover lost items from home.", "answer": "Magma Sprites (or Magma Sparkers)" },
+        { "difficulty": 5, "clue": "In the 'Dangerous' version of the Mines, unlocked by Qi's quest, these enemies can inflict the 'Nauseated' debuff, preventing you from eating food to heal.", "answer": "Putrid Ghosts" }
+      ]
+    },
+    {
+      "name": "Haute Couture",
+      "description": "Tailoring and Accessories: Mechanics regarding clothing, rings, and hats.",
+      "pool": [
+        { "difficulty": 1, "clue": "You can craft a 'Prismatic' shirt or pants by using this item in the sewing machine; the clothing will cycle through colors over time.", "answer": "Prismatic Shard" },
+        { "difficulty": 2, "clue": "To craft clothes, you must visit Emily's house and use this machine, which requires a piece of Cloth and a secondary item for the dye/pattern.", "answer": "Sewing Machine" },
+        { "difficulty": 3, "clue": "Rewarded for completing the Monster Eradication goal for Rock Crabs, this ring grants a massive +5 Defense, making the player incredibly tanky.", "answer": "Crabshell Ring" },
+        { "difficulty": 4, "clue": "This bridal accessory can be tailored using a Pearl, an item usually obtained from the Night Market mermaid show or a Fish Pond.", "answer": "Bridal Veil" },
+        { "difficulty": 5, "clue": "This rare hat has a 0.001% chance to drop when cutting weeds; it looks like a garnish of leaves on the player's head.", "answer": "Living Hat" }
+      ]
+    },
+    {
+      "name": "Quest for Glory",
+      "description": "Special Orders and Story Missions: Focusing on the 'Big Board' quests and non-standard objectives.",
+      "pool": [
+        { "difficulty": 1, "clue": "In the 'Story' quest regarding Robin's lost axe, the axe is found in the Cindersap Forest near the entrance to this specific location.", "answer": "Sewer (or the Sewer Pipe)" },
+        { "difficulty": 2, "clue": "The 'Prismatic Jelly' required by the Wizard for his Special Order drops from a rare color-shifting slime that only spawns when the quest is active.", "answer": "Prismatic Slime" },
+        { "difficulty": 3, "clue": "To clean up the trash in the Cindersap Forest, you must feed this large creature four specific items (two seasonal fish, two cooked dishes).", "answer": "Trash Bear" },
+        { "difficulty": 4, "clue": "In the 'Goblin Problem' quest to access the Witch's Hut, you must bribe the Henchman with this specific food item, which has a description calling it 'punishment'.", "answer": "Void Mayonnaise" },
+        { "difficulty": 5, "clue": "The 'Strong Stuff' special order from Pam asks you to brew 12 units of Potato Juice; however, the cutscene implies she actually wanted this alcoholic beverage made from the same vegetable.", "answer": "Vodka" }
+      ]
+    },
+    {
+      "name": "The Mastery Cave",
+      "description": "1.6 Update Mechanics: Focusing on the new Mastery system introduced in Update 1.6.",
+      "pool": [
+        { "difficulty": 1, "clue": "To access the Mastery Cave, you must reach Level 10 in all five skills and find the door located in this map area.", "answer": "Cindersap Forest" },
+        { "difficulty": 2, "clue": "Claiming the Farming Mastery unlocks the recipe for this statue, which gives a random buff to the player every morning when touched.", "answer": "Statue of Blessings" },
+        { "difficulty": 3, "clue": "The Mining Mastery grants access to this heavy-duty furnace, which processes 5 bars at once but requires 3 coal per batch.", "answer": "Heavy Furnace" },
+        { "difficulty": 4, "clue": "This tool upgrade, unlocked via Foraging Mastery, guarantees gold-quality drops from trees and allows the player to harvest moss with a single swing.", "answer": "Iridium Scythe" },
+        { "difficulty": 5, "clue": "This consumable item, unlocked via Farming Mastery, doubles the produce yield of a farm animal permanently when fed to them.", "answer": "Golden Animal Cracker" }
+      ]
+    },
+    {
+      "name": "Ecological Balance",
+      "description": "Nature and Environment: Focusing on trees, weather events, and flora.",
+      "pool": [
+        { "difficulty": 1, "clue": "This hardwood-producing tree has a chance to drop a seed when shaken or chopped; it can be fertilized with Tree Fertilizer to grow faster.", "answer": "Mahogany Tree" },
+        { "difficulty": 2, "clue": "In the 1.6 Update, this weather event occurs in Summer, covering the valley in moss and causing Fiddlehead Ferns to grow wild.", "answer": "Green Rain" },
+        { "difficulty": 3, "clue": "This specific tree type usually appears in Fall but can be cultivated; it yields Red, Purple, or Common mushrooms when tapped.", "answer": "Mushroom Tree" },
+        { "difficulty": 4, "clue": "To grow a Giant Crop (Cauliflower, Melon, Pumpkin), you must plant them in a grid of at least this size and keep them watered once fully grown.", "answer": "3x3" },
+        { "difficulty": 5, "clue": "This rare tree, introduced in 1.6, grows wild on the Mastery Cave map and produces 'Mystic Syrup' when tapped.", "answer": "Mystic Tree" }
+      ]
+    },
+    {
+      "name": "The Merchant Class",
+      "description": "Commerce and Trade: Focusing on the rotating stocks of the various traders.",
+      "pool": [
+        { "difficulty": 1, "clue": "Located in the Cindersap Forest, this mouse sells hats based on the achievements you have unlocked.", "answer": "Hat Mouse" },
+        { "difficulty": 2, "clue": "The Desert Trader does not accept gold; instead, she trades items. On Thursdays, she will trade one Magic Rock Candy for three of this gemstone.", "answer": "Prismatic Shards" },
+        { "difficulty": 3, "clue": "The Island Trader on Ginger Island sells Pineapple Seeds in exchange for this fungal item.", "answer": "Magma Caps" },
+        { "difficulty": 4, "clue": "In Update 1.6, this NPC visits town twice a season, selling skill books that grant XP or passive powers like running faster in grass.", "answer": "Bookseller" },
+        { "difficulty": 5, "clue": "Krobus sells this valuable sprinkler every Friday for 10,000g, which is often the only way to get them before unlocking the Skull Cavern.", "answer": "Iridium Sprinkler" }
+      ]
+    },
+    {
+      "name": "Gambling Den",
+      "description": "The Casino and Luck: Focusing on the Calico Desert Casino and luck mechanics.",
+      "pool": [
+        { "difficulty": 1, "clue": "This currency is used exclusively in the Casino and can be bought for 10g each or won at the tables.", "answer": "Qi Coins" },
+        { "difficulty": 2, "clue": "To enter the Casino, you must show this card to the Bouncer.", "answer": "Club Card" },
+        { "difficulty": 3, "clue": "This card game, playable in the Casino, is a variation of Blackjack where the goal is to hit 21.", "answer": "CalicoJack" },
+        { "difficulty": 4, "clue": "This statue, purchasable in the Casino for 1,000,000g, produces a Diamond, Gold Bar, Iridium Bar, or Omni Geode every day; on a villager's birthday, it produces their loved gift.", "answer": "Statue of Endless Fortune" },
+        { "difficulty": 5, "clue": "Hitting the jackpot on the slot machine (three Stardrops) with a max bet of 100 Qi Coins awards exactly this many coins.", "answer": "250,000" }
+      ]
+    },
+    {
+      "name": "Interior Design",
+      "description": "Decor and Housing: Focusing on furniture, catalogues, and home upgrades.",
+      "pool": [
+        { "difficulty": 1, "clue": "Buying this item from Pierre for 30,000g grants unlimited access to all wallpaper and flooring options in the game.", "answer": "Catalogue" },
+        { "difficulty": 2, "clue": "This furniture item, purchased from the Desert Trader for 200 Bat Wings, allows you to spawn butterflies inside your house.", "answer": "Butterfly Hutch" },
+        { "difficulty": 3, "clue": "In 1.6, you can place this item in your house to display clothing; however, if it is 'cursed', it may move on its own or swap clothes with you at night.", "answer": "Mannequin" },
+        { "difficulty": 4, "clue": "The final upgrade to the Farmhouse adds this underground room, which allows Casks to age Artisan Goods.", "answer": "Cellar" },
+        { "difficulty": 5, "clue": "This furniture item, showing the current standing of your farm's perfection, can be claimed from the tracker in Qi's Walnut Room.", "answer": "Perfection Statue (or Statue of True Perfection)" }
+      ]
+    },
+    {
+      "name": "Geography Class",
+      "description": "Map Knowledge: Focusing on specific locations, shortcuts, and tile features.",
+      "pool": [
+        { "difficulty": 1, "clue": "Located in the Railroad area, this building allows the player to regenerate health and energy by standing in the water.", "answer": "Spa (or Bathhouse)" },
+        { "difficulty": 2, "clue": "In the vanilla game map, this is the only location where you can catch the Woodskip fish.", "answer": "Secret Woods" },
+        { "difficulty": 3, "clue": "On Ginger Island, accessing this fossil-rich area requires paying 10 Golden Walnuts to parrots to repair a bridge; it houses the Field Office and Mushroom Cave.", "answer": "Dig Site" },
+        { "difficulty": 4, "clue": "Accessible via a portal in the Railroad cave, this murky location is guarded by a Goblin Henchman who blocks your path until bribed.", "answer": "Witch's Swamp" },
+        { "difficulty": 5, "clue": "This area, located behind the train platform, is initially blocked by a boulder that can only be removed after achieving 100% Perfection.", "answer": "The Summit" }
       ]
     }
   ],
   "finalJeopardy": [
     { "category": "Development", "clue": "This solo developer created Stardew Valley over the course of four years.", "answer": "ConcernedApe (Eric Barone)" },
     { "category": "The Summit", "clue": "Achieving 100% Perfection unlocks the Summit and the ability to buy eggs for this shiny, metallic farm animal from Marnie or Mr. Qi.", "answer": "Golden Chicken" },
-    { "category": "Lore", "clue": "This war is currently being fought between the Ferngill Republic and the Gotoro Empire.", "answer": "War of the Elemental Union" }
+    { "category": "Lore", "clue": "This war is currently being fought between the Ferngill Republic and the Gotoro Empire.", "answer": "The Gotoro War" },
+    { "category": "Mythology", "clue": "According to the 'Highlights from the Book of Yoba,' the deity Yoba peeled the skin off a fruit to create the world after waiting for this specific number of days.", "answer": "11" },
+    { "category": "The Impossible Drop", "clue": "This cosmetic item has the lowest drop rate in the game (0.001%) and can only be found by cutting weeds, killing Wilderness Golems, or breaking capsules.", "answer": "Living Hat" },
+    { "category": "Island Puzzles", "clue": "To solve the Mermaid's puzzle on Ginger Island, you must tune five Flute Blocks to play the song 'The Mermaid's Solos'; the note value required for the second block is this.", "answer": "11" },
+    { "category": "Warfare", "clue": "The ancient conflict that drove the Shadow People underground and the Dwarves to the sky (or space) is known in the lore as this.", "answer": "Elemental Wars" },
+    { "category": "The Meta", "clue": "In a famous exploit, naming your character, animal, or farm with this specific syntax allows you to spawn items into your inventory whenever the name is spoken in dialogue.", "answer": "Item ID in Brackets (e.g. [74])" }
   ]
 }
