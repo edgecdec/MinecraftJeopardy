@@ -283,7 +283,10 @@ export function useGame(gameId: string = 'minecraft') {
     setPlayers(prev => prev.map(p => p.id === id ? { ...p, score: p.score + delta } : p));
   }, []);
 
+  const gameTitle = selectedGame.id === 'stardew' ? 'STARDEW VALLEY JEOPARDY' : 'MINECRAFT JEOPARDY';
+
   return {
+    gameTitle,
     players,
     addPlayer,
     removePlayer,

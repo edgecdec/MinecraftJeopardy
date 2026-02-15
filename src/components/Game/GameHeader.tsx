@@ -5,12 +5,13 @@ import { Box, Typography, Stack, Button } from '@mui/material';
 import { Round } from '@/hooks/useGame';
 
 interface GameHeaderProps {
+  title?: string;
   round: Round;
   roomCode?: string;
   onNextRound: () => void;
 }
 
-export default function GameHeader({ round, roomCode, onNextRound }: GameHeaderProps) {
+export default function GameHeader({ title = "JEOPARDY", round, roomCode, onNextRound }: GameHeaderProps) {
   return (
     <Box sx={{ textAlign: 'center', mb: 4, position: 'relative' }}>
       <Typography 
@@ -24,7 +25,7 @@ export default function GameHeader({ round, roomCode, onNextRound }: GameHeaderP
           mb: 1
         }}
       >
-        MINECRAFT JEOPARDY
+        {title.toUpperCase()}
       </Typography>
       {roomCode && (
         <Typography variant="h5" sx={{ fontFamily: 'monospace', color: 'white', mb: 2 }}>

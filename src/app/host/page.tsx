@@ -21,9 +21,7 @@ function HostGameContent() {
   const gameId = searchParams.get('game') || 'minecraft';
 
   const { 
-    players, // (unused here, removed to avoid lint, wait - it was removed in previous edit?)
-    // Actually, useGame returns players, but we are using allPlayers from useBuzzer. 
-    // Let's destructure what we need.
+    gameTitle,
     answeredClues, 
     activeClue, 
     gameState, 
@@ -155,7 +153,7 @@ function HostGameContent() {
       }}
     >
       <Container maxWidth={false} sx={{ px: 4 }}>
-        <GameHeader round={round} roomCode={roomCode} onNextRound={handleNextRound} />
+        <GameHeader title={gameTitle} round={round} roomCode={roomCode} onNextRound={handleNextRound} />
 
         {round !== 'FINAL' ? (
           <GameBoard 
