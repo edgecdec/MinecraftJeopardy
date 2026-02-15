@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import { Box, Button, Container, TextField, Typography, Stack, Paper, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { AVAILABLE_GAMES, DEFAULT_GAME_ID } from '@/lib/gameRegistry';
 
 export default function Lobby() {
   const router = useRouter();
   const [roomCode, setRoomCode] = useState('');
   const [playerName, setPlayerName] = useState('');
-  const [selectedGame, setSelectedGame] = useState('minecraft');
+  const [selectedGame, setSelectedGame] = useState(DEFAULT_GAME_ID);
 
   const handleHost = () => {
     // Generate random 4-letter code
@@ -51,8 +52,11 @@ export default function Lobby() {
                     onChange={(e) => setSelectedGame(e.target.value)}
                     sx={{ color: '#3f3f3f', fontWeight: 'bold' }}
                   >
-                    <MenuItem value="minecraft">Minecraft</MenuItem>
-                    <MenuItem value="stardew">Stardew Valley</MenuItem>
+                    {AVAILABLE_GAMES.map((game) => (
+                      <MenuItem key={game.id} value={game.id}>
+                        {game.title}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
                 
