@@ -63,6 +63,13 @@ function HostGameContent() {
     }
   }, [activeClue, gameState]);
 
+  // Play sound when someone buzzes
+  useEffect(() => {
+    if (buzzedName) {
+        playSound('click');
+    }
+  }, [buzzedName, playSound]);
+
   const handleScoreAdjust = (playerId: string, amount: number) => {
     const player = allPlayers?.find(p => p.id === playerId);
     if (player) {
