@@ -58,6 +58,11 @@ export function useGame(gameId: string = 'minecraft') {
       return;
     }
 
+    if (!selectedGame || !selectedGame.categories) {
+        console.error("Game data missing categories", selectedGame);
+        return;
+    }
+
     const shuffledCats = [...selectedGame.categories].sort(() => 0.5 - Math.random());
     const selectedCats = shuffledCats.slice(0, 6);
     const multiplier = targetRound === 'DOUBLE' ? 400 : 200;
@@ -69,6 +74,19 @@ export function useGame(gameId: string = 'minecraft') {
         const poolClue = potentialClues.length > 0 
           ? potentialClues[Math.floor(Math.random() * potentialClues.length)]
           : cat.pool[0];
+
+        if (!poolClue) {
+            console.error("Missing clue for", cat.name, diff);
+            // Fallback empty clue
+            selectedClues.push({
+                id: `error-${Math.random()}`,
+                category: cat.name,
+                value: diff * multiplier,
+                clue: "ERROR: MISSING CLUE",
+                answer: "ERROR"
+            });
+            continue;
+        }
 
         selectedClues.push({
           id: `${cat.name}-${diff}-${Math.random().toString(36).substr(2, 5)}`,
@@ -103,6 +121,10 @@ export function useGame(gameId: string = 'minecraft') {
   }, [selectedGame]);
 
   const setupFinalJeopardy = () => {
+    if (!selectedGame.finalJeopardy || selectedGame.finalJeopardy.length === 0) {
+        console.error("Final Jeopardy data missing!");
+        return;
+    }
     const finalQ = selectedGame.finalJeopardy[Math.floor(Math.random() * selectedGame.finalJeopardy.length)];
     setActiveClue({
       id: 'final-jeopardy',
@@ -136,7 +158,7 @@ export function useGame(gameId: string = 'minecraft') {
     }
     generateBoard('SINGLE');
     setIsLoaded(true);
-  }, []); // Only run once on mount
+  }, []); 
 
   useEffect(() => {
     if (!isLoaded) return;
