@@ -74,6 +74,10 @@ app.prepare().then(() => {
            if (!room.hostId) {
                room.hostId = playerId;
                console.log(`Room ${roomCode} claimed by host ${playerId}`);
+           } else if (room.hostId !== playerId) {
+               // Host taken!
+               socket.emit('host_taken');
+               return; // Do not send state_update, do not allow view
            }
        } else {
            if (playerId && name) {
@@ -90,7 +94,6 @@ app.prepare().then(() => {
         if (!rooms[roomCode]) return;
         const room = rooms[roomCode];
 
-        // Public Actions (Anyone can do these for THEMSELVES)
         if (action === 'buzz') {
             if (!room.locked && !room.buzzed) {
                 room.buzzed = senderId;
@@ -112,11 +115,7 @@ app.prepare().then(() => {
             return;
         }
 
-        // Admin Actions (Must match Host ID)
-        if (room.hostId && room.hostId !== senderId) {
-            // console.log(`Unauthorized action ${action} from ${senderId}`);
-            return; 
-        }
+        if (room.hostId && room.hostId !== senderId) return;
 
         switch (action) {
             case 'lock': room.locked = true; break;
@@ -125,7 +124,6 @@ app.prepare().then(() => {
             case 'clear': room.buzzed = null; room.buzzedName = null; room.locked = true; break;
             case 'update_state': Object.assign(room, payload); break;
             case 'update_player': 
-                // Host updates a target player
                 const p = room.players.find(x => x.id === targetId);
                 if (p) Object.assign(p, payload);
                 break;

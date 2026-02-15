@@ -40,6 +40,7 @@ function HostGameContent() {
 
   const { playSound } = useSound();
   const { 
+    connectionError,
     buzzedName, lock, unlock, reset, clear, 
     updateState, updatePlayer, removePlayer: removePlayerApi,
     addPlayer: addPlayerApi,
@@ -133,6 +134,17 @@ function HostGameContent() {
       allPlayers?.forEach(p => updatePlayer(p.id, { score: 0 }));
       generateBoard('SINGLE');
   };
+
+  if (connectionError) {
+      return (
+        <Box sx={{ minHeight: '100vh', bgcolor: '#121212', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h4" sx={{ fontFamily: '"Press Start 2P", cursive', color: 'error.main', textAlign: 'center' }}>
+                ACCESS DENIED<br/>
+                <span style={{ fontSize: '1rem', color: 'white' }}>{connectionError}</span>
+            </Typography>
+        </Box>
+      );
+  }
 
   if (gameState === 'GAME_OVER') {
       return (

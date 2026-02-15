@@ -26,6 +26,7 @@ export function useBuzzer(code: string, playerName?: string) {
     finalAnswers: {}
   });
   const [deviceId, setDeviceId] = useState<string>('');
+  const [connectionError, setConnectionError] = useState<string | null>(null);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -56,6 +57,11 @@ export function useBuzzer(code: string, playerName?: string) {
         setState(newState);
     });
 
+    socket.on('host_taken', () => {
+        setConnectionError('This room already has a host.');
+        socket.disconnect();
+    });
+
     return () => {
         socket.disconnect();
     };
@@ -67,8 +73,8 @@ export function useBuzzer(code: string, playerName?: string) {
             code,
             action,
             payload,
-            senderId: deviceId,  // Who am I?
-            targetId: targetId   // Who am I modifying? (Optional)
+            senderId: deviceId, 
+            targetId: targetId 
         });
     }
   };
@@ -78,6 +84,7 @@ export function useBuzzer(code: string, playerName?: string) {
   const isHost = state.hostId === deviceId;
 
   return {
+    connectionError,
     isHost,
     locked: state.locked,
     buzzedId: state.buzzed,
