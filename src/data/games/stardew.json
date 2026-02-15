@@ -1,8 +1,6 @@
-import { GameData } from '@/lib/types';
-
-export const stardewGame: GameData = {
-  id: 'stardew',
-  categories: [
+{
+  "id": "stardew",
+  "categories": [
     {
       "name": "Farming",
       "description": "Crops, animals, and artisan goods.",

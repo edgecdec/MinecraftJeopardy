@@ -1,8 +1,13 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { minecraftGame } from '@/data/games/minecraft';
-import { stardewGame } from '@/data/games/stardew';
+import minecraftGameData from '@/data/games/minecraft.json';
+import stardewGameData from '@/data/games/stardew.json';
+import { GameData } from '@/lib/types';
+
+// Cast JSON imports to GameData to ensure type safety
+const minecraftGame = minecraftGameData as unknown as GameData;
+const stardewGame = stardewGameData as unknown as GameData;
 
 export type Clue = {
   id: string;

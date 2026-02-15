@@ -1,8 +1,6 @@
-import { GameData } from '@/lib/types';
-
-export const minecraftGame: GameData = {
-  id: 'minecraft',
-  categories: [
+{
+  "id": "minecraft",
+  "categories": [
     {
       "name": "Update 1.21",
       "description": "Questions regarding the latest major Minecraft update, focusing on Trial Chambers, the Breeze, and new blocks.",
