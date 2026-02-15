@@ -2,75 +2,75 @@
   "id": "stardew",
   "categories": [
     {
-      "name": "Farming",
-      "description": "Crops, animals, and artisan goods.",
+      "name": "Villager Vibes",
+      "description": "The Sociology of Pelican Town: Friendships, gifts, and hidden schedules.",
       "pool": [
-        { "difficulty": 1, "clue": "This crop takes 13 days to grow and produces multiple berries at harvest.", "answer": "Strawberry" },
-        { "difficulty": 2, "clue": "Which animal produces Truffles?", "answer": "Pig" },
-        { "difficulty": 3, "clue": "This artisan good is made by placing Honey in a Keg.", "answer": "Mead" },
-        { "difficulty": 4, "clue": "What is the only crop that can grow in Summer and Fall?", "answer": "Corn (or Sunflower/Wheat)" },
-        { "difficulty": 5, "clue": "This giant crop can be grown from Cauliflower, Melon, or Pumpkin seeds.", "answer": "Giant Crop" }
+        { "difficulty": 1, "clue": "This blonde, photography-loving NPC initially acts aloof but warms up to the farmer; her favorite gifts include Sunflowers and Pink Cake.", "answer": "Haley" },
+        { "difficulty": 2, "clue": "While most villagers follow a set weekly schedule, this solitary writer disappears to the library on rainy days and locks himself in his beach cabin to work on his novel.", "answer": "Elliott" },
+        { "difficulty": 3, "clue": "This mysterious character, who lives in the Sewers, sells rare items like Void Eggs and Stardrops, and strictly loves Void Mayonnaise and Diamonds.", "answer": "Krobus" },
+        { "difficulty": 4, "clue": "If you want to maximize your friendship with the carpenter Robin, you should avoid giving her this specific crafting material, which she confusingly hates despite working with it every day.", "answer": "Wood" },
+        { "difficulty": 5, "clue": "On the 25th of Winter, you can receive a gift from your 'Secret Friend'; this specific villager is the only one who can gift you a Tea Set.", "answer": "The Secret Gift-Giver (Adult Villagers)" }
       ]
     },
     {
-      "name": "Villagers",
-      "description": "Friends, romance, and schedules.",
+      "name": "Farming & Artisanry",
+      "description": "The Mathematics of Agriculture: Crop cycles, processing, and profit.",
       "pool": [
-        { "difficulty": 1, "clue": "This carpenter lives in the mountains north of town.", "answer": "Robin" },
-        { "difficulty": 2, "clue": "Which bachelor loves Pizza and plays Gridball?", "answer": "Shane" },
-        { "difficulty": 3, "clue": "This mysterious villager lives in the sewers.", "answer": "Krobus" },
-        { "difficulty": 4, "clue": "What is the name of Marnie's nephew?", "answer": "Jas (Niece) / Shane (Nephew)" },
-        { "difficulty": 5, "clue": "Which villager sends you the recipe for Sashimi?", "answer": "Linus" }
+        { "difficulty": 1, "clue": "Of the three crops needed to unlock the Greenhouse via the Pantry Bundle—Pumpkin, Corn, and Eggplant—this is the only one that can grow in both Summer and Fall.", "answer": "Corn" },
+        { "difficulty": 2, "clue": "Placed in a Preserves Jar, vegetables turn into Pickles, but placing fruits in the same machine will produce this sweet artisan good.", "answer": "Jelly" },
+        { "difficulty": 3, "clue": "This specific artisan good, made by placing Sturgeon Roe into a Preserves Jar, is the only roe product that does not turn into 'Aged Roe'.", "answer": "Caviar" },
+        { "difficulty": 4, "clue": "To maximize efficiency, players often plant this crop on Day 1 of Fall; despite taking 24 days to grow, it is the most valuable recurring crop in the game if planted in the Greenhouse.", "answer": "Ancient Fruit" },
+        { "difficulty": 5, "clue": "While most crops die on the 1st of Winter, this 'wild' seed variant is the only crop that can be grown outdoors in the snow.", "answer": "Winter Seeds (or Wild Seeds Winter)" }
       ]
     },
     {
-        "name": "Mining",
-        "description": "Ores, monsters, and the skull cavern.",
-        "pool": [
-            { "difficulty": 1, "clue": "This ore starts appearing at level 40 in the Mines.", "answer": "Iron" },
-            { "difficulty": 2, "clue": "What weapon do you receive upon entering the Mines for the first time?", "answer": "Rusty Sword" },
-            { "difficulty": 3, "clue": "These flying enemies in the Skull Cavern must be killed to stop them from spawning indefinitely.", "answer": "Serpents" },
-            { "difficulty": 4, "clue": "What mineral is required to obtain the Galaxy Sword?", "answer": "Prismatic Shard" },
-            { "difficulty": 5, "clue": "How many floors does the regular Mine have?", "answer": "120" }
-        ]
+      "name": "Gone Fishing",
+      "description": "Ichthyological Simulation: Spawn conditions, locations, and legendary catches.",
+      "pool": [
+        { "difficulty": 1, "clue": "Known for its difficulty and erratic movement, this fish can be caught in the rain during Spring and Fall, or more easily on the Riverland farm.", "answer": "Catfish" },
+        { "difficulty": 2, "clue": "This bottom-feeding fish is notoriously easy to catch because it simply rests at the bottom of the fishing bar.", "answer": "Carp" },
+        { "difficulty": 3, "clue": "This valuable purple fish, often requested by the Wizard, can only be caught in the Ocean during the evening hours (6 PM to 2 AM) of Summer and Winter.", "answer": "Super Cucumber" },
+        { "difficulty": 4, "clue": "Of the five original Legendary Fish, this is the only one that spawns in the Sewers and requires no specific season or weather condition to catch.", "answer": "Mutant Carp" },
+        { "difficulty": 5, "clue": "This difficult catch is found on Floor 100 of the Mines and in the Volcano Caldera; it has the highest base sell price of any non-legendary fish.", "answer": "Lava Eel" }
+      ]
     },
     {
-        "name": "Fishing",
-        "description": "Fish species, locations, and tackle.",
-        "pool": [
-            { "difficulty": 1, "clue": "This fish is known for being extremely difficult to catch and is one of the five Legendary Fish.", "answer": "The Legend (or Crimsonfish/Angler/Glacierfish/Mutant Carp)" },
-            { "difficulty": 2, "clue": "Which fish can be caught in the Ocean during Summer afternoons?", "answer": "Pufferfish / Tuna / Red Snapper / etc." },
-            { "difficulty": 3, "clue": "This tackle prevents the fishing bar from bouncing when it hits the bottom.", "answer": "Lead Bobber" },
-            { "difficulty": 4, "clue": "What weather condition is required to catch a Catfish?", "answer": "Rain" },
-            { "difficulty": 5, "clue": "Where can you catch the Void Salmon?", "answer": "Witch's Swamp" }
-        ]
+      "name": "Mining & Combat",
+      "description": "Procedural Dungeoneering: Monster drops, floor biomes, and weapon stats.",
+      "pool": [
+        { "difficulty": 1, "clue": "Reaching Floor 120 of the Mines rewards you with this key item, which unlocks the deeper, deadlier dungeon in the Calico Desert.", "answer": "Skull Key" },
+        { "difficulty": 2, "clue": "These black, fuzzy enemies found in the frozen floors (40-79) are hunted by players not just for safety, but because they have a high chance to drop Coal.", "answer": "Dust Sprites" },
+        { "difficulty": 3, "clue": "This weapon, rewarded from the chest on Floor 90, is often the player's first major power spike, featuring a black blade and high attack speed.", "answer": "Obsidian Edge" },
+        { "difficulty": 4, "clue": "In the Skull Cavern, these prehistoric enemies breathe fire and are the primary source of Dinosaur Eggs and Prehistoric Ribs.", "answer": "Pepper Rex" },
+        { "difficulty": 5, "clue": "This specific ring, obtained by killing 1000 Slimes for the Adventurer's Guild, prevents all damage from Slimes.", "answer": "Slime Charmer Ring" }
+      ]
     },
     {
-        "name": "Community Center",
-        "description": "Bundles and rewards.",
-        "pool": [
-            { "difficulty": 1, "clue": "Completing the Crafts Room repairs this structure.", "answer": "Bridge" },
-            { "difficulty": 2, "clue": "Which bundle requires 99 Wood, 99 Stone, and 10 Hardwood?", "answer": "Construction Bundle" },
-            { "difficulty": 3, "clue": "What reward do you get for completing the Fish Tank?", "answer": "Glittering Boulder Removed (Panning)" },
-            { "difficulty": 4, "clue": "This item is the only option for the exotic foraging bundle that isn't a forageable.", "answer": "Maple Syrup / Oak Resin / Pine Tar" },
-            { "difficulty": 5, "clue": "Completing the entire Community Center unlocks the path to this late-game area.", "answer": "Ginger Island (via Willy's Boat)" }
-        ]
+      "name": "Community Center",
+      "description": "Narrative Restoration: Bundles, rooms, and Junimo rewards.",
+      "pool": [
+        { "difficulty": 1, "clue": "To repair the bridge to the Quarry, you must complete the Crafts Room bundles, which primarily ask for these seasonal items found on the ground.", "answer": "Forage items" },
+        { "difficulty": 2, "clue": "This specific bundle in the Pantry requires products like Large Milk, Large Eggs, and Wool, incentivizing the player to upgrade their Barn and Coop.", "answer": "Animal Bundle" },
+        { "difficulty": 3, "clue": "Completing the Vault room bundles costs a total of 42,500 gold and rewards the player with the repair of this vehicle.", "answer": "Bus" },
+        { "difficulty": 4, "clue": "After the Community Center is fully restored, a cutscene triggers where the Junimos wave goodbye; however, if you choose the Joja route, the center is replaced by this building.", "answer": "Joja Warehouse" },
+        { "difficulty": 5, "clue": "To unlock the Movie Theater via the Community Center route, you must complete the 'Missing Bundle' in the abandoned JojaMart; this bundle requires this roe-based artisan good produced from Sturgeon.", "answer": "Caviar" }
+      ]
     },
     {
-        "name": "Locations",
-        "description": "Places around the valley.",
-        "pool": [
-            { "difficulty": 1, "clue": "This shop is closed on Wednesdays.", "answer": "Pierre's General Store" },
-            { "difficulty": 2, "clue": "Where does the Traveling Cart appear on Fridays and Sundays?", "answer": "Cindersap Forest" },
-            { "difficulty": 3, "clue": "This area is unlocked after repairing the bus.", "answer": "Calico Desert" },
-            { "difficulty": 4, "clue": "Where can you find the Secret Woods?", "answer": "Northwest corner of Cindersap Forest" },
-            { "difficulty": 5, "clue": "What building is located directly east of the Blacksmith?", "answer": "Museum / Library" }
-        ]
+      "name": "Secrets",
+      "description": "Esoteric Knowledge: Easter eggs, glitches, and rare events.",
+      "pool": [
+        { "difficulty": 1, "clue": "Clicking this celestial body on the shipping screen 10 times will cause a disgruntled face to appear on it.", "answer": "Full Moon" },
+        { "difficulty": 2, "clue": "If you place a Staircase into the pants slot of your character's inventory, it transforms into this wearable item, jokingly referring to Mayor Lewis's scandalous secret.", "answer": "Trimmed Lucky Purple Shorts" },
+        { "difficulty": 3, "clue": "Located in the Cindersap Forest, this vendor only appears on Fridays and Sundays, selling rare items from a pig-drawn cart.", "answer": "Traveling Cart (or Merchant)" },
+        { "difficulty": 4, "clue": "Interacting with a bush near the bridge to the beach at exactly 12:40 PM on the 28th of any season will reward the player with this giant decorative plushie.", "answer": "Junimo Plush" },
+        { "difficulty": 5, "clue": "This unintelligible language, seen on the scrolls in the Community Center, is actually a simple substitution cipher of English; the game files refer to its font as 'font_bold.xnb'.", "answer": "Junimo" }
+      ]
     }
   ],
   "finalJeopardy": [
     { "category": "Development", "clue": "This solo developer created Stardew Valley over the course of four years.", "answer": "ConcernedApe (Eric Barone)" },
-    { "category": "Lore", "clue": "This war is currently being fought between the Ferngill Republic and the Gotoro Empire.", "answer": "War of the Elemental Union (or just 'The War')" },
-    { "category": "Secrets", "clue": "Placing this item in the box behind the JojaMart gives you the ??HMTGF?? statue.", "answer": "Super Cucumber" }
+    { "category": "The Summit", "clue": "Achieving 100% Perfection unlocks the Summit and the ability to buy eggs for this shiny, metallic farm animal from Marnie or Mr. Qi.", "answer": "Golden Chicken" },
+    { "category": "Lore", "clue": "This war is currently being fought between the Ferngill Republic and the Gotoro Empire.", "answer": "War of the Elemental Union" }
   ]
 }
