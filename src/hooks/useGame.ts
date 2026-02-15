@@ -64,7 +64,8 @@ export function useGame(gameId: string = 'minecraft') {
     }
 
     const shuffledCats = [...selectedGame.categories].sort(() => 0.5 - Math.random());
-    const selectedCats = shuffledCats.slice(0, 6);
+    const catCount = selectedGame.categoryCount || 6;
+    const selectedCats = shuffledCats.slice(0, catCount);
     const multiplier = targetRound === 'DOUBLE' ? 400 : 200;
 
     const newBoard: Category[] = selectedCats.map(cat => {

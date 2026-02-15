@@ -38,6 +38,7 @@ export interface Category {
 
 export interface GameData {
   id: string; // 'minecraft' | 'stardew'
+  categoryCount?: number; // Default to 6 if omitted
   categories: Category[];
   finalJeopardy: { category: string; clue: string; answer: string }[];
 }
