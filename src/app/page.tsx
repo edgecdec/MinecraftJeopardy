@@ -42,7 +42,7 @@ export default function Lobby() {
       <Container maxWidth="sm">
         <Paper sx={{ p: 4, bgcolor: 'rgba(0,0,0,0.8)', border: '4px solid grey', textAlign: 'center' }}>
           <Typography variant="h3" sx={{ fontFamily: '"Press Start 2P", cursive', mb: 4, color: 'secondary.main', fontSize: { xs: '1.5rem', md: '3rem' } }}>
-            {displayTitle}
+            JEOPARDY
           </Typography>
 
           <Stack spacing={4}>
