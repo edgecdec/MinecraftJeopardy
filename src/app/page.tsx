@@ -1,18 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Box, Button, Container, TextField, Typography, Stack, Paper } from '@mui/material';
+import { Box, Button, Container, TextField, Typography, Stack, Paper, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 export default function Lobby() {
   const router = useRouter();
   const [roomCode, setRoomCode] = useState('');
   const [playerName, setPlayerName] = useState('');
+  const [selectedGame, setSelectedGame] = useState('minecraft');
 
   const handleHost = () => {
     // Generate random 4-letter code
     const code = Math.random().toString(36).substring(2, 6).toUpperCase();
-    router.push(`/host?code=${code}`);
+    router.push(`/host?code=${code}&game=${selectedGame}`);
   };
 
   const handleJoin = () => {
@@ -42,15 +43,29 @@ export default function Lobby() {
 
           <Stack spacing={4}>
             <Box>
-              <Button 
-                fullWidth 
-                variant="contained" 
-                size="large" 
-                onClick={handleHost}
-                sx={{ fontFamily: '"Press Start 2P", cursive', py: 2, fontSize: '1.2rem' }}
-              >
-                HOST A GAME
-              </Button>
+              <Stack spacing={2}>
+                <FormControl fullWidth variant="filled" sx={{ bgcolor: '#c6c6c6', borderRadius: 0, border: '4px solid white' }}>
+                  <InputLabel sx={{ color: '#555' }}>GAME THEME</InputLabel>
+                  <Select
+                    value={selectedGame}
+                    onChange={(e) => setSelectedGame(e.target.value)}
+                    sx={{ color: '#3f3f3f', fontWeight: 'bold' }}
+                  >
+                    <MenuItem value="minecraft">Minecraft</MenuItem>
+                    <MenuItem value="stardew">Stardew Valley</MenuItem>
+                  </Select>
+                </FormControl>
+                
+                <Button 
+                  fullWidth 
+                  variant="contained" 
+                  size="large" 
+                  onClick={handleHost}
+                  sx={{ fontFamily: '"Press Start 2P", cursive', py: 2, fontSize: '1.2rem' }}
+                >
+                  HOST A GAME
+                </Button>
+              </Stack>
               <Typography variant="caption" sx={{ display: 'block', mt: 1, color: 'grey.500' }}>
                 Create a room and control the board.
               </Typography>

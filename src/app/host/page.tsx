@@ -18,8 +18,12 @@ import { useBuzzer } from '@/hooks/useBuzzer';
 function HostGameContent() {
   const searchParams = useSearchParams();
   const roomCode = searchParams.get('code') || 'LOCAL';
+  const gameId = searchParams.get('game') || 'minecraft';
 
   const { 
+    players, // (unused here, removed to avoid lint, wait - it was removed in previous edit?)
+    // Actually, useGame returns players, but we are using allPlayers from useBuzzer. 
+    // Let's destructure what we need.
     answeredClues, 
     activeClue, 
     gameState, 
@@ -34,7 +38,7 @@ function HostGameContent() {
     replaceCategory,
     advanceFinalJeopardy,
     endGame
-  } = useGame();
+  } = useGame(gameId);
 
   const { playSound } = useSound();
   const { 

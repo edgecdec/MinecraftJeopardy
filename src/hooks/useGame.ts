@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { minecraftGame } from '@/data/games/minecraft';
+import { stardewGame } from '@/data/games/stardew';
 
 export type Clue = {
   id: string;
@@ -27,9 +28,16 @@ export type Player = {
 export type GameState = 'BOARD' | 'CLUE' | 'ANSWER' | 'DAILY_DOUBLE_WAGER' | 'FINAL_CATEGORY' | 'FINAL_WAGER' | 'FINAL_CLUE' | 'FINAL_SCORING' | 'GAME_OVER';
 export type Round = 'SINGLE' | 'DOUBLE' | 'FINAL';
 
-const STORAGE_KEY = 'minecraft-jeopardy-save-v2';
+const STORAGE_KEY = 'jeopardy-save-v3';
 
-export function useGame() {
+const GAMES = {
+  minecraft: minecraftGame,
+  stardew: stardewGame
+};
+
+export function useGame(gameId: string = 'minecraft') {
+  const selectedGame = GAMES[gameId as keyof typeof GAMES] || minecraftGame;
+
   const [players, setPlayers] = useState<Player[]>([
     { id: 'p1', name: 'Player 1', score: 0 },
     { id: 'p2', name: 'Player 2', score: 0 },
@@ -50,7 +58,7 @@ export function useGame() {
       return;
     }
 
-    const shuffledCats = [...minecraftGame.categories].sort(() => 0.5 - Math.random());
+    const shuffledCats = [...selectedGame.categories].sort(() => 0.5 - Math.random());
     const selectedCats = shuffledCats.slice(0, 6);
     const multiplier = targetRound === 'DOUBLE' ? 400 : 200;
 
@@ -83,7 +91,6 @@ export function useGame() {
     setGameState('BOARD');
     setRound(targetRound);
 
-    // Pick Daily Doubles (1 for Single, 2 for Double)
     const allClues = newBoard.flatMap(c => c.clues);
     const count = targetRound === 'DOUBLE' ? 2 : 1;
     const dds = new Set<string>();
@@ -93,23 +100,22 @@ export function useGame() {
       dds.add(randomClue.id);
     }
     setDailyDoubleIds(dds);
-  }, []);
+  }, [selectedGame]);
 
   const setupFinalJeopardy = () => {
-    const finalQ = minecraftGame.finalJeopardy[Math.floor(Math.random() * minecraftGame.finalJeopardy.length)];
+    const finalQ = selectedGame.finalJeopardy[Math.floor(Math.random() * selectedGame.finalJeopardy.length)];
     setActiveClue({
       id: 'final-jeopardy',
-      value: 0, // Wagered later
+      value: 0,
       category: finalQ.category,
       clue: finalQ.clue,
       answer: finalQ.answer
     });
     setRound('FINAL');
     setGameState('FINAL_CATEGORY');
-    setQuestions([]); // Clear board
+    setQuestions([]);
   };
 
-  // 1. Load from Storage on Mount
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -130,12 +136,10 @@ export function useGame() {
     }
     generateBoard('SINGLE');
     setIsLoaded(true);
-  }, [generateBoard]);
+  }, []); // Only run once on mount
 
-  // 2. Save to Storage on Change
   useEffect(() => {
     if (!isLoaded) return;
-    
     const stateToSave = {
       players,
       questions,
@@ -154,11 +158,10 @@ export function useGame() {
     else if (gameState === 'FINAL_CLUE') setGameState('FINAL_SCORING');
   }, [gameState]);
   
-  // Re-implement replaceCategory fully to rely on current state multiplier
   const replaceCategory = useCallback((categoryName: string) => {
      setQuestions(prevQuestions => {
       const currentNames = new Set(prevQuestions.map(q => q.category));
-      const availableCats = minecraftGame.categories.filter(c => !currentNames.has(c.name));
+      const availableCats = selectedGame.categories.filter(c => !currentNames.has(c.name));
       if (availableCats.length === 0) return prevQuestions;
 
       const newCatData = availableCats[Math.floor(Math.random() * availableCats.length)];
@@ -185,11 +188,9 @@ export function useGame() {
         description: newCatData.description,
         clues: selectedClues 
       };
-      const newQuestions = prevQuestions.map(q => q.category === categoryName ? newCategoryBoard : q);
-      
-      return newQuestions;
+      return prevQuestions.map(q => q.category === categoryName ? newCategoryBoard : q);
     });
-  }, [round]);
+  }, [round, selectedGame]);
 
   const selectClue = useCallback((clue: Clue) => {
     if (answeredClues.has(clue.id)) return;
@@ -234,7 +235,6 @@ export function useGame() {
     setActiveClue(null);
   }, [activeClue]);
 
-  // Player Management (Local)
   const addPlayer = useCallback(() => {
     setPlayers(prev => [...prev, { id: `p${Date.now()}`, name: `Player ${prev.length + 1}`, score: 0 }]);
   }, []);
