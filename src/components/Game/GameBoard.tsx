@@ -187,26 +187,53 @@ export default function GameBoard({
         open={Boolean(menuAnchor)}
         onClose={handleCloseMenu}
         PaperProps={{
-            sx: { bgcolor: '#c6c6c6', border: '2px solid white', borderRadius: 0 }
+            sx: { 
+                bgcolor: '#2a2a2a', 
+                border: '4px solid white', 
+                borderRadius: 0,
+                color: 'white',
+                minWidth: 200,
+                maxHeight: 400
+            }
+        }}
+        MenuListProps={{
+            sx: { py: 0 }
         }}
       >
-        <MenuItem onClick={() => handleReplace()}>
-            <ListItemText primary="RANDOM REPLACEMENT" primaryTypographyProps={{ fontFamily: '"Press Start 2P", cursive', fontSize: '0.7rem' }} />
+        <MenuItem 
+            onClick={() => handleReplace()}
+            sx={{ 
+                borderBottom: '2px solid #555',
+                '&:hover': { bgcolor: '#3f3f3f' }
+            }}
+        >
+            <ListItemText 
+                primary="RANDOM REPLACEMENT" 
+                primaryTypographyProps={{ fontFamily: '"Press Start 2P", cursive', fontSize: '0.7rem', color: '#55ff55' }} 
+            />
         </MenuItem>
-        <Divider />
+        
         {unusedCategories.map((c) => (
-            <MenuItem key={getCatName(c)} onClick={() => handleReplace(getCatName(c))}>
+            <MenuItem 
+                key={getCatName(c)} 
+                onClick={() => handleReplace(getCatName(c))}
+                sx={{ 
+                    borderBottom: '1px solid #444',
+                    '&:hover': { bgcolor: '#3f3f3f' }
+                }}
+            >
                 <ListItemText 
                     primary={getCatName(c).toUpperCase()} 
                     secondary={c.description}
-                    primaryTypographyProps={{ fontFamily: 'monospace', fontWeight: 'bold' }}
-                    secondaryTypographyProps={{ fontSize: '0.7rem' }}
+                    primaryTypographyProps={{ fontFamily: 'monospace', fontWeight: 'bold', color: 'white' }}
+                    secondaryTypographyProps={{ fontSize: '0.7rem', color: '#aaaaaa' }}
                 />
             </MenuItem>
         ))}
+        
         {unusedCategories.length === 0 && (
-            <MenuItem disabled>
-                <ListItemText primary="NO OTHER CATEGORIES AVAILABLE" />
+            <MenuItem disabled sx={{ '&.Mui-disabled': { opacity: 0.5 } }}>
+                <ListItemText primary="NO OTHER CATEGORIES AVAILABLE" primaryTypographyProps={{ color: 'grey.500', fontFamily: 'monospace' }} />
             </MenuItem>
         )}
       </Menu>
