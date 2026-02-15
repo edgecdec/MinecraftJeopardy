@@ -95,7 +95,15 @@ export default function GameBoard({
           >
             <Stack spacing={1} sx={{ height: '100%' }}>
               {/* Category Header with Tooltip */}
-              <Tooltip title={cat.description || "No description available."} arrow placement="top">
+              <Tooltip 
+                title={
+                    <Typography sx={{ fontSize: '1rem', fontFamily: 'monospace' }}>
+                        {cat.description || "No description available."}
+                    </Typography>
+                } 
+                arrow 
+                placement="top"
+              >
                 <Paper 
                   elevation={0}
                   sx={{ 
