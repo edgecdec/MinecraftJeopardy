@@ -52,7 +52,11 @@ app.prepare().then(() => {
             if (signature === digest) {
                 console.log('Webhook verified. Deploying...');
                 res.statusCode = 200; res.end('Deploying');
-                exec('/root/deploy_webhook.sh');
+                exec('/var/www/MinecraftJeopardy/deploy_webhook.sh', (error, stdout, stderr) => {
+                    if (error) console.error(`exec error: ${error}`);
+                    if (stdout) console.log(`stdout: ${stdout}`);
+                    if (stderr) console.error(`stderr: ${stderr}`);
+                });
             } else {
                 res.statusCode = 403; res.end('Forbidden');
             }
