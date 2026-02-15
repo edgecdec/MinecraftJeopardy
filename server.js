@@ -18,6 +18,7 @@ const rooms = {};
 
 const getInitialState = () => ({
   hostId: null,
+  maxPlayers: 3, // Default limit
   locked: true,
   buzzed: null,
   buzzedName: null,
@@ -89,11 +90,17 @@ app.prepare().then(() => {
         return;
     }
 
-    socket.on('join_room', ({ code, name, role }) => {
+    socket.on('join_room', ({ code, name, role, config }) => {
        const roomCode = code.toUpperCase();
        socket.join(roomCode);
        
-       if (!rooms[roomCode]) rooms[roomCode] = getInitialState();
+       if (!rooms[roomCode]) {
+           rooms[roomCode] = getInitialState();
+           // Apply initial config if provided by creator
+           if (config && config.maxPlayers) {
+               rooms[roomCode].maxPlayers = config.maxPlayers;
+           }
+       }
        const room = rooms[roomCode];
 
        let assignedRole = 'player';
@@ -101,7 +108,7 @@ app.prepare().then(() => {
        if (role === 'host') {
            if (!room.hostId) {
                room.hostId = secureId; 
-               console.log(`Room ${roomCode} claimed by host ${secureId} (Socket ${socket.id})`);
+               console.log(`Room ${roomCode} claimed by host ${secureId}`);
                assignedRole = 'host';
            } else if (room.hostId === secureId) {
                assignedRole = 'host';
@@ -114,7 +121,7 @@ app.prepare().then(() => {
                const existing = room.players.find(p => p.id === secureId);
                if (!existing) {
                    // CHECK CAPACITY
-                   if (room.players.length >= 25) {
+                   if (room.players.length >= room.maxPlayers) {
                        socket.emit('room_full');
                        return;
                    }
@@ -189,8 +196,13 @@ app.prepare().then(() => {
                  if (!room.incorrectBuzzes.includes(payload.playerId)) room.incorrectBuzzes.push(payload.playerId);
                  room.buzzed = null; room.buzzedName = null; room.locked = false; 
                  break;
-            
             case 'update_state': Object.assign(room, payload); break;
+            case 'update_max_players': 
+                // Payload: { maxPlayers: 10 }
+                if (typeof payload.maxPlayers === 'number') {
+                    room.maxPlayers = payload.maxPlayers;
+                }
+                break;
             case 'update_player': 
                 const p = room.players.find(x => x.id === targetId);
                 if (p) Object.assign(p, payload);
@@ -199,8 +211,8 @@ app.prepare().then(() => {
                 room.players = room.players.filter(x => x.id !== targetId);
                 break;
             case 'add_bot':
-                // Respect limit for bots too?
-                if (room.players.length < 25) {
+                // Respect dynamic limit
+                if (room.players.length < room.maxPlayers) {
                     const botId = `bot-${Math.random().toString(36).substring(2,7)}`;
                     room.players.push({ id: botId, name: `Player ${room.players.length+1}`, score: 0 });
                 }

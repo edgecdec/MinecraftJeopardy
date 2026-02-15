@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 interface RoomState {
+  hostId: string | null;
+  maxPlayers: number;
   locked: boolean;
   buzzed: string | null;
   buzzedName: string | null;
@@ -15,8 +17,10 @@ interface RoomState {
   finalAnswers: Record<string, string>;
 }
 
-export function useBuzzer(code: string, playerName?: string) {
+export function useBuzzer(code: string, playerName?: string, initialConfig?: { maxPlayers: number }) {
   const [state, setState] = useState<RoomState>({ 
+    hostId: null,
+    maxPlayers: 3,
     locked: true, 
     buzzed: null, 
     buzzedName: null,
@@ -42,7 +46,8 @@ export function useBuzzer(code: string, playerName?: string) {
         socket.emit('join_room', { 
             code, 
             name: playerName || 'Host', 
-            role: playerName ? 'player' : 'host' 
+            role: playerName ? 'player' : 'host',
+            config: initialConfig // Send config on join (server ignores if room exists)
         });
     });
 
@@ -61,14 +66,14 @@ export function useBuzzer(code: string, playerName?: string) {
     });
 
     socket.on('room_full', () => {
-        setConnectionError('This room is full (Max 25 players).');
+        setConnectionError('This room is full.');
         socket.disconnect();
     });
 
     return () => {
         socket.disconnect();
     };
-  }, [code, playerName]);
+  }, [code, playerName]); // initialConfig usually static
 
   const performAction = (action: string, payload: any = {}, targetId?: string) => {
     if (socketRef.current) {
@@ -76,7 +81,6 @@ export function useBuzzer(code: string, playerName?: string) {
             code,
             action,
             payload,
-            // senderId is inferred from Cookie on server
             targetId: targetId 
         });
     }
@@ -94,6 +98,7 @@ export function useBuzzer(code: string, playerName?: string) {
     buzzedName: state.buzzedName,
     incorrectBuzzes: state.incorrectBuzzes,
     controlPlayerId: state.controlPlayerId,
+    maxPlayers: state.maxPlayers,
     gameState: state.gameState,
     allPlayers: state.players,
     myScore,
@@ -110,6 +115,7 @@ export function useBuzzer(code: string, playerName?: string) {
     markCorrect: (pid: string, points: number) => performAction('mark_correct', { playerId: pid, points }),
     markWrong: (pid: string, points: number) => performAction('mark_wrong', { playerId: pid, points }),
     addPlayer: () => performAction('add_bot'),
+    updateMaxPlayers: (n: number) => performAction('update_max_players', { maxPlayers: n }),
     updateState: (newState: { players?: any[], gameState?: string }) => performAction('update_state', newState),
     updatePlayer: (id: string, updates: { score?: number, name?: string }) => performAction('update_player', updates, id),
     removePlayer: (id: string) => performAction('remove_player', {}, id),
