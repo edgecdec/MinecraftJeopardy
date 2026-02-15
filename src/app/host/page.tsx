@@ -36,7 +36,7 @@ function HostGameContent() {
     replaceCategory,
     advanceFinalJeopardy,
     endGame
-  } = useGame(gameId);
+  } = useGame(gameId, roomCode); // Pass roomCode here!
 
   const { playSound } = useSound();
   const { 

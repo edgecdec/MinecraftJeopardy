@@ -33,15 +33,14 @@ export type Player = {
 export type GameState = 'BOARD' | 'CLUE' | 'ANSWER' | 'DAILY_DOUBLE_WAGER' | 'FINAL_CATEGORY' | 'FINAL_WAGER' | 'FINAL_CLUE' | 'FINAL_SCORING' | 'GAME_OVER';
 export type Round = 'SINGLE' | 'DOUBLE' | 'FINAL';
 
-const STORAGE_KEY = 'jeopardy-save-v3';
-
 const GAMES = {
   minecraft: minecraftGame,
   stardew: stardewGame
 };
 
-export function useGame(gameId: string = 'minecraft') {
+export function useGame(gameId: string = 'minecraft', roomCode: string = 'LOCAL') {
   const selectedGame = GAMES[gameId as keyof typeof GAMES] || minecraftGame;
+  const storageKey = `jeopardy-save-v3-${roomCode}`;
 
   const [players, setPlayers] = useState<Player[]>([
     { id: 'p1', name: 'Player 1', score: 0 },
@@ -83,7 +82,6 @@ export function useGame(gameId: string = 'minecraft') {
 
         if (!poolClue) {
             console.error("Missing clue for", cat.name, diff);
-            // Fallback empty clue
             selectedClues.push({
                 id: `error-${Math.random()}`,
                 category: cat.name,
@@ -145,11 +143,10 @@ export function useGame(gameId: string = 'minecraft') {
   };
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = localStorage.getItem(storageKey);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        // Only load if the saved game ID matches the current requested game ID
         if (parsed.gameId === gameId) {
             setPlayers(parsed.players);
             setQuestions(parsed.questions);
@@ -167,7 +164,7 @@ export function useGame(gameId: string = 'minecraft') {
     }
     generateBoard('SINGLE');
     setIsLoaded(true);
-  }, [gameId, generateBoard]); 
+  }, [gameId, storageKey, generateBoard]); 
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -181,8 +178,8 @@ export function useGame(gameId: string = 'minecraft') {
       round,
       dailyDoubleIds: Array.from(dailyDoubleIds)
     };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
-  }, [gameId, players, questions, answeredClues, activeClue, gameState, round, dailyDoubleIds, isLoaded]);
+    localStorage.setItem(storageKey, JSON.stringify(stateToSave));
+  }, [gameId, storageKey, players, questions, answeredClues, activeClue, gameState, round, dailyDoubleIds, isLoaded]);
 
   const advanceFinalJeopardy = useCallback(() => {
     if (gameState === 'FINAL_CATEGORY') setGameState('FINAL_WAGER');
