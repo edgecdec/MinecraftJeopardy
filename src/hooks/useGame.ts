@@ -149,26 +149,30 @@ export function useGame(gameId: string = 'minecraft') {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        setPlayers(parsed.players);
-        setQuestions(parsed.questions);
-        setAnsweredClues(new Set(parsed.answeredClues));
-        setActiveClue(parsed.activeClue);
-        setGameState(parsed.gameState);
-        setRound(parsed.round || 'SINGLE');
-        setDailyDoubleIds(new Set(parsed.dailyDoubleIds));
-        setIsLoaded(true);
-        return;
+        // Only load if the saved game ID matches the current requested game ID
+        if (parsed.gameId === gameId) {
+            setPlayers(parsed.players);
+            setQuestions(parsed.questions);
+            setAnsweredClues(new Set(parsed.answeredClues));
+            setActiveClue(parsed.activeClue);
+            setGameState(parsed.gameState);
+            setRound(parsed.round || 'SINGLE');
+            setDailyDoubleIds(new Set(parsed.dailyDoubleIds));
+            setIsLoaded(true);
+            return;
+        }
       } catch (e) {
         console.error("Failed to load save:", e);
       }
     }
     generateBoard('SINGLE');
     setIsLoaded(true);
-  }, []); 
+  }, [gameId, generateBoard]); 
 
   useEffect(() => {
     if (!isLoaded) return;
     const stateToSave = {
+      gameId,
       players,
       questions,
       answeredClues: Array.from(answeredClues),
@@ -178,7 +182,7 @@ export function useGame(gameId: string = 'minecraft') {
       dailyDoubleIds: Array.from(dailyDoubleIds)
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
-  }, [players, questions, answeredClues, activeClue, gameState, round, dailyDoubleIds, isLoaded]);
+  }, [gameId, players, questions, answeredClues, activeClue, gameState, round, dailyDoubleIds, isLoaded]);
 
   const advanceFinalJeopardy = useCallback(() => {
     if (gameState === 'FINAL_CATEGORY') setGameState('FINAL_WAGER');
