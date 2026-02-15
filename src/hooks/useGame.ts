@@ -201,6 +201,23 @@ export function useGame() {
     setActiveClue(null);
   }, [activeClue]);
 
+  // Player Management (Local)
+  const addPlayer = useCallback(() => {
+    setPlayers(prev => [...prev, { id: `p${Date.now()}`, name: `Player ${prev.length + 1}`, score: 0 }]);
+  }, []);
+
+  const removePlayer = useCallback((id: string) => {
+    setPlayers(prev => prev.filter(p => p.id !== id));
+  }, []);
+
+  const updatePlayerName = useCallback((id: string, newName: string) => {
+    setPlayers(prev => prev.map(p => p.id === id ? { ...p, name: newName } : p));
+  }, []);
+
+  const updatePlayerScore = useCallback((id: string, delta: number) => {
+    setPlayers(prev => prev.map(p => p.id === id ? { ...p, score: p.score + delta } : p));
+  }, []);
+
   return {
     players,
     addPlayer,
