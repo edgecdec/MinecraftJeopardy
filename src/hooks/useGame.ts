@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import questionsData from '@/data/questions.json';
+import { minecraftGame } from '@/data/games/minecraft';
 
 export type Clue = {
   id: string;
@@ -50,7 +50,7 @@ export function useGame() {
       return;
     }
 
-    const shuffledCats = [...questionsData.categories].sort(() => 0.5 - Math.random());
+    const shuffledCats = [...minecraftGame.categories].sort(() => 0.5 - Math.random());
     const selectedCats = shuffledCats.slice(0, 6);
     const multiplier = targetRound === 'DOUBLE' ? 400 : 200;
 
@@ -70,13 +70,12 @@ export function useGame() {
           answer: poolClue.answer
         });
       }
-            return {
-              category: cat.name,
-              description: cat.description,
-              clues: selectedClues
-            };
-          });
-      
+      return {
+        category: cat.name,
+        description: cat.description,
+        clues: selectedClues
+      };
+    });
 
     setQuestions(newBoard);
     setAnsweredClues(new Set());
@@ -97,7 +96,7 @@ export function useGame() {
   }, []);
 
   const setupFinalJeopardy = () => {
-    const finalQ = questionsData.finalJeopardy[Math.floor(Math.random() * questionsData.finalJeopardy.length)];
+    const finalQ = minecraftGame.finalJeopardy[Math.floor(Math.random() * minecraftGame.finalJeopardy.length)];
     setActiveClue({
       id: 'final-jeopardy',
       value: 0, // Wagered later
@@ -159,7 +158,7 @@ export function useGame() {
   const replaceCategory = useCallback((categoryName: string) => {
      setQuestions(prevQuestions => {
       const currentNames = new Set(prevQuestions.map(q => q.category));
-      const availableCats = questionsData.categories.filter(c => !currentNames.has(c.name));
+      const availableCats = minecraftGame.categories.filter(c => !currentNames.has(c.name));
       if (availableCats.length === 0) return prevQuestions;
 
       const newCatData = availableCats[Math.floor(Math.random() * availableCats.length)];
@@ -188,60 +187,9 @@ export function useGame() {
       };
       const newQuestions = prevQuestions.map(q => q.category === categoryName ? newCategoryBoard : q);
       
-      // Re-roll DDs if lost? Simplified: just leave existing DDs. 
-      // If a DD was in the removed category, it's gone. That's life in Minecraft Jeopardy.
-      
       return newQuestions;
     });
   }, [round]);
-
-  // ... (Player management functions stay same) ...
-  const addPlayer = useCallback(() => {
-    setPlayers(prev => [...prev, { id: `p${Date.now()}`, name: `Player ${prev.length + 1}`, score: 0 }]);
-  }, []);
-  const removePlayer = useCallback((id: string) => setPlayers(prev => prev.filter(p => p.id !== id)), []);
-  const updatePlayerName = useCallback((id: string, newName: string) => {
-    setPlayers(prev => prev.map(p => p.id === id ? { ...p, name: newName } : p));
-  }, []);
-  const updatePlayerScore = useCallback((id: string, delta: number) => {
-    setPlayers(prev => prev.map(p => p.id === id ? { ...p, score: p.score + delta } : p));
-  }, []);
-
-  const selectClue = useCallback((clue: Clue) => {
-    if (answeredClues.has(clue.id)) return;
-    
-    if (dailyDoubleIds.has(clue.id)) {
-      setActiveClue({ ...clue, isDailyDouble: true });
-      setGameState('DAILY_DOUBLE_WAGER');
-    } else {
-      setActiveClue(clue);
-      setGameState('CLUE');
-    }
-  }, [answeredClues, dailyDoubleIds]);
-
-  const submitWager = useCallback((amount: number) => {
-    if (activeClue) {
-      setActiveClue({ ...activeClue, value: amount });
-      setGameState('CLUE');
-    }
-  }, [activeClue]);
-
-  const revealAnswer = useCallback(() => {
-    setGameState('ANSWER');
-  }, []);
-
-  const completeClue = useCallback((winnerId: string | null, correct: boolean) => {
-    if (activeClue) {
-      if (winnerId) {
-        updatePlayerScore(winnerId, correct ? activeClue.value : -activeClue.value);
-      }
-      if (correct || winnerId === null) {
-        setAnsweredClues(prev => new Set(prev).add(activeClue.id));
-        setGameState('BOARD');
-        setActiveClue(null);
-      }
-    }
-  }, [activeClue, updatePlayerScore]);
 
   const endGame = useCallback(() => {
     setGameState('GAME_OVER');

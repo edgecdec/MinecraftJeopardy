@@ -1,12 +1,15 @@
-{
-  "categories": [
+import { GameData } from '@/lib/types';
+
+export const minecraftGame: GameData = {
+  id: 'minecraft',
+  categories: [
     {
       "name": "Update 1.21",
       "description": "Questions regarding the latest major Minecraft update, focusing on Trial Chambers, the Breeze, and new blocks.",
       "pool": [
         { "difficulty": 1, "clue": "This new hostile mob, found in Trial Chambers, moves by jumping and shoots wind charges.", "answer": "The Breeze" },
         { "difficulty": 2, "clue": "What specific item is required to breed two Armadillos?", "answer": "Spider Eye" },
-        { "difficulty": 3, "clue": "This new item, dropped by the Breeze, can be used by players to leap into the air or activate components from a distance.", "answer": "Wind Charge" },
+        { "difficulty": 3, "clue": "This new block, found in Trial Chambers, automatically crafts items when powered by Redstone.", "answer": "Crafter" },
         { "difficulty": 4, "clue": "Breeze Rods can be crafted into exactly how many Wind Charges?", "answer": "4" },
         { "difficulty": 5, "clue": "Which block surrounds the Trial Spawner that specifically spawns a Breeze?", "answer": "Chiseled Tuff" }
       ]
@@ -295,6 +298,39 @@
         { "difficulty": 3, "clue": "This energetic group of friends, featuring members like PrestonPlayz, Vikkstar123, and JeromeASF, was famous for their 'Pixelmon' and 'Hunger Games' collaborations.", "answer": "The Pack" },
         { "difficulty": 4, "clue": "A dominant 'supergroup' of the early 2010s, this collective featured creators like SkyDoesMinecraft, Deadlox, and TheBajanCanadian.", "answer": "Team Crafted" },
         { "difficulty": 5, "clue": "Founded by Guude in 2010, this was the first major 'private server' group to achieve mainstream success, featuring legends like Etho and SethBling.", "answer": "Mindcrack" }
+      ]
+    },
+    {
+      "name": "Major Updates",
+      "description": "Identify specific historical Minecraft updates or version numbers based on the features and changes they introduced.",
+      "pool": [
+        { "difficulty": 1, "clue": "This 2020 update transformed the Nether from a single biome into a diverse dimension with biomes like the Crimson Forest and Soulsand Valley.", "answer": "1.16 (The Nether Update)" },
+        { "difficulty": 2, "clue": "Introducing Tridents, Dolphins, and Turtles, this 2018 update focused on making the game's oceans more vibrant and full of life.", "answer": "1.13 (Update Aquatic)" },
+        { "difficulty": 3, "clue": "This update introduced the Elytra, End Cities, and the controversial combat cooldown mechanics.", "answer": "1.9 (The Combat Update)" },
+        { "difficulty": 4, "clue": "This technical update in 2021 was responsible for increasing the Overworld's build height to 320 and adding the new 'Large' cave generation.", "answer": "1.18 (Caves & Cliffs: Part II)" },
+        { "difficulty": 5, "clue": "Famously doubling the amount of biomes in the game, this 2013 update introduced the Savanna, Mesa, and Birch Forest variations.", "answer": "1.7 (The Update that Changed the World)" }
+      ]
+    },
+    {
+      "name": "Modding History",
+      "description": "Explore the legacy of Minecraft's most influential mods and modpacks, from industrial engineering to arcane magic.",
+      "pool": [
+        { "difficulty": 1, "clue": "Known for its extreme difficulty, this modern modpack forces players to manage thirst, body temperature, and survive deadly dragons.", "answer": "RLCraft" },
+        { "difficulty": 2, "clue": "This legendary mod adds a new dimension characterized by an eternal evening sky, massive canopy trees, and unique bosses like the Hydra.", "answer": "The Twilight Forest" },
+        { "difficulty": 3, "clue": "This early industrial modpack was famous for its 'Equivalent Exchange' system and its introduction of complex machinery into Minecraft.", "answer": "Tekkit" },
+        { "difficulty": 4, "clue": "This massive magic mod revolves around researching 'Aspects' of the world, using arcane wands, and managing dangerous 'Flux' corruption.", "answer": "Thaumcraft" },
+        { "difficulty": 5, "clue": "Curated by a legendary group of creators from Britain, this early 2010s modpack focused on adventure, world-building, and early RPG elements.", "answer": "The Yogbox" }
+      ]
+    },
+    {
+      "name": "The Minecraft Movie",
+      "description": "Trivia based on the scenes, quotes, and easter eggs revealed in the official trailers for the live-action Minecraft movie.",
+      "pool": [
+        { "difficulty": 1, "clue": "During the trailer, Steve casually jumps off a massive cliffside. He survives the landing by performing this specific, high-skill technique often used by speedrunners.", "answer": "Water Bucket Clutch (or MLG)" },
+        { "difficulty": 2, "clue": "When meeting the main group of characters for the first time, Jack Black's character dramatically introduces himself with this three-word line.", "answer": "I Am Steve" },
+        { "difficulty": 3, "clue": "In a comedic moment from the trailer, Jason Momoa's character is unexpectedly vomited on by this blocky animal.", "answer": "Llama" },
+        { "difficulty": 4, "clue": "When attempting to outdo Steve by carelessly dropping iron ingots and nuggets onto a crafting table, Garrett accidentally creates this physics-defying double-container item.", "answer": "Buck-Chuckets" },
+        { "difficulty": 5, "clue": "The official teaser trailer features an orchestral version of this classic Beatles song as its background music.", "answer": "Magical Mystery Tour" }
       ]
     }
   ],
