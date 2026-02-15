@@ -7,7 +7,8 @@ import { useBuzzer } from '@/hooks/useBuzzer';
 
 function PlayerContent() {
   const searchParams = useSearchParams();
-  const name = searchParams.get('name') || 'Steve';
+  const rawName = searchParams.get('name') || 'Steve';
+  const name = rawName.substring(0, 15);
   const code = searchParams.get('code') || 'TEST';
 
   const { buzzedId, buzzedName, locked, buzz, isMe, gameState, myScore, submitWager, submitAnswer, wagers, finalAnswers, deviceId, allPlayers } = useBuzzer(code, name);
