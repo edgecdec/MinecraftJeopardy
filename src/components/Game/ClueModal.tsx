@@ -349,7 +349,7 @@ export default function ClueModal({
                 position: 'absolute',
                 top: 20,
                 right: 20,
-                color: 'rgba(255,255,255,0.2)',
+                color: 'rgba(255,255,255,0.5)',
                 '&:hover': { color: 'white', bgcolor: 'rgba(255,255,255,0.1)' },
                 zIndex: 10000
             }}
