@@ -38,11 +38,11 @@
       "name": "Ultimate Authority",
       "description": "Identify the champion based on the description of their R.",
       "pool": [
-        { "difficulty": 1, "clue": "'Crowstorm' teleports this champion after a channel, dealing massive AoE magic damage.", "answer": "Fiddlesticks" },
-        { "difficulty": 2, "clue": "'Curtain Call' forces this marksman to root himself and fire four long-range shots.", "answer": "Jhin" },
-        { "difficulty": 3, "clue": "'Realm of Death' banishes a single target to a 1v1 arena for 7 seconds.", "answer": "Mordekaiser" },
-        { "difficulty": 4, "clue": "'Fate's Call' pulls an allied champion toward the user, allowing them to dash out and knock up enemies.", "answer": "Kalista" },
-        { "difficulty": 5, "clue": "'Depth Charge' is a point-and-click knock-up that chases a target regardless of distance.", "answer": "Nautilus" }
+        { "difficulty": 1, "clue": "Applies 'Nearsight' to all enemy champions on the map, reducing their vision radius, before allowing the user to dash to a target.", "answer": "Nocturne" },
+        { "difficulty": 2, "clue": "Freezes a target champion to stun them; if self-cast, the user becomes invulnerable and heals while slowing nearby enemies.", "answer": "Lissandra" },
+        { "difficulty": 3, "clue": "Charges toward a location, gaining a massive shield and leaving behind a wind trail that grants movement speed to following allies.", "answer": "Kled" },
+        { "difficulty": 4, "clue": "Creates a magnetic field that drags nearby enemies toward the user and stuns them; unlike Amumu or Diana, the user can move while dragging enemies.", "answer": "Rell" },
+        { "difficulty": 5, "clue": "Channels a whirlpool that pulls enemies in and deals damage; distinctively, it heals the user and nearby allies for a portion of the damage dealt.", "answer": "Nilah" }
       ]
     },
     {
@@ -62,8 +62,8 @@
       "pool": [
         { "difficulty": 1, "clue": "This K-Pop inspired skin line features Ahri, Akali, Evelynn, and Kai'Sa.", "answer": "K/DA" },
         { "difficulty": 2, "clue": "Lux, Jinx, and Ezreal are prominent members of this 'Magical Girl' anime-inspired skin line.", "answer": "Star Guardian" },
-        { "difficulty": 3, "clue": "This cyberpunk skin line features champions like Ashe, Ekko, and Mordekaiser with cybernetic enhancements.", "answer": "PROJECT" },
-        { "difficulty": 4, "clue": "This skin line reimagines the Wild West with demons and angels, featuring Lucian, Thresh, and Urgot.", "answer": "High Noon" },
+        { "difficulty": 3, "clue": "This skin line reimagines the Wild West with demons and angels, featuring Lucian, Thresh, and Urgot.", "answer": "High Noon" },
+        { "difficulty": 4, "clue": "This cyberpunk skin line features champions like Ashe, Ekko, and Mordekaiser with cybernetic enhancements.", "answer": "PROJECT" },
         { "difficulty": 5, "clue": "Inspired by the Ionian afterlife festival, this skin line features dating-sim elements and champions like Yone and Cassiopeia.", "answer": "Spirit Blossom" }
       ]
     },
@@ -85,8 +85,8 @@
         { "difficulty": 1, "clue": "Instead of a shield, this Freljordian support blocks damage with a massive unbreakable door.", "answer": "Braum" },
         { "difficulty": 2, "clue": "This Grandmaster at Arms fights with a brass lamppost.", "answer": "Jax" },
         { "difficulty": 3, "clue": "Jinx names her minigun 'Pow-Pow' and her rocket launcher this.", "answer": "Fishbones" },
-        { "difficulty": 4, "clue": "Ekko wields a stolen Piltover clock hand as a sword/bat; he calls it the...", "answer": "Z-Drive (or Bat)" },
-        { "difficulty": 5, "clue": "Qiyana wields a giant circular elemental blade known as an...", "answer": "Ohmatl" }
+        { "difficulty": 4, "clue": "Ekko's glowing blunt weapon is not a sword or a club, but actually this specific part stolen from a Piltover tower.", "answer": "Clock Hand (or Second Hand)" },
+        { "difficulty": 5, "clue": "Qiyana wields a giant circular elemental blade known as an...", "answer": "Ohmlatl" }
       ]
     },
     {
@@ -280,11 +280,11 @@
       "name": "Reset Mechanics",
       "description": "Champions who get cooldown refunds on kills.",
       "pool": [
-        { "difficulty": 1, "clue": "Her passive reduces all ability cooldowns by 15 seconds upon scoring a takedown.", "answer": "Katarina" },
+        { "difficulty": 1, "clue": "Her 'Rocket Jump' resets on kills, assists, or fully stacking explosive charge.", "answer": "Tristana" },
         { "difficulty": 2, "clue": "His ultimate 'Noxian Guillotine' refreshes its cooldown if it kills the target.", "answer": "Darius" },
-        { "difficulty": 3, "clue": "Her 'Rocket Jump' resets on kills, assists, or fully stacking explosive charge.", "answer": "Tristana" },
-        { "difficulty": 4, "clue": "He can possess the bodies of enemies he helps kill, healing and gaining their abilities.", "answer": "Viego" },
-        { "difficulty": 5, "clue": "His ultimate 'Death from Below' resets if it executes an enemy, granting gold.", "answer": "Pyke" }
+        { "difficulty": 3, "clue": "His ultimate 'Death from Below' resets if it executes an enemy, granting gold.", "answer": "Pyke" },
+        { "difficulty": 4, "clue": "His ultimate 'Highlander' passively reduces the remaining cooldowns of his basic abilities by 70% on a takedown.", "answer": "Master Yi" },
+        { "difficulty": 5, "clue": "Her passive reduces all ability cooldowns by 15 seconds upon scoring a takedown.", "answer": "Katarina" }
       ]
     },
     {
@@ -508,14 +508,14 @@
       ]
     },
     {
-      "name": "Esports MVPs",
-      "description": "Best players.",
+      "name": "Worlds MVPs",
+      "description": "Most Valuable Players from the last 5 years.",
       "pool": [
-        { "difficulty": 1, "clue": "Unkillable Demon King (T1).", "answer": "Faker" },
-        { "difficulty": 2, "clue": "2014 MVP Support (Samsung White).", "answer": "Mata" },
-        { "difficulty": 3, "clue": "2018 MVP Jungler (iG).", "answer": "Ning" },
-        { "difficulty": 4, "clue": "2023 MVP Top Laner (T1).", "answer": "Zeus" },
-        { "difficulty": 5, "clue": "2015 MVP Top Laner (SKT Rumble).", "answer": "MaRin" }
+        { "difficulty": 1, "clue": "The 2024 Finals MVP, solidifying his legacy as the Unkillable Demon King with his 5th title.", "answer": "Faker" },
+        { "difficulty": 2, "clue": "The 2023 Finals MVP, a T1 top laner who dominated TheShy with Yone and Jayce.", "answer": "Zeus" },
+        { "difficulty": 3, "clue": "The 2022 Finals MVP from DRX, known for his incredible Aatrox performance in Game 5 against T1.", "answer": "Kingen" },
+        { "difficulty": 4, "clue": "The 2020 Finals MVP, a jungler for DAMWON Gaming who revolutionized the carry jungle meta.", "answer": "Canyon" },
+        { "difficulty": 5, "clue": "The 2021 Finals MVP, mid laner for EDG who defeated ShowMaker in the finals.", "answer": "Scout" }
       ]
     },
     {
