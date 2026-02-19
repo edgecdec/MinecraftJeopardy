@@ -14,6 +14,11 @@ export const AVAILABLE_GAMES: GameMeta[] = [
     id: 'stardew', 
     title: 'Stardew Valley', 
     description: 'Farming, fishing, and Pelican Town gossip.' 
+  },
+  { 
+    id: 'league', 
+    title: 'League of Legends', 
+    description: 'Champions, lore, esports, and mechanics.' 
   }
 ];
 

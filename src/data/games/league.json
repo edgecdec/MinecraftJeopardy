@@ -1,0 +1,562 @@
+{
+  "id": "league",
+  "categories": [
+    {
+      "name": "Champion Titles",
+      "description": "Epithets and titles found on the loading screen.",
+      "pool": [
+        { "difficulty": 1, "clue": "Known as 'The Frost Archer,' this Freljordian queen was one of the original champions.", "answer": "Ashe" },
+        { "difficulty": 2, "clue": "'The Sinister Blade' refers to this Noxian assassin, daughter of General Du Couteau.", "answer": "Katarina" },
+        { "difficulty": 3, "clue": "This Yordle carries the title 'The Hammer,' though she was formerly known as the 'Iron Ambassador.'", "answer": "Poppy" },
+        { "difficulty": 4, "clue": "'The Pride of Nazumah' is the title of this tank/skirmisher hailing from Shurima.", "answer": "K'Sante" },
+        { "difficulty": 5, "clue": "Formerly the 'Master Tactician,' this Noxian ruler is now known simply as 'The Grand General.'", "answer": "Swain" }
+      ]
+    },
+    {
+      "name": "Ability Names",
+      "description": "The canonical names of Q, W, E, and R abilities.",
+      "pool": [
+        { "difficulty": 1, "clue": "'Rocket Grab' is the signature Q ability of this steam golem.", "answer": "Blitzcrank" },
+        { "difficulty": 2, "clue": "This champion's ultimate, 'Trueshot Barrage,' fires a global energy wave.", "answer": "Ezreal" },
+        { "difficulty": 3, "clue": "'Alpha Strike' is the Q ability that allows this Wuju bladesman to become untargetable.", "answer": "Master Yi" },
+        { "difficulty": 4, "clue": "The passive ability that heals this vastaya after landing abilities is named 'Essence... what?'", "answer": "Theft" },
+        { "difficulty": 5, "clue": "Upon gathering enough Stardust, Aurelion Sol's ultimate upgrades from 'Falling Star' to this apocalyptic name.", "answer": "The Skies Descend" }
+      ]
+    },
+    {
+      "name": "The Passive Voice",
+      "description": "Innate abilities that define playstyles.",
+      "pool": [
+        { "difficulty": 1, "clue": "This sniper's passive, 'Headshot,' grants bonus damage every few auto-attacks.", "answer": "Caitlyn" },
+        { "difficulty": 2, "clue": "'League of Draven' generates these stacks upon catching axes.", "answer": "Adoration" },
+        { "difficulty": 3, "clue": "'Granite Shield' provides this rock-solid champion with a shield equal to 10% of his max health.", "answer": "Malphite" },
+        { "difficulty": 4, "clue": "'Damnation' allows this support to collect souls to permanently increase Armor and AP.", "answer": "Thresh" },
+        { "difficulty": 5, "clue": "'Signature of the Visionary' is the passive of this artistic mid laner, marking enemies damaged by his abilities.", "answer": "Hwei" }
+      ]
+    },
+    {
+      "name": "Ultimate Authority",
+      "description": "Identify the champion based on the description of their R.",
+      "pool": [
+        { "difficulty": 1, "clue": "'Crowstorm' teleports this champion after a channel, dealing massive AoE magic damage.", "answer": "Fiddlesticks" },
+        { "difficulty": 2, "clue": "'Curtain Call' forces this marksman to root himself and fire four long-range shots.", "answer": "Jhin" },
+        { "difficulty": 3, "clue": "'Realm of Death' banishes a single target to a 1v1 arena for 7 seconds.", "answer": "Mordekaiser" },
+        { "difficulty": 4, "clue": "'Fate's Call' pulls an allied champion toward the user, allowing them to dash out and knock up enemies.", "answer": "Kalista" },
+        { "difficulty": 5, "clue": "'Depth Charge' is a point-and-click knock-up that chases a target regardless of distance.", "answer": "Nautilus" }
+      ]
+    },
+    {
+      "name": "Champion Quotes",
+      "description": "Audio cues heard during the Pick & Ban phase.",
+      "pool": [
+        { "difficulty": 1, "clue": "'Tonight, we hunt!'", "answer": "Rengar" },
+        { "difficulty": 2, "clue": "'Ok.'", "answer": "Rammus" },
+        { "difficulty": 3, "clue": "'The cycle of life and death continues. We will live, they will die.'", "answer": "Nasus" },
+        { "difficulty": 4, "clue": "'Fighting is in my blood... I mean, my goo.'", "answer": "Zac" },
+        { "difficulty": 5, "clue": "'Imagine if I had a real weapon.'", "answer": "Jax" }
+      ]
+    },
+    {
+      "name": "Skin Lines",
+      "description": "Alternate universes and thematic cosmetics.",
+      "pool": [
+        { "difficulty": 1, "clue": "This K-Pop inspired skin line features Ahri, Akali, Evelynn, and Kai'Sa.", "answer": "K/DA" },
+        { "difficulty": 2, "clue": "Lux, Jinx, and Ezreal are prominent members of this 'Magical Girl' anime-inspired skin line.", "answer": "Star Guardian" },
+        { "difficulty": 3, "clue": "This cyberpunk skin line features champions like Ashe, Ekko, and Mordekaiser with cybernetic enhancements.", "answer": "PROJECT" },
+        { "difficulty": 4, "clue": "This skin line reimagines the Wild West with demons and angels, featuring Lucian, Thresh, and Urgot.", "answer": "High Noon" },
+        { "difficulty": 5, "clue": "Inspired by the Ionian afterlife festival, this skin line features dating-sim elements and champions like Yone and Cassiopeia.", "answer": "Spirit Blossom" }
+      ]
+    },
+    {
+      "name": "Chronology",
+      "description": "Release dates and historical context.",
+      "pool": [
+        { "difficulty": 1, "clue": "Released in Feb 2009, this 'Dark Child' was among the very first champions in the Alpha.", "answer": "Annie" },
+        { "difficulty": 2, "clue": "Released in 2013, this champion was the first to have a music video ('Get Jinxed').", "answer": "Jinx" },
+        { "difficulty": 3, "clue": "Released in 2019, this Solari marksman requires a custom HUD to manage his 5 weapons.", "answer": "Aphelios" },
+        { "difficulty": 4, "clue": "This Piltover Enforcer was the last champion released in 2012.", "answer": "Vi" },
+        { "difficulty": 5, "clue": "This 'Defender of Tomorrow' was the 100th champion released.", "answer": "Jayce" }
+      ]
+    },
+    {
+      "name": "Weapon of Choice",
+      "description": "The unique items used by champions to fight.",
+      "pool": [
+        { "difficulty": 1, "clue": "Instead of a shield, this Freljordian support blocks damage with a massive unbreakable door.", "answer": "Braum" },
+        { "difficulty": 2, "clue": "This Grandmaster at Arms fights with a brass lamppost.", "answer": "Jax" },
+        { "difficulty": 3, "clue": "Jinx names her minigun 'Pow-Pow' and her rocket launcher this.", "answer": "Fishbones" },
+        { "difficulty": 4, "clue": "Ekko wields a stolen Piltover clock hand as a sword/bat; he calls it the...", "answer": "Z-Drive (or Bat)" },
+        { "difficulty": 5, "clue": "Qiyana wields a giant circular elemental blade known as an...", "answer": "Ohmatl" }
+      ]
+    },
+    {
+      "name": "Sibling Rivalries",
+      "description": "Family feuds and bonds.",
+      "pool": [
+        { "difficulty": 1, "clue": "Known as the Wind brothers, one wields a sword and the other two swords (one spirit, one steel).", "answer": "Yasuo and Yone" },
+        { "difficulty": 2, "clue": "Kai'Sa is the daughter of this Void-walking champion.", "answer": "Kassadin" },
+        { "difficulty": 3, "clue": "Garen Crownguard is the older brother of this mage.", "answer": "Lux" },
+        { "difficulty": 4, "clue": "The Shuriman brothers, one a Curator and one a Butcher, locked in eternal conflict.", "answer": "Nasus and Renekton" },
+        { "difficulty": 5, "clue": "Katarina is the sister to Cassiopeia and this adoptive brother.", "answer": "Talon" }
+      ]
+    },
+    {
+      "name": "The Darkin",
+      "description": "Corrupted God-Warriors trapped in weapons.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Darkin Blade, the first of his kind revealed.", "answer": "Aatrox" },
+        { "difficulty": 2, "clue": "The Darkin Scythe wielded by Kayn.", "answer": "Rhaast" },
+        { "difficulty": 3, "clue": "The Darkin Bow, composed of Valmar, Kai, and the entity.", "answer": "Varus" },
+        { "difficulty": 4, "clue": "This Darkin Hound, released in 2023, is the 'Hound of a Hundred Bites.'", "answer": "Naafiri" },
+        { "difficulty": 5, "clue": "The Darkin were originally this group of Shuriman Ascended warriors.", "answer": "Sunborn (or God-Warriors)" }
+      ]
+    },
+    {
+      "name": "Yordles",
+      "description": "Spirits of Bandle City.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Swift Scout who plants mushrooms.", "answer": "Teemo" },
+        { "difficulty": 2, "clue": "The Yordle Gunner with a cannon named 'Boomer.'", "answer": "Tristana" },
+        { "difficulty": 3, "clue": "A Yordle wizard who gains AP by slaying minions with his Q.", "answer": "Veigar" },
+        { "difficulty": 4, "clue": "This Yordle rides a jagged lizard named Skaarl.", "answer": "Kled" },
+        { "difficulty": 5, "clue": "The gloomy Yordle who wields a sentient shadow.", "answer": "Vex" }
+      ]
+    },
+    {
+      "name": "The Voidborn",
+      "description": "Horrors from the abyss.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Terror of the Void, a tank that feasts to grow larger.", "answer": "Cho'Gath" },
+        { "difficulty": 2, "clue": "The Mouth of the Abyss, a puppy that explodes on death.", "answer": "Kog'Maw" },
+        { "difficulty": 3, "clue": "The Voidreaver who evolves abilities by killing isolated targets.", "answer": "Kha'Zix" },
+        { "difficulty": 4, "clue": "The Eye of the Void who disintegrates enemies with lasers.", "answer": "Vel'Koz" },
+        { "difficulty": 5, "clue": "The Empress of the Void who summons void remora.", "answer": "Bel'Veth" }
+      ]
+    },
+    {
+      "name": "Ionian Spirits",
+      "description": "Magic of the First Lands.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Nine-Tailed Fox who consumes essence.", "answer": "Ahri" },
+        { "difficulty": 2, "clue": "The Eye of Twilight, a ninja tank with a Spirit Blade.", "answer": "Shen" },
+        { "difficulty": 3, "clue": "The Rogue Assassin who abandoned the Kinkou Order.", "answer": "Akali" },
+        { "difficulty": 4, "clue": "A vastaya marksman who fights alongside his lover Rakan.", "answer": "Xayah" },
+        { "difficulty": 5, "clue": "The spirit of Ionia itself who dances with floating blades.", "answer": "Irelia" }
+      ]
+    },
+    {
+      "name": "Demacian Justice",
+      "description": "Order, Petricite, and Mage-seekers.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Might of Demacia, known for spinning.", "answer": "Garen" },
+        { "difficulty": 2, "clue": "The Exemplar of Demacia and heir apparent.", "answer": "Jarvan IV" },
+        { "difficulty": 3, "clue": "A colossus made of petricite that awakens to fight magic.", "answer": "Galio" },
+        { "difficulty": 4, "clue": "The Grand Duelist of House Laurent.", "answer": "Fiora" },
+        { "difficulty": 5, "clue": "The Wings of Demacia, a ranger with an eagle named Valor.", "answer": "Quinn" }
+      ]
+    },
+    {
+      "name": "Noxian Might",
+      "description": "Strength above all.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Hand of Noxus, known for dunking with his axe.", "answer": "Darius" },
+        { "difficulty": 2, "clue": "The Glorious Executioner who catches spinning axes.", "answer": "Draven" },
+        { "difficulty": 3, "clue": "The Deceiver who leads the Black Rose.", "answer": "LeBlanc" },
+        { "difficulty": 4, "clue": "An undead juggernaut resurrected to serve as a war machine.", "answer": "Sion" },
+        { "difficulty": 5, "clue": "The Crimson Reaper, a hemomancer.", "answer": "Vladimir" }
+      ]
+    },
+    {
+      "name": "Item Components",
+      "description": "Shop math and build paths.",
+      "pool": [
+        { "difficulty": 1, "clue": "To build an Infinity Edge, you need a B.F. Sword, a Pickaxe, and this crit cloak.", "answer": "Cloak of Agility" },
+        { "difficulty": 2, "clue": "A B.F. Sword costs this amount of gold.", "answer": "1300" },
+        { "difficulty": 3, "clue": "The 'Stopwatch' was replaced by this armguard component for mages.", "answer": "Seeker's Armguard" },
+        { "difficulty": 4, "clue": "The Lethality component 'Serrated Dirk' costs this much gold.", "answer": "1000" },
+        { "difficulty": 5, "clue": "The total gold cost of a Trinity Force usually hovers around this number (tons of damage).", "answer": "3333" }
+      ]
+    },
+    {
+      "name": "Removed Items",
+      "description": "Nostalgia from the shop graveyard.",
+      "pool": [
+        { "difficulty": 1, "clue": "Removed in S5, this item dealt % max health magic damage active.", "answer": "Deathfire Grasp (DFG)" },
+        { "difficulty": 2, "clue": "A gold-generation item shaped like a turtle shell.", "answer": "Heart of Gold" },
+        { "difficulty": 3, "clue": "This item granted AD based on a % of your max Health (Metagolem).", "answer": "Atma's Impaler" },
+        { "difficulty": 4, "clue": "A jungle enchantment that created a ghost dog after 30 stacks.", "answer": "Devourer" },
+        { "difficulty": 5, "clue": "Sword of the Occult was the AD equivalent to this snowball item.", "answer": "Mejai's Soulstealer" }
+      ]
+    },
+    {
+      "name": "Legendary Items",
+      "description": "Tier 3 item effects.",
+      "pool": [
+        { "difficulty": 1, "clue": "This hat increases Ability Power by a massive percentage.", "answer": "Rabadon's Deathcap" },
+        { "difficulty": 2, "clue": "A sword that deals current health physical damage on hit.", "answer": "Blade of the Ruined King" },
+        { "difficulty": 3, "clue": "This armor item reduces attack speed of enemies and critical strike damage.", "answer": "Randuin's Omen" },
+        { "difficulty": 4, "clue": "Liandry's Torment is famous for dealing this type of damage over time.", "answer": "% Max Health Magic Damage" },
+        { "difficulty": 5, "clue": "This support item allows the user to store 3 Control Wards.", "answer": "Vigilant Wardstone" }
+      ]
+    },
+    {
+      "name": "Boots & Speed",
+      "description": "Footwear choices.",
+      "pool": [
+        { "difficulty": 1, "clue": "'Plated Steelcaps' were formerly known by this name.", "answer": "Ninja Tabi" },
+        { "difficulty": 2, "clue": "'Mercury's Treads' provide Magic Resist and this stat.", "answer": "Tenacity" },
+        { "difficulty": 3, "clue": "These boots grant high speed out of combat but lose it in combat.", "answer": "Mobility Boots" },
+        { "difficulty": 4, "clue": "'Sorcerer's Shoes' provide 18 points of this stat.", "answer": "Magic Penetration" },
+        { "difficulty": 5, "clue": "These white boots reduce the effectiveness of slows.", "answer": "Boots of Swiftness" }
+      ]
+    },
+    {
+      "name": "Jungle Timers",
+      "description": "Respawn management (Season 14/15).",
+      "pool": [
+        { "difficulty": 1, "clue": "Blue Sentinel and Red Brambleback respawn after this many minutes.", "answer": "5" },
+        { "difficulty": 2, "clue": "The Scuttle Crab first spawns at this time mark.", "answer": "3:30" },
+        { "difficulty": 3, "clue": "The first Dragon of the game spawns at this time.", "answer": "5:00" },
+        { "difficulty": 4, "clue": "Baron Nashor spawns at 20:00 and respawns after this many minutes.", "answer": "6" },
+        { "difficulty": 5, "clue": "This new objective spawns at 5:00 and replaces the first Rift Herald slot.", "answer": "Void Grubs" }
+      ]
+    },
+    {
+      "name": "Map Objectives",
+      "description": "Dragons, Barons, and Turrets.",
+      "pool": [
+        { "difficulty": 1, "clue": "Killing 4 dragons grants the team a permanent elemental buff known as this.", "answer": "Dragon Soul" },
+        { "difficulty": 2, "clue": "Before Baron spawns, this purple void monster resides in the pit.", "answer": "Rift Herald" },
+        { "difficulty": 3, "clue": "Elder Dragon buff executes enemies below this health percentage.", "answer": "20%" },
+        { "difficulty": 4, "clue": "Turret Platings fall off the towers at this minute mark.", "answer": "14:00" },
+        { "difficulty": 5, "clue": "Cloud Soul grants this stat.", "answer": "Movement Speed" }
+      ]
+    },
+    {
+      "name": "Runes & Keystones",
+      "description": "Pre-game loadout choices.",
+      "pool": [
+        { "difficulty": 1, "clue": "This Precision rune grants attack speed and breaks the cap.", "answer": "Lethal Tempo" },
+        { "difficulty": 2, "clue": "Domination rune that deals burst damage on 3 hits.", "answer": "Electrocute" },
+        { "difficulty": 3, "clue": "'Grasp of the Undying' is primarily used by this class.", "answer": "Tanks" },
+        { "difficulty": 4, "clue": "Inspiration rune that grants free boots at 12 min.", "answer": "Magical Footwear" },
+        { "difficulty": 5, "clue": "'Conqueror' requires this many stacks to fully activate.", "answer": "12" }
+      ]
+    },
+    {
+      "name": "Summoner Spells",
+      "description": "D & F keys.",
+      "pool": [
+        { "difficulty": 1, "clue": "The most used spell, allowing a short teleport.", "answer": "Flash" },
+        { "difficulty": 2, "clue": "Required for junglers to secure objectives.", "answer": "Smite" },
+        { "difficulty": 3, "clue": "Sets an enemy on fire, dealing true damage and reducing healing.", "answer": "Ignite" },
+        { "difficulty": 4, "clue": "After 14 minutes, Teleport transforms to allow targeting these units.", "answer": "Minions/Wards" },
+        { "difficulty": 5, "clue": "'Cleanse' removes all CC except for Suppression and...", "answer": "Knock-ups" }
+      ]
+    },
+    {
+      "name": "Crowd Control",
+      "description": "Disables and debuffs.",
+      "pool": [
+        { "difficulty": 1, "clue": "Prevents movement/attacks but allows spells (unless movement).", "answer": "Root" },
+        { "difficulty": 2, "clue": "A 'Silence' prevents this specific action.", "answer": "Casting Abilities" },
+        { "difficulty": 3, "clue": "'Taunt' forces the enemy to do this.", "answer": "Auto-attack source" },
+        { "difficulty": 4, "clue": "'Nearsighted' is a CC famously applied by Graves and this champion.", "answer": "Nocturne" },
+        { "difficulty": 5, "clue": "'Polymorph' turns the target into a critter; signature to this Yordle.", "answer": "Lulu" }
+      ]
+    },
+    {
+      "name": "Stat Check",
+      "description": "Base stats and scaling outliers.",
+      "pool": [
+        { "difficulty": 1, "clue": "At level 18, this Yordle has the lowest base health (excluding Kled).", "answer": "Yuumi" },
+        { "difficulty": 2, "clue": "This champion has the highest base movespeed (355) alongside Yi.", "answer": "Pantheon (or Jax/Nasus)" },
+        { "difficulty": 3, "clue": "This champion has the longest base auto-attack range at level 1.", "answer": "Caitlyn" },
+        { "difficulty": 4, "clue": "This champion has infinite armor scaling but low base armor growth.", "answer": "Thresh" },
+        { "difficulty": 5, "clue": "Level 18 Alistar has the highest base amount of this stat.", "answer": "Health" }
+      ]
+    },
+    {
+      "name": "Reset Mechanics",
+      "description": "Champions who get cooldown refunds on kills.",
+      "pool": [
+        { "difficulty": 1, "clue": "Her passive reduces all ability cooldowns by 15 seconds upon scoring a takedown.", "answer": "Katarina" },
+        { "difficulty": 2, "clue": "His ultimate 'Noxian Guillotine' refreshes its cooldown if it kills the target.", "answer": "Darius" },
+        { "difficulty": 3, "clue": "Her 'Rocket Jump' resets on kills, assists, or fully stacking explosive charge.", "answer": "Tristana" },
+        { "difficulty": 4, "clue": "He can possess the bodies of enemies he helps kill, healing and gaining their abilities.", "answer": "Viego" },
+        { "difficulty": 5, "clue": "His ultimate 'Death from Below' resets if it executes an enemy, granting gold.", "answer": "Pyke" }
+      ]
+    },
+    {
+      "name": "Passive Gold",
+      "description": "Economy and bounties.",
+      "pool": [
+        { "difficulty": 1, "clue": "The third type of minion, spawning every 3 waves.", "answer": "Siege (Cannon) Minion" },
+        { "difficulty": 2, "clue": "'Perfect CS' at 10 minutes is approximately this number.", "answer": "100" },
+        { "difficulty": 3, "clue": "To fully upgrade the support item 'World Atlas', you must earn this much gold from its quest.", "answer": "1000" },
+        { "difficulty": 4, "clue": "Killing a Control Ward grants this much gold.", "answer": "30" },
+        { "difficulty": 5, "clue": "The maximum total gold from a single kill (Kill + Max Shutdown).", "answer": "1000" }
+      ]
+    },
+    {
+      "name": "Vision",
+      "description": "Wards and trinkets.",
+      "pool": [
+        { "difficulty": 1, "clue": "The 'Stealth Ward' trinket is this color.", "answer": "Yellow" },
+        { "difficulty": 2, "clue": "This trinket sweeps an area to reveal/disable wards.", "answer": "Oracle Lens (Red)" },
+        { "difficulty": 3, "clue": "The 'Control Ward' reveals stealth but is visible to enemies.", "answer": "True" },
+        { "difficulty": 4, "clue": "Blue Trinket wards can be placed from far away but have this HP value.", "answer": "1" },
+        { "difficulty": 5, "clue": "Jungle plant that releases a cone of vision.", "answer": "Scryer's Bloom" }
+      ]
+    },
+    {
+      "name": "Alternate Modes",
+      "description": "ARAM and Arena.",
+      "pool": [
+        { "difficulty": 1, "clue": "ARAM stands for 'All Random...'", "answer": "All Mid" },
+        { "difficulty": 2, "clue": "Snowball summoner spell exclusive to ARAM.", "answer": "Mark/Dash" },
+        { "difficulty": 3, "clue": "In 'Arena' mode, champions fight in this team size format.", "answer": "2v2v2v2" },
+        { "difficulty": 4, "clue": "Mode with heavily reduced cooldowns (URF).", "answer": "Ultra Rapid Fire" },
+        { "difficulty": 5, "clue": "The map for ARAM is the 'Howling Abyss,' located here.", "answer": "Freljord" }
+      ]
+    },
+    {
+      "name": "Champion Reworks",
+      "description": "Old versions of champions.",
+      "pool": [
+        { "difficulty": 1, "clue": "Before his rework, this Rune Mage had a point-and-click cage and 'pizza feet'.", "answer": "Ryze" },
+        { "difficulty": 2, "clue": "Old Mordekaiser could enslave this objective as a ghost pet.", "answer": "Dragon" },
+        { "difficulty": 3, "clue": "Before becoming a World Ender, Aatrox was primarily this type of auto-attacker.", "answer": "Drain Tank" },
+        { "difficulty": 4, "clue": "Urgot was transformed from a crab-man to this 'Dreadnought'.", "answer": "Urgot (or Dreadnought)" },
+        { "difficulty": 5, "clue": "Old Poppy's ultimate 'Diplomatic Immunity' granted her invulnerability to everyone but her target.", "answer": "Poppy" }
+      ]
+    },
+    {
+      "name": "Runeterra Geography",
+      "description": "Regions and nations.",
+      "pool": [
+        { "difficulty": 1, "clue": "Region known for anti-magic petricite and white/gold aesthetic.", "answer": "Demacia" },
+        { "difficulty": 2, "clue": "Expansionist empire where strength is power.", "answer": "Noxus" },
+        { "difficulty": 3, "clue": "The City of Progress.", "answer": "Piltover" },
+        { "difficulty": 4, "clue": "Frozen wastes to the north.", "answer": "Freljord" },
+        { "difficulty": 5, "clue": "Isolationist jungle region using elemental Axioms.", "answer": "Ixtal" }
+      ]
+    },
+    {
+      "name": "The Rune Wars",
+      "description": "Ancient magical conflict.",
+      "pool": [
+        { "difficulty": 1, "clue": "Ryze seeks to collect these artifacts to prevent another war.", "answer": "World Runes" },
+        { "difficulty": 2, "clue": "The Rune Wars sparked the founding of this anti-magic kingdom.", "answer": "Demacia" },
+        { "difficulty": 3, "clue": "Brand seized a World Rune in this region.", "answer": "Freljord" },
+        { "difficulty": 4, "clue": "This Yordle sorcerer imprisoned himself to master magic after the wars.", "answer": "Veigar" },
+        { "difficulty": 5, "clue": "The Rune Wars occurred roughly this many years ago.", "answer": "1000" }
+      ]
+    },
+    {
+      "name": "Shuriman Ascension",
+      "description": "The Sun Disc and God-Warriors.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Golden Emperor betrayed at his Ascension.", "answer": "Azir" },
+        { "difficulty": 2, "clue": "Traitorous magus who became pure energy.", "answer": "Xerath" },
+        { "difficulty": 3, "clue": "Sivir is the last living descendant of this Emperor.", "answer": "Azir" },
+        { "difficulty": 4, "clue": "Renekton and Nasus are Ascended, also known as...", "answer": "God-Warriors" },
+        { "difficulty": 5, "clue": "This stoneweaver champion traveled Shurima to learn earth magic.", "answer": "Taliyah" }
+      ]
+    },
+    {
+      "name": "The Shadow Isles",
+      "description": "The Black Mist and Ruination.",
+      "pool": [
+        { "difficulty": 1, "clue": "Before the Ruination, the isles were known as...", "answer": "Blessed Isles" },
+        { "difficulty": 2, "clue": "The Ruined King who tried to resurrect Isolde.", "answer": "Viego" },
+        { "difficulty": 3, "clue": "Sentinel who wields a relic stone pistol.", "answer": "Senna" },
+        { "difficulty": 4, "clue": "Chain Warden who tortured Senna.", "answer": "Thresh" },
+        { "difficulty": 5, "clue": "Viego's fallen kingdom on a distant continent.", "answer": "Camavor" }
+      ]
+    },
+    {
+      "name": "Bilgewater",
+      "description": "Pirates and sea monsters.",
+      "pool": [
+        { "difficulty": 1, "clue": "Saltwater Scourge deposed by Miss Fortune.", "answer": "Gangplank" },
+        { "difficulty": 2, "clue": "Bounty Hunter with guns Shock and Awe.", "answer": "Miss Fortune" },
+        { "difficulty": 3, "clue": "Partners in crime: Graves and...", "answer": "Twisted Fate" },
+        { "difficulty": 4, "clue": "Kraken Priestess of Nagakabouros.", "answer": "Illaoi" },
+        { "difficulty": 5, "clue": "Undead assassin of the slaughter docks.", "answer": "Pyke" }
+      ]
+    },
+    {
+      "name": "Targon's Aspects",
+      "description": "Celestial powers.",
+      "pool": [
+        { "difficulty": 1, "clue": "Leona is the Aspect of the...", "answer": "Sun" },
+        { "difficulty": 2, "clue": "Diana is the Aspect of the...", "answer": "Moon" },
+        { "difficulty": 3, "clue": "Atreus wields the weapons of this dead Aspect.", "answer": "Pantheon (War)" },
+        { "difficulty": 4, "clue": "Zoe is the Aspect of...", "answer": "Twilight" },
+        { "difficulty": 5, "clue": "Taric is the Aspect of...", "answer": "The Protector" }
+      ]
+    },
+    {
+      "name": "Piltover Progress",
+      "description": "Hextech and high society.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Sheriff of Piltover.", "answer": "Caitlyn" },
+        { "difficulty": 2, "clue": "Defender of Tomorrow who invented the Mercury Hammer.", "answer": "Jayce" },
+        { "difficulty": 3, "clue": "Hextech fuses magic with this science.", "answer": "Technology" },
+        { "difficulty": 4, "clue": "Camille is the enforcer for this clan.", "answer": "Ferros" },
+        { "difficulty": 5, "clue": "Creator of the 'Glorious Evolution'.", "answer": "Viktor" }
+      ]
+    },
+    {
+      "name": "Zaun's Underbelly",
+      "description": "Chem-barons and smog.",
+      "pool": [
+        { "difficulty": 1, "clue": "The Boy Who Shattered Time.", "answer": "Ekko" },
+        { "difficulty": 2, "clue": "Chem-baroness who uses mind-control perfume.", "answer": "Renata Glasc" },
+        { "difficulty": 3, "clue": "The Madman of Zaun who throws cleavers.", "answer": "Dr. Mundo" },
+        { "difficulty": 4, "clue": "Uncaged Wrath of Zaun, created by Singed.", "answer": "Warwick" },
+        { "difficulty": 5, "clue": "Janna is known as the...", "answer": "Storm's Fury" }
+      ]
+    },
+    {
+      "name": "Champion Pets",
+      "description": "Companions and summons.",
+      "pool": [
+        { "difficulty": 1, "clue": "Annie's bear companion.", "answer": "Tibbers" },
+        { "difficulty": 2, "clue": "Kled's cowardly lizard mount.", "answer": "Skaarl" },
+        { "difficulty": 3, "clue": "Ivern's stone golem friend.", "answer": "Daisy" },
+        { "difficulty": 4, "clue": "Quinn's eagle companion.", "answer": "Valor" },
+        { "difficulty": 5, "clue": "Swain's six-eyed raven.", "answer": "Beatrice" }
+      ]
+    },
+    {
+      "name": "Secret Societies",
+      "description": "Hidden organizations.",
+      "pool": [
+        { "difficulty": 1, "clue": "Noxian cabal led by LeBlanc.", "answer": "Black Rose" },
+        { "difficulty": 2, "clue": "Ionian order led by Shen (Balance).", "answer": "Kinkou" },
+        { "difficulty": 3, "clue": "Order of Shadow founded by Zed.", "answer": "Yanlei (or Order of Shadow)" },
+        { "difficulty": 4, "clue": "Ancient order fighting the Black Mist (Lucian/Senna).", "answer": "Sentinels of Light" },
+        { "difficulty": 5, "clue": "Identity of the 'Faceless' Trifarix member.", "answer": "LeBlanc" }
+      ]
+    },
+    {
+      "name": "Arcane S1",
+      "description": "Plot of the animated series (Season 1).",
+      "pool": [
+        { "difficulty": 1, "clue": "Vi and Powder lose their parents fighting against this city.", "answer": "Piltover" },
+        { "difficulty": 2, "clue": "Vander is transformed by this purple substance.", "answer": "Shimmer" },
+        { "difficulty": 3, "clue": "Silco wants independence for this nation.", "answer": "Zaun" },
+        { "difficulty": 4, "clue": "Jinx lights a blue flare to signal...", "answer": "Vi" },
+        { "difficulty": 5, "clue": "Jinx fires a rocket at this building.", "answer": "Council Chamber" }
+      ]
+    },
+    {
+      "name": "Arcane S2",
+      "description": "Plot points from Season 2.",
+      "pool": [
+        { "difficulty": 1, "clue": "This character takes leadership and hunts Jinx.", "answer": "Caitlyn" },
+        { "difficulty": 2, "clue": "Ambessa Medarda arrives from this region.", "answer": "Noxus" },
+        { "difficulty": 3, "clue": "The beast hunted in the undercity (Vander) is...", "answer": "Warwick" },
+        { "difficulty": 4, "clue": "Viktor's cult seeks to cure humanity of...", "answer": "Emotion/Fear" },
+        { "difficulty": 5, "clue": "The Black Rose kidnaps this councilor.", "answer": "Mel Medarda" }
+      ]
+    },
+    {
+      "name": "Arcane vs Game",
+      "description": "Differences in canon.",
+      "pool": [
+        { "difficulty": 1, "clue": "In game he is a mad scientist; in Arcane he is Jayce's partner.", "answer": "Viktor" },
+        { "difficulty": 2, "clue": "In Arcane, he is the ousted founder of Piltover.", "answer": "Heimerdinger" },
+        { "difficulty": 3, "clue": "Arcane implies Singed is the father of this clockwork girl.", "answer": "Orianna" },
+        { "difficulty": 4, "clue": "Does Sevika exist as a champion in game?", "answer": "No" },
+        { "difficulty": 5, "clue": "Vander is the human form of...", "answer": "Warwick" }
+      ]
+    },
+    {
+      "name": "Visuals",
+      "description": "Easter eggs in Arcane.",
+      "pool": [
+        { "difficulty": 1, "clue": "Arcade game Jinx plays features this Teemo boss.", "answer": "Teemo" },
+        { "difficulty": 2, "clue": "Firelights masks resemble this champion.", "answer": "Ekko" },
+        { "difficulty": 3, "clue": "Benzo's shop contains the Deathcap of...", "answer": "Rabadon" },
+        { "difficulty": 4, "clue": "Vi has a tattoo of this on her back.", "answer": "Gears" },
+        { "difficulty": 5, "clue": "Jayce buys this 'Tear' trinket.", "answer": "Tear of the Goddess" }
+      ]
+    },
+    {
+      "name": "The Council",
+      "description": "Piltover's leadership.",
+      "pool": [
+        { "difficulty": 1, "clue": "Wealthy councilor with gold plating.", "answer": "Mel Medarda" },
+        { "difficulty": 2, "clue": "Yordle councilor voted off.", "answer": "Heimerdinger" },
+        { "difficulty": 3, "clue": "Caitlyn's mother.", "answer": "Cassandra Kiramman" },
+        { "difficulty": 4, "clue": "Robot-jawed councilor.", "answer": "Hoskel" },
+        { "difficulty": 5, "clue": "Councilor who survives thanks to gold armor.", "answer": "Mel Medarda" }
+      ]
+    },
+    {
+      "name": "Worlds Winners",
+      "description": "Esports history.",
+      "pool": [
+        { "difficulty": 1, "clue": "Team that won 2013, 2015, 2016, and 2023/2024.", "answer": "T1" },
+        { "difficulty": 2, "clue": "Winner of Season 1 Worlds.", "answer": "Fnatic" },
+        { "difficulty": 3, "clue": "First LPL team to win (2018).", "answer": "Invictus Gaming (iG)" },
+        { "difficulty": 4, "clue": "Miracle Run team (2022).", "answer": "DRX" },
+        { "difficulty": 5, "clue": "TPA mid laner known for Orianna.", "answer": "Toyz" }
+      ]
+    },
+    {
+      "name": "Esports MVPs",
+      "description": "Best players.",
+      "pool": [
+        { "difficulty": 1, "clue": "Unkillable Demon King (T1).", "answer": "Faker" },
+        { "difficulty": 2, "clue": "2014 MVP Support (Samsung White).", "answer": "Mata" },
+        { "difficulty": 3, "clue": "2018 MVP Jungler (iG).", "answer": "Ning" },
+        { "difficulty": 4, "clue": "2023 MVP Top Laner (T1).", "answer": "Zeus" },
+        { "difficulty": 5, "clue": "2015 MVP Top Laner (SKT Rumble).", "answer": "MaRin" }
+      ]
+    },
+    {
+      "name": "Caster Calls",
+      "description": "Iconic commentary moments.",
+      "pool": [
+        { "difficulty": 1, "clue": "'FAKER! WHAT WAS THAT?!' caster.", "answer": "DoA" },
+        { "difficulty": 2, "clue": "'I NEVER DOUBTED THEM!' caster.", "answer": "Kobe" },
+        { "difficulty": 3, "clue": "CaptainFlowers is famous for shouting about this champion's Shockwave.", "answer": "Orianna" },
+        { "difficulty": 4, "clue": "'The arrow! Look at the arrow!' target team.", "answer": "SKT T1" },
+        { "difficulty": 5, "clue": "Korean caster shouting 'Faker! Faker! Playmaker!' during this champion's outplay.", "answer": "Zed" }
+      ]
+    },
+    {
+      "name": "Canceled Champions",
+      "description": "What could have been.",
+      "pool": [
+        { "difficulty": 1, "clue": "'Ao Shin' was the concept for...", "answer": "Aurelion Sol" },
+        { "difficulty": 2, "clue": "'Omen' was canceled and replaced by this high-mobility top laner.", "answer": "Riven" },
+        { "difficulty": 3, "clue": "'Tabu' influenced the kit of...", "answer": "Swain" },
+        { "difficulty": 4, "clue": "'Gavid the Plant King' was succeeded by...", "answer": "Zyra" },
+        { "difficulty": 5, "clue": "'Rob Blackblade' evolved into...", "answer": "Twisted Fate" }
+      ]
+    },
+    {
+      "name": "Music of League",
+      "description": "Riot's music groups.",
+      "pool": [
+        { "difficulty": 1, "clue": "K-Pop group (Ahri, Akali, etc).", "answer": "K/DA" },
+        { "difficulty": 2, "clue": "Heavy Metal band (Pentakill).", "answer": "Pentakill" },
+        { "difficulty": 3, "clue": "Hip-hop group (True Damage).", "answer": "True Damage" },
+        { "difficulty": 4, "clue": "2014 Worlds Anthem (Imagine Dragons).", "answer": "Warriors" },
+        { "difficulty": 5, "clue": "Boyband (Heartsteel).", "answer": "Heartsteel" }
+      ]
+    }
+  ],
+  "finalJeopardy": [
+    { "category": "League Statistics", "clue": "This champion holds the record for the lowest base AD at level 1 (excluding Mega Gnar).", "answer": "Orianna" },
+    { "category": "Item History", "clue": "Removed in Patch 5.2, this item dealt 15% max health magic damage active.", "answer": "Deathfire Grasp" },
+    { "category": "The Lore of Names", "clue": "Viego's niece and general, known as the Spear of Vengeance.", "answer": "Kalista" },
+    { "category": "Arcane Details", "clue": "The room number of Vi's cell in Stillwater Prison.", "answer": "516" },
+    { "category": "Development", "clue": "First champion designed without feet to avoid 'pizza feet'.", "answer": "Nocturne" }
+  ]
+}

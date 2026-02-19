@@ -3,11 +3,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import minecraftGameData from '@/data/games/minecraft.json';
 import stardewGameData from '@/data/games/stardew.json';
+import leagueGameData from '@/data/games/league.json';
 import { GameData } from '@/lib/types';
 
 // Cast JSON imports to GameData to ensure type safety
 const minecraftGame = minecraftGameData as unknown as GameData;
 const stardewGame = stardewGameData as unknown as GameData;
+const leagueGame = leagueGameData as unknown as GameData;
 
 export type Clue = {
   id: string;
@@ -35,7 +37,8 @@ export type Round = 'SINGLE' | 'DOUBLE' | 'FINAL';
 
 const GAMES = {
   minecraft: minecraftGame,
-  stardew: stardewGame
+  stardew: stardewGame,
+  league: leagueGame
 };
 
 export function useGame(gameId: string = 'minecraft', roomCode: string = 'LOCAL') {
