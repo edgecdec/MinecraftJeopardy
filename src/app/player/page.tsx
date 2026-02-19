@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
-import { Box, Button, Typography, Container, TextField, Stack, Paper } from '@mui/material';
+import React, { useState, useEffect, Suspense, useRef } from 'react';
+import { Box, Button, Typography, Container, TextField, Stack, Paper, keyframes } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 import { useBuzzer } from '@/hooks/useBuzzer';
 
@@ -20,6 +20,25 @@ function PlayerContent() {
   const [localAnswer, setLocalAnswer] = useState('');
   const [wagerSubmitted, setWagerSubmitted] = useState(false);
   const [answerSubmitted, setAnswerSubmitted] = useState(false);
+
+  // Animation State
+  const [scoreFloats, setScoreFloats] = useState<{id: number, val: number}[]>([]);
+  const prevScore = useRef(myScore);
+
+  useEffect(() => {
+      // Only animate if score changed AND it's not the initial load (prevScore 0 -> 0 is fine, but 0 -> X is init? No, init score is 0)
+      // Actually, if we join mid-game, score jumps from 0 to X. That's fine to animate.
+      const diff = myScore - prevScore.current;
+      if (diff !== 0) {
+          const id = Date.now();
+          setScoreFloats(prev => [...prev, { id, val: diff }]);
+          // Cleanup
+          setTimeout(() => {
+              setScoreFloats(prev => prev.filter(f => f.id !== id));
+          }, 2000);
+      }
+      prevScore.current = myScore;
+  }, [myScore]);
 
   const handleBuzz = () => {
     if (!locked && !buzzedId) {
@@ -77,11 +96,12 @@ function PlayerContent() {
         justifyContent: 'center',
         p: 2,
         transition: 'background-color 0.2s',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
       {/* Header Info */}
-      <Box sx={{ position: 'absolute', top: 20, width: '100%', textAlign: 'center' }}>
+      <Box sx={{ position: 'absolute', top: 20, width: '100%', textAlign: 'center', zIndex: 10 }}>
         <Typography variant="h6" sx={{ color: 'grey.500', fontFamily: 'monospace' }}>
           ROOM: {code}
         </Typography>
@@ -93,8 +113,43 @@ function PlayerContent() {
         </Typography>
       </Box>
 
+      {/* Floating Score Animations */}
+      {scoreFloats.map(float => (
+          <Typography
+            key={float.id}
+            variant="h2"
+            sx={{
+                position: 'absolute',
+                top: '40%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                color: float.val > 0 ? '#55ff55' : '#ff5555',
+                fontFamily: '"Press Start 2P", cursive',
+                textShadow: '4px 4px 0 #000, -2px -2px 0 #000',
+                pointerEvents: 'none',
+                zIndex: 100,
+                whiteSpace: 'nowrap',
+                animation: float.val > 0 ? 'floatUp 2s ease-out forwards' : 'floatDown 2s ease-out forwards',
+                '@keyframes floatUp': {
+                    '0%': { opacity: 0, transform: 'translate(-50%, 0) scale(0.5)' },
+                    '20%': { opacity: 1, transform: 'translate(-50%, -50px) scale(1.5)' },
+                    '100%': { opacity: 0, transform: 'translate(-50%, -150px) scale(1)' }
+                },
+                '@keyframes floatDown': {
+                    '0%': { opacity: 0, transform: 'translate(-50%, 0) scale(0.5)' },
+                    '20%': { opacity: 1, transform: 'translate(-50%, 50px) scale(1.5) rotate(-5deg)' },
+                    '40%': { transform: 'translate(-50%, 50px) scale(1.5) rotate(5deg)' },
+                    '60%': { transform: 'translate(-50%, 50px) scale(1.5) rotate(-5deg)' },
+                    '100%': { opacity: 0, transform: 'translate(-50%, 150px) scale(1) rotate(0)' }
+                }
+            }}
+          >
+            {float.val > 0 ? '+' : ''}{float.val}
+          </Typography>
+      ))}
+
       {/* Main Content (Buzzer or Final Jeopardy) */}
-      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', zIndex: 5 }}>
         {/* ... (Existing Content Logic) ... */}
         {gameState === 'FINAL_WAGER' && (
           <Stack spacing={4} alignItems="center" sx={{ width: '100%', maxWidth: 400 }}>
@@ -198,7 +253,8 @@ function PlayerContent() {
           display: 'flex',
           justifyContent: 'center',
           gap: 2,
-          overflowX: 'auto'
+          overflowX: 'auto',
+          zIndex: 10
         }}
       >
         {allPlayers?.map(p => (
