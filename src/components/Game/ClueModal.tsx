@@ -68,7 +68,8 @@ export default function ClueModal({
 
   // TTS Effect
   useEffect(() => {
-      if (open && activeClue && gameState === 'CLUE' && !buzzedPlayer && !activeClue.isDailyDouble) {
+      // Speak for ANY clue (Standard or Daily Double) when in CLUE state and no one buzzed yet
+      if (open && activeClue && gameState === 'CLUE' && !buzzedPlayer) {
           const timer = setTimeout(() => {
               if (speak) speak(activeClue.clue);
           }, 500);
