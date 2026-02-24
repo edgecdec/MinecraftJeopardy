@@ -479,7 +479,7 @@
       "description": "Easter eggs in Arcane.",
       "pool": [
         { "difficulty": 1, "clue": "In Season 1, the arcade game Jinx plays features a boss based on this mushroom-planting Yordle.", "answer": "Teemo" },
-        { "difficulty": 2, "clue": "Firelights masks resemble this champion.", "answer": "Ekko" },
+        { "difficulty": 2, "clue": "The distinctive owl-inspired masks worn by the hoverboarding Firelights are modeled after the signature look of this champion, who leads them.", "answer": "Ekko" },
         { "difficulty": 3, "clue": "Benzo's shop contains the Deathcap of...", "answer": "Rabadon" },
         { "difficulty": 4, "clue": "Vi has a tattoo of this on her back.", "answer": "Gears" },
         { "difficulty": 5, "clue": "Jayce buys this 'Tear' trinket.", "answer": "Tear of the Goddess" }
@@ -520,13 +520,13 @@
     },
     {
       "name": "Caster Calls",
-      "description": "Iconic commentary moments.",
+      "description": "Iconic moments from the commentary booth.",
       "pool": [
-        { "difficulty": 1, "clue": "'FAKER! WHAT WAS THAT?!' caster.", "answer": "DoA" },
-        { "difficulty": 2, "clue": "'I NEVER DOUBTED THEM!' caster.", "answer": "Kobe" },
-        { "difficulty": 3, "clue": "CaptainFlowers is famous for shouting about this champion's Shockwave.", "answer": "Orianna" },
-        { "difficulty": 4, "clue": "'The arrow! Look at the arrow!' target team.", "answer": "SKT T1" },
-        { "difficulty": 5, "clue": "Korean caster shouting 'Faker! Faker! Playmaker!' during this champion's outplay.", "answer": "Zed" }
+        { "difficulty": 1, "clue": "The most famous caster reaction in history, 'FAKER! WHAT WAS THAT?!', was prompted by an mirror-match outplay on this shadow assassin.", "answer": "Zed" },
+        { "difficulty": 2, "clue": "Caster Kobe famously shouted 'I NEVER DOUBTED THEM!' after this North American team completed an improbable comeback against RNG at MSI 2016.", "answer": "CLG (Counter Logic Gaming)" },
+        { "difficulty": 3, "clue": "Regarding PraY's legendary cross-map arrow to stop a recall at Worlds 2016, casters frantically screamed 'Look at the arrow!' for this champion.", "answer": "Ashe" },
+        { "difficulty": 4, "clue": "CaptainFlowers famously popularized this 'Tax' that teams must pay by buying a QSS to survive being suppressed by Skarner.", "answer": "Skarner Tax" },
+        { "difficulty": 5, "clue": "Frantically shouting 'XPEKE IS TARGETING THE NEXUS!', casters watched in disbelief as he backdoored SK Gaming with this Void-walking champion.", "answer": "Kassadin" }
       ]
     },
     {

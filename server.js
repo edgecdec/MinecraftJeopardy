@@ -18,7 +18,7 @@ const rooms = {};
 
 const getInitialState = () => ({
   hostId: null,
-  maxPlayers: 3, // Default limit
+  maxPlayers: 3,
   locked: true,
   buzzed: null,
   buzzedName: null,
@@ -96,21 +96,11 @@ app.prepare().then(() => {
        
        if (!rooms[roomCode]) {
            rooms[roomCode] = getInitialState();
-           // Apply initial config if provided by creator
-           if (config) {
-               if (config.maxPlayers) {
-                   rooms[roomCode].maxPlayers = config.maxPlayers;
-               }
-               if (role === 'host' && config.restoreState && Array.isArray(config.restoreState.players)) {
-                   rooms[roomCode].players = config.restoreState.players;
-                   console.log(`Room ${roomCode} state restored by host`);
-               }
-           }
        }
        const room = rooms[roomCode];
 
+       // ASSIGN / SYNC HOST
        let assignedRole = 'player';
-
        if (role === 'host') {
            if (!room.hostId) {
                room.hostId = secureId; 
@@ -122,11 +112,30 @@ app.prepare().then(() => {
                socket.emit('host_taken');
                return; 
            }
+
+           // RESTORE STATE (Merged with any players who connected early)
+           if (config) {
+               if (config.maxPlayers) room.maxPlayers = config.maxPlayers;
+               if (config.restoreState && Array.isArray(config.restoreState.players)) {
+                   const cachedPlayers = config.restoreState.players;
+                   // Merge logic: keep current players but update scores/names from host cache
+                   cachedPlayers.forEach(cached => {
+                       const existing = room.players.find(p => p.id === cached.id);
+                       if (existing) {
+                           existing.score = cached.score;
+                           existing.name = cached.name;
+                       } else {
+                           room.players.push(cached);
+                       }
+                   });
+                   console.log(`Room ${roomCode} state merged/restored by host`);
+               }
+           }
        } else {
+           // REGULAR PLAYER JOIN
            if (name) {
                const existing = room.players.find(p => p.id === secureId);
                if (!existing) {
-                   // CHECK CAPACITY
                    if (room.players.length >= room.maxPlayers) {
                        socket.emit('room_full');
                        return;
@@ -183,6 +192,7 @@ app.prepare().then(() => {
                 room.buzzed = null;
                 room.buzzedName = null;
                 room.incorrectBuzzes = [];
+                // console.log(`Room ${roomCode} buzzer state reset via unlock`);
                 break;
             case 'reset': 
                 room.buzzed = null; room.buzzedName = null; 
@@ -207,12 +217,10 @@ app.prepare().then(() => {
                  if (!room.incorrectBuzzes.includes(payload.playerId)) room.incorrectBuzzes.push(payload.playerId);
                  room.buzzed = null; room.buzzedName = null; room.locked = false; 
                  break;
+            
             case 'update_state': Object.assign(room, payload); break;
             case 'update_max_players': 
-                // Payload: { maxPlayers: 10 }
-                if (typeof payload.maxPlayers === 'number') {
-                    room.maxPlayers = payload.maxPlayers;
-                }
+                if (typeof payload.maxPlayers === 'number') room.maxPlayers = payload.maxPlayers;
                 break;
             case 'update_player': 
                 const p = room.players.find(x => x.id === targetId);
@@ -222,7 +230,6 @@ app.prepare().then(() => {
                 room.players = room.players.filter(x => x.id !== targetId);
                 break;
             case 'add_bot':
-                // Respect dynamic limit
                 if (room.players.length < room.maxPlayers) {
                     const botId = `bot-${Math.random().toString(36).substring(2,7)}`;
                     room.players.push({ id: botId, name: `Player ${room.players.length+1}`, score: 0 });
