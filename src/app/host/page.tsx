@@ -124,21 +124,26 @@ function HostGameContent() {
 
       if (pid) {
           if (correct) {
-              markCorrect(pid, clueValue);
-              playSound('correct');
-              completeClue(pid, true); 
+              if (markCorrect) markCorrect(pid, clueValue);
+              if (playSound) playSound('correct');
+              if (completeClue) completeClue(pid, true); 
           } else {
-              markWrong(pid, clueValue);
-              playSound('wrong');
+              if (markWrong) markWrong(pid, clueValue);
+              if (playSound) playSound('wrong');
           }
       } else {
-          reset();
-          completeClue(null, false);
+          if (reset) reset();
+          if (completeClue) completeClue(null, false);
       }
   };
 
+  const handleCloseClue = () => {
+      if (reset) reset(); // Clear incorrectBuzzes on server
+      if (closeClue) closeClue(); // Update local state
+  };
+
   const handleClearBuzzer = () => {
-      clear(); 
+      if (clear) clear(); 
   };
 
   const handleNextRound = () => {
@@ -237,7 +242,7 @@ function HostGameContent() {
           wagers={wagers}
           finalAnswers={finalAnswers}
           onRevealAnswer={revealAnswer}
-          onClose={closeClue}
+          onClose={handleCloseClue}
           onCompleteClue={handleCompleteClue}
           onSubmitWager={(amount) => {
             submitWager(amount);
