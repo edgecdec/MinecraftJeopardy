@@ -101,7 +101,7 @@ export function useBuzzer(code: string, playerName?: string, initialConfig?: { m
       }
   }, [isHost, state.players, code]);
 
-  const performAction = (action: string, payload: any = {}, targetId?: string) => {
+  const performAction = useCallback((action: string, payload: any = {}, targetId?: string) => {
     if (socketRef.current) {
         socketRef.current.emit('game_action', {
             code,
@@ -110,7 +110,7 @@ export function useBuzzer(code: string, playerName?: string, initialConfig?: { m
             targetId: targetId 
         });
     }
-  };
+  }, [code]);
 
   const myPlayer = state.players.find(p => p.id === deviceId);
   const myScore = myPlayer ? myPlayer.score : 0;
@@ -133,20 +133,20 @@ export function useBuzzer(code: string, playerName?: string, initialConfig?: { m
     isMe: state.buzzed === deviceId,
     deviceId,
     // Actions
-    buzz: () => performAction('buzz'),
-    lock: () => performAction('lock'),
-    unlock: () => performAction('unlock'),
-    clear: () => performAction('clear'), 
-    reset: () => performAction('reset'), 
-    markCorrect: (pid: string, points: number) => performAction('mark_correct', { playerId: pid, points }),
-    markWrong: (pid: string, points: number) => performAction('mark_wrong', { playerId: pid, points }),
-    addPlayer: () => performAction('add_bot'),
-    updateMaxPlayers: (n: number) => performAction('update_max_players', { maxPlayers: n }),
-    updateState: (newState: { players?: any[], gameState?: string }) => performAction('update_state', newState),
-    updatePlayer: (id: string, updates: { score?: number, name?: string }) => performAction('update_player', updates, id),
-    removePlayer: (id: string) => performAction('remove_player', {}, id),
-    submitWager: (wager: number) => performAction('submit_wager', { wager }),
-    submitAnswer: (answer: string) => performAction('submit_answer', { answer }),
+    buzz: useCallback(() => performAction('buzz'), [performAction]),
+    lock: useCallback(() => performAction('lock'), [performAction]),
+    unlock: useCallback(() => performAction('unlock'), [performAction]),
+    clear: useCallback(() => performAction('clear'), [performAction]), 
+    reset: useCallback(() => performAction('reset'), [performAction]), 
+    markCorrect: useCallback((pid: string, points: number) => performAction('mark_correct', { playerId: pid, points }), [performAction]),
+    markWrong: useCallback((pid: string, points: number) => performAction('mark_wrong', { playerId: pid, points }), [performAction]),
+    addPlayer: useCallback(() => performAction('add_bot'), [performAction]),
+    updateMaxPlayers: useCallback((n: number) => performAction('update_max_players', { maxPlayers: n }), [performAction]),
+    updateState: useCallback((newState: { players?: any[], gameState?: string }) => performAction('update_state', newState), [performAction]),
+    updatePlayer: useCallback((id: string, updates: { score?: number, name?: string }) => performAction('update_player', updates, id), [performAction]),
+    removePlayer: useCallback((id: string) => performAction('remove_player', {}, id), [performAction]),
+    submitWager: useCallback((wager: number) => performAction('submit_wager', { wager }), [performAction]),
+    submitAnswer: useCallback((answer: string) => performAction('submit_answer', { answer }), [performAction]),
     refresh: () => {} 
   };
 }

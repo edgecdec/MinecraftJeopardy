@@ -189,10 +189,6 @@ app.prepare().then(() => {
             case 'lock': room.locked = true; break;
             case 'unlock': 
                 room.locked = false; 
-                room.buzzed = null;
-                room.buzzedName = null;
-                room.incorrectBuzzes = [];
-                // console.log(`Room ${roomCode} buzzer state reset via unlock`);
                 break;
             case 'reset': 
                 room.buzzed = null; room.buzzedName = null; 

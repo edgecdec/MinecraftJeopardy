@@ -314,9 +314,9 @@
       "description": "ARAM and Arena.",
       "pool": [
         { "difficulty": 1, "clue": "ARAM stands for 'All Random...'", "answer": "All Mid" },
-        { "difficulty": 2, "clue": "Snowball summoner spell exclusive to ARAM.", "answer": "Mark/Dash" },
+        { "difficulty": 2, "clue": "Exclusive to ARAM, this two-part summoner spell allows a player to tag an enemy with a projectile and then dash directly to them.", "answer": "Mark/Dash" },
         { "difficulty": 3, "clue": "In 'Arena' mode, champions fight in this team size format.", "answer": "2v2v2v2" },
-        { "difficulty": 4, "clue": "Mode with heavily reduced cooldowns (URF).", "answer": "Ultra Rapid Fire" },
+        { "difficulty": 4, "clue": "This fast-paced, chaotic game mode grants all champions 80% Cooldown Reduction and removes all Mana and Energy costs.", "answer": "URF (or Ultra Rapid Fire)" },
         { "difficulty": 5, "clue": "The map for ARAM is the 'Howling Abyss,' located here.", "answer": "Freljord" }
       ]
     },
