@@ -97,8 +97,14 @@ app.prepare().then(() => {
        if (!rooms[roomCode]) {
            rooms[roomCode] = getInitialState();
            // Apply initial config if provided by creator
-           if (config && config.maxPlayers) {
-               rooms[roomCode].maxPlayers = config.maxPlayers;
+           if (config) {
+               if (config.maxPlayers) {
+                   rooms[roomCode].maxPlayers = config.maxPlayers;
+               }
+               if (role === 'host' && config.restoreState && Array.isArray(config.restoreState.players)) {
+                   rooms[roomCode].players = config.restoreState.players;
+                   console.log(`Room ${roomCode} state restored by host`);
+               }
            }
        }
        const room = rooms[roomCode];
@@ -172,7 +178,12 @@ app.prepare().then(() => {
 
         switch (action) {
             case 'lock': room.locked = true; break;
-            case 'unlock': room.locked = false; break;
+            case 'unlock': 
+                room.locked = false; 
+                room.buzzed = null;
+                room.buzzedName = null;
+                room.incorrectBuzzes = [];
+                break;
             case 'reset': 
                 room.buzzed = null; room.buzzedName = null; 
                 room.locked = true; room.incorrectBuzzes = []; 

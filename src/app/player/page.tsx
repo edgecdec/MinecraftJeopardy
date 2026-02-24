@@ -72,6 +72,8 @@ function PlayerContent() {
   }, [gameState]);
 
   const isWinner = buzzedId === deviceId; 
+  const isLockedOut = incorrectBuzzes?.includes(deviceId);
+  const isButtonDisabled = locked || isLockedOut;
 
   if (connectionError) {
       return (
@@ -229,15 +231,18 @@ function PlayerContent() {
             </Typography>
           ) : (
             <Button
-              variant="contained" color={locked ? "error" : "success"} onClick={handleBuzz} disabled={locked}
+              variant="contained" 
+              color={isLockedOut ? "warning" : locked ? "error" : "success"} 
+              onClick={handleBuzz} 
+              disabled={isButtonDisabled}
               sx={{ 
-                width: '280px', height: '280px', borderRadius: '50%', fontSize: '2rem',
-                fontFamily: '"Press Start 2P", cursive', boxShadow: locked ? 'none' : '0 10px 0 #000',
-                border: '8px solid white', transform: locked ? 'translateY(5px)' : 'none',
+                width: '280px', height: '280px', borderRadius: '50%', fontSize: isLockedOut ? '1.5rem' : '2rem',
+                fontFamily: '"Press Start 2P", cursive', boxShadow: isButtonDisabled ? 'none' : '0 10px 0 #000',
+                border: '8px solid white', transform: isButtonDisabled ? 'translateY(5px)' : 'none',
                 transition: 'all 0.1s', '&:active': { transform: 'translateY(10px)', boxShadow: 'none' }
               }}
             >
-              {locked ? 'WAIT' : 'BUZZ'}
+              {isLockedOut ? 'LOCKED OUT' : locked ? 'WAIT' : 'BUZZ'}
             </Button>
           )
         )}

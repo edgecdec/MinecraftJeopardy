@@ -36,6 +36,17 @@ export function useBuzzer(code: string, playerName?: string, initialConfig?: { m
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const socketRef = useRef<Socket | null>(null);
 
+  // Load saved players on mount (if host)
+  const getSavedPlayers = useCallback(() => {
+      try {
+          const saved = localStorage.getItem(`jeopardy-players-${code}`);
+          if (saved) return JSON.parse(saved);
+      } catch (e) {
+          console.error("Failed to load saved players", e);
+      }
+      return null;
+  }, [code]);
+
   useEffect(() => {
     if (!code) return;
 
@@ -43,11 +54,19 @@ export function useBuzzer(code: string, playerName?: string, initialConfig?: { m
     socketRef.current = socket;
 
     socket.on('connect', () => {
+        const isHostAttempt = !playerName;
+        const savedPlayers = isHostAttempt ? getSavedPlayers() : null;
+        
+        const configToUse = {
+            ...initialConfig,
+            restoreState: savedPlayers ? { players: savedPlayers } : undefined
+        };
+
         socket.emit('join_room', { 
             code, 
             name: playerName || 'Host', 
-            role: playerName ? 'player' : 'host',
-            config: initialConfig // Send config on join (server ignores if room exists)
+            role: isHostAttempt ? 'host' : 'player',
+            config: configToUse
         });
     });
 
@@ -73,7 +92,14 @@ export function useBuzzer(code: string, playerName?: string, initialConfig?: { m
     return () => {
         socket.disconnect();
     };
-  }, [code, playerName]); // initialConfig usually static
+  }, [code, playerName, initialConfig, getSavedPlayers]);
+
+  // Save players to local storage when updated (only host does this)
+  useEffect(() => {
+      if (isHost && state.players.length > 0) {
+          localStorage.setItem(`jeopardy-players-${code}`, JSON.stringify(state.players));
+      }
+  }, [isHost, state.players, code]);
 
   const performAction = (action: string, payload: any = {}, targetId?: string) => {
     if (socketRef.current) {

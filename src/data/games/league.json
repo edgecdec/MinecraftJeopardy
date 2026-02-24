@@ -269,7 +269,7 @@
       "name": "Stat Check",
       "description": "Base stats and scaling outliers.",
       "pool": [
-        { "difficulty": 1, "clue": "At level 18, this Yordle has the lowest base health (excluding Kled).", "answer": "Yuumi" },
+        { "difficulty": 1, "clue": "At level 18, this magical cat has the lowest base health in the game (excluding Kled's unmounted form).", "answer": "Yuumi" },
         { "difficulty": 2, "clue": "This champion has the highest base movespeed (355) alongside Yi.", "answer": "Pantheon (or Jax/Nasus)" },
         { "difficulty": 3, "clue": "This champion has the longest base auto-attack range at level 1.", "answer": "Caitlyn" },
         { "difficulty": 4, "clue": "This champion has infinite armor scaling but low base armor growth.", "answer": "Thresh" },
@@ -470,7 +470,7 @@
         { "difficulty": 1, "clue": "In game he is a mad scientist; in Arcane he is Jayce's partner.", "answer": "Viktor" },
         { "difficulty": 2, "clue": "In Arcane, he is the ousted founder of Piltover.", "answer": "Heimerdinger" },
         { "difficulty": 3, "clue": "Arcane implies Singed is the father of this clockwork girl.", "answer": "Orianna" },
-        { "difficulty": 4, "clue": "Does Sevika exist as a champion in game?", "answer": "No" },
+        { "difficulty": 4, "clue": "Despite not appearing as a playable champion in the game, this loyal enforcer to Silco replaces her severed arm with a Shimmer-powered prosthetic in Arcane.", "answer": "Sevika" },
         { "difficulty": 5, "clue": "Vander is the human form of...", "answer": "Warwick" }
       ]
     },
@@ -478,7 +478,7 @@
       "name": "Visuals",
       "description": "Easter eggs in Arcane.",
       "pool": [
-        { "difficulty": 1, "clue": "Arcade game Jinx plays features this Teemo boss.", "answer": "Teemo" },
+        { "difficulty": 1, "clue": "In Season 1, the arcade game Jinx plays features a boss based on this mushroom-planting Yordle.", "answer": "Teemo" },
         { "difficulty": 2, "clue": "Firelights masks resemble this champion.", "answer": "Ekko" },
         { "difficulty": 3, "clue": "Benzo's shop contains the Deathcap of...", "answer": "Rabadon" },
         { "difficulty": 4, "clue": "Vi has a tattoo of this on her back.", "answer": "Gears" },
