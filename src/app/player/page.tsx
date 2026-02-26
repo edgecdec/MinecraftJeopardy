@@ -13,7 +13,7 @@ function PlayerContent() {
 
   const { 
     connectionError,
-    buzzedId, buzzedName, locked, buzz, isMe, gameState, myScore, submitWager, submitAnswer, wagers, finalAnswers, deviceId, allPlayers 
+    buzzedId, buzzedName, locked, buzz, isMe, gameState, myScore, submitWager, submitAnswer, wagers, finalAnswers, deviceId, allPlayers, incorrectBuzzes
   } = useBuzzer(code, name);
   
   const [localWager, setLocalWager] = useState('');
